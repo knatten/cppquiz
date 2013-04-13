@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+{%block content%}
+{{question|safe}}
+
+{%if result%}
+{%if correct_result%}
+<p class="correct">Correct!</p>
+<a href="{{next_question}}">Next question</a>
+{%else%}
+<p class="incorrect">Incorrect!</p>
+{%endif%}
+{%endif%}
+
+{%if not correct_result%}
+<form>
+<p>
+{%if result%} Try again: {%endif%}
+<input name="answer">
+<input type="submit" value="Answer" name="did_answer">
+{%if result%} </p>Or try <a href="{{next_question}}">another question</a></p> {%endif%}
+</p>
+</form>
+{%endif%}
+{%if not result%}
+Or <a href="{{next_question}}">skip this question</a>
+{%endif%}
+{%endblock%}

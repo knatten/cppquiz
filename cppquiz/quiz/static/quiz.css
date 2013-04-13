@@ -1,0 +1,38 @@
+body
+{
+    font-family: verdana, sans-serif;
+}
+#content
+{
+    width:50em;
+    margin-left:auto;
+    margin-right:auto;
+}
+h1
+{
+    background-color:#aaf;
+}
+h1 a
+{
+    text-decoration:none;
+    color:black;
+}
+p.correct
+{
+    background-color:#5f5;
+    font-size:2em;
+}
+p.incorrect
+{
+    background-color:#f55;
+    font-size:2em;
+}
+#footer
+{
+    color:grey;
+    font-size:0.8em;
+}
+#footer a
+{
+    color:grey;
+}
