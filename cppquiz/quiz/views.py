@@ -27,6 +27,7 @@ def question(request, question_id):
             d['correct_result'] = 'yay'
     d['stats'] = get_stats(request.session)
     d['next_question'] = get_url_for_unanswered_question(request.session)
+    d['is_staff'] = request.user.is_staff
     return render_to_response('quiz/index.html',
         d,
         context_instance=RequestContext(request)
