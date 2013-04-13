@@ -1,7 +1,7 @@
 {%extends "base.html"%}
 {%block content%}
 <p id="stats">
-You've answered {{stats.correct}} of {{stats.total}} questions correctly.
+You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a href="/quiz/clear">(Clear)</a>
 </p>
 {{question|safe}}
 

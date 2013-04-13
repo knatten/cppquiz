@@ -11,6 +11,7 @@ body
 h1
 {
     background-color:#aaf;
+    margin-bottom:0;
 }
 h1 a
 {
@@ -35,4 +36,9 @@ p.incorrect
 #footer a
 {
     color:grey;
+}
+p#stats
+{
+  background-color:#ccf;  
+  margin-top:0;
 }
