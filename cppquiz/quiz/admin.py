@@ -1,4 +1,10 @@
 from django.contrib import admin
 from quiz.models import *
 
-admin.site.register(Question)
+def question_part(obj):
+    return obj.question[:250] + '...'
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display=(question_part, 'answer')
+
+admin.site.register(Question, QuestionAdmin)
