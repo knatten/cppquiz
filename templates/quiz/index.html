@@ -3,15 +3,19 @@
 <p id="stats">
 You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a href="/quiz/clear">(Clear)</a>
 </p>
+
 {{question_text|safe}}
 
 {%if answered%}
 {%if correct_result%}
-<p class="correct">Correct!</p>
+<h2 class="correct">Correct!</h2>
+<p class="correct">
+{{question.explanation}}
+</p>
 <a href="{{next_question}}">Next question</a>
 {%else%}
-<p class="incorrect">Incorrect!</p>
-<p> Try again: </p>
+<h2 class="incorrect">Incorrect!</h2>
+<p class="incorrect"> Try again: </p>
 {%endif%}
 {%endif%}
 
@@ -25,7 +29,7 @@ This program
 <option value="{{o.0}}">{{o.1}}</option>
 {%endfor%}
 </select>
-and its output is <input name="answer">
+and its output is <input name="answer" size="4">
 <input type="submit" value="Answer" name="did_answer">
 
 {%if answered%} </p>Or try <a href="{{next_question}}">another question</a></p> {%endif%}
@@ -34,5 +38,11 @@ and its output is <input name="answer">
 {%endif%}
 {%if not answered%}
 Or <a href="{{next_question}}">skip this question</a>
+{%endif%}
+
+{%if is_staff%}
+<p>
+Admins, <a href="/admin/quiz/question/{{question.id}}/">edit this question</a>
+</p>
 {%endif%}
 {%endblock%}

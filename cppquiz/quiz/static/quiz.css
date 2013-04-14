@@ -18,15 +18,22 @@ h1 a
     text-decoration:none;
     color:black;
 }
-p.correct
+.correct
 {
-    background-color:#5f5;
-    font-size:2em;
+    background-color:#8f8;
 }
-p.incorrect
+.incorrect
 {
-    background-color:#f55;
-    font-size:2em;
+    background-color:#f88;
+}
+h2.correct, h2.incorrect
+{
+    margin-bottom:0;
+}
+p.correct, p.incorrect
+{
+    padding-top:0.5em;
+    margin-top:0;
 }
 #footer
 {

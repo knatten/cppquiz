@@ -9,6 +9,7 @@ class Question(models.Model):
         ('US', 'is unspecified'),
         ('UD', 'is undefined'),
     )
-    question = models.TextField()
+    question = models.TextField(default='', blank=True)
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
+    explanation = models.TextField(default='', blank=True)
