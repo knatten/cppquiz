@@ -3,7 +3,7 @@
 <p id="stats">
 You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a href="/quiz/clear">(Clear)</a>
 </p>
-{{question|safe}}
+{{question_text|safe}}
 
 {%if answered%}
 {%if correct_result%}
@@ -11,15 +11,23 @@ You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a hr
 <a href="{{next_question}}">Next question</a>
 {%else%}
 <p class="incorrect">Incorrect!</p>
+<p> Try again: </p>
 {%endif%}
 {%endif%}
 
 {%if not correct_result%}
 <form>
 <p>
-{%if answered%} Try again: {%endif%}
-<input name="answer">
+
+This program
+<select name="result">
+{%for o in question.RESULT_CHOICES%}
+<option value="{{o.0}}">{{o.1}}</option>
+{%endfor%}
+</select>
+and its output is <input name="answer">
 <input type="submit" value="Answer" name="did_answer">
+
 {%if answered%} </p>Or try <a href="{{next_question}}">another question</a></p> {%endif%}
 </p>
 </form>
