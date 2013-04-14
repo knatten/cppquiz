@@ -16,6 +16,7 @@ def clear(request):
     return HttpResponseRedirect(get_url_for_unanswered_question(request.session))
 
 def question(request, question_id):
+    request.session.set_expiry(60*60*24*365*10)
     q = Question.objects.get(id=question_id) #TODO use get or 404
     d = {}
     d['answered'] = False
