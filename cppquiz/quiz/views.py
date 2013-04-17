@@ -23,13 +23,13 @@ def question(request, question_id):
     d['question_text'] = q.question .replace('<', '&lt;') .replace('>', '&gt;') .replace('[cpp]', '<pre class="sh_cpp">') .replace('[/cpp]', '</pre>') #TODO Maybe do this in a template tag instead? At least not like this.
     d['question'] = q
     if request.REQUEST.get('did_answer'):
-        register_correct_answer(request.session, question_id)
         d['answered'] = True
         given_answer = request.REQUEST.get('answer').strip()
         given_result = request.REQUEST.get('result').strip()
         if given_result == q.result and\
             (q.result != 'OK' or given_answer == q.answer.strip()):
                 d['correct_result'] = True
+                register_correct_answer(request.session, question_id)
     d['stats'] = get_stats(request.session)
     d['next_question'] = get_url_for_unanswered_question(request.session)
     d['is_staff'] = request.user.is_staff
