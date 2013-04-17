@@ -30,7 +30,7 @@ h2.correct, h2.incorrect
 {
     margin-bottom:0;
 }
-p.correct, p.incorrect
+div.correct p, div.incorrect p
 {
     padding-top:0.5em;
     margin-top:0;

@@ -9,9 +9,11 @@ You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a hr
 {%if answered%}
 {%if correct_result%}
 <h2 class="correct">Correct!</h2>
-<p class="correct">
+<div class="correct">
+<p>
 {{question.explanation|linebreaks}}
 </p>
+</div>
 <a href="{{next_question}}">Next question</a>
 {%else%}
 <h2 class="incorrect">Incorrect!</h2>
