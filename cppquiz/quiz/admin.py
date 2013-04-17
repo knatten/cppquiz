@@ -11,7 +11,7 @@ def question_pk(obj):
     return obj.question.pk
 
 class UsersAnswerAdmin(admin.ModelAdmin):
-    list_display=(question_pk, 'result', 'answer', 'correct', 'ip')
+    list_display=(question_pk, 'result', 'answer', 'correct', 'ip', 'date_time')
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UsersAnswer, UsersAnswerAdmin)
