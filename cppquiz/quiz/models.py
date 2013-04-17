@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 
 # Create your models here.
@@ -13,3 +14,11 @@ class Question(models.Model):
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True)
+
+class UsersAnswer(models.Model):
+    question = models.ForeignKey('Question')
+    result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)
+    answer = models.CharField(max_length=200, default='', blank=True)
+    ip = models.CharField(max_length=45, default='', blank=True)
+    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
+    correct = models.BooleanField(default=False)

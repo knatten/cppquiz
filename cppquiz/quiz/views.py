@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-from quiz.models import Question
+from quiz.models import Question, UsersAnswer
 
 def index(request):
     return HttpResponseRedirect(get_url_for_unanswered_question(request.session))
@@ -14,6 +14,32 @@ def index(request):
 def clear(request):
     request.session.clear()
     return HttpResponseRedirect(get_url_for_unanswered_question(request.session))
+
+#http://stackoverflow.com/a/4581997
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+class Answer():
+    def __init__(self, question, request):
+        self.question = question
+        self.given_answer = request.REQUEST.get('answer').strip()
+        self.given_result = request.REQUEST.get('result').strip()
+        self.correct = self.given_result == self.question.result and\
+            (self.question.result != 'OK' or self.given_answer == self.question.answer.strip())
+        self.ip = get_client_ip(request)
+
+    def register_given_answer(self):
+        UsersAnswer.objects.create(
+            question=self.question,
+            answer=self.given_answer,
+            result=self.given_result,
+            correct=self.correct,
+            ip=self.ip)
 
 def question(request, question_id):
     request.session.set_expiry(60*60*24*365*10)
@@ -24,12 +50,11 @@ def question(request, question_id):
     d['question'] = q
     if request.REQUEST.get('did_answer'):
         d['answered'] = True
-        given_answer = request.REQUEST.get('answer').strip()
-        given_result = request.REQUEST.get('result').strip()
-        if given_result == q.result and\
-            (q.result != 'OK' or given_answer == q.answer.strip()):
-                d['correct_result'] = True
-                register_correct_answer(request.session, question_id)
+        answer = Answer(q, request)
+        answer.register_given_answer()
+        if answer.correct:
+            d['correct_result'] = True
+            register_correct_answer(request.session, question_id)
     d['stats'] = get_stats(request.session)
     d['next_question'] = get_url_for_unanswered_question(request.session)
     d['is_staff'] = request.user.is_staff
@@ -37,6 +62,9 @@ def question(request, question_id):
         d,
         context_instance=RequestContext(request)
         )
+
+def is_answer_correct(q, given_answer, given_result):
+    return given_result == q.result and (q.result != 'OK' or given_answer == q.answer.strip())
 
 #TODO what if there are no questions
 def get_url_for_unanswered_question(session):
