@@ -5,6 +5,6 @@ def question_part(obj):
     return obj.question[:250] + '...'
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=(question_part, 'answer')
+    list_display=('pk', question_part, 'answer')
 
 admin.site.register(Question, QuestionAdmin)
