@@ -4,7 +4,7 @@ import random
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 
 from quiz.models import Question, UsersAnswer
 
@@ -43,7 +43,7 @@ class Answer():
 
 def question(request, question_id):
     request.session.set_expiry(60*60*24*365*10)
-    q = Question.objects.get(id=question_id) #TODO use get or 404
+    q = get_object_or_404(Question, id=question_id, published=True)
     d = {}
     d['answered'] = False
     d['question'] = q
@@ -67,22 +67,18 @@ def is_answer_correct(q, given_answer, given_result):
 
 #TODO what if there are no questions
 def get_url_for_unanswered_question(session):
-    available_questions = [q.id for q in Question.objects.all()]
+    available_questions = [q.id for q in Question.objects.filter(published=True)]
     answered_questions = list(session.get('correct', []))
     for q in answered_questions:
         available_questions.remove(int(q))
     if len(available_questions) == 0:
-        random_id = Question.objects.order_by('?')[0].id
+        random_id = Question.objects.filter(published=True).order_by('?')[0].id
     else:
         random_id = random.choice(available_questions)
     return '/quiz/question/' + str(random_id)
 
-def get_url_for_random_question():
-    random_id = Question.objects.order_by('?')[0].id
-    return '/quiz/question/' + str(random_id)
-
 def get_stats(session):
-    total = Question.objects.count()
+    total = Question.objects.filter(published=True).count()
     return {
         'correct': len(session.get('correct', [])),
         'total':total,

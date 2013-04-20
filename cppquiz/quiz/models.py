@@ -14,6 +14,7 @@ class Question(models.Model):
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True)
+    published = models.BooleanField(default=True)
 
 class UsersAnswer(models.Model):
     question = models.ForeignKey('Question')

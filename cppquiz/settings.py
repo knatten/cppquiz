@@ -1,11 +1,10 @@
 # Django settings for cppquiz project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
-    ('Anders Schau Knatten', 'anders@knatten.org'),
 )
 
 MANAGERS = ADMINS
