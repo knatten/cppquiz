@@ -46,7 +46,6 @@ def question(request, question_id):
     q = Question.objects.get(id=question_id) #TODO use get or 404
     d = {}
     d['answered'] = False
-    d['question_text'] = q.question .replace('<', '&lt;') .replace('>', '&gt;') .replace('[cpp]', '<pre class="sh_cpp">') .replace('[/cpp]', '</pre>') #TODO Maybe do this in a template tag instead? At least not like this.
     d['question'] = q
     if request.REQUEST.get('did_answer'):
         d['answered'] = True

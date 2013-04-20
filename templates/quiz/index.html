@@ -4,7 +4,13 @@
 You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a href="/quiz/clear">(Clear)</a>
 </p>
 
-{{question_text|safe}}
+<p>
+What is the output of this program?
+</p>
+
+<pre class="sh_cpp">
+{{question.question|escape}}
+</pre>
 
 {%if answered%}
 {%if correct_result%}
