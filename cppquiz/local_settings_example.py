@@ -1,5 +1,11 @@
 import settings
 
+settings.DEBUG = True
+settings.ALLOWED_HOSTS += ['127.0.0.1']
+settings.ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
 settings.DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
