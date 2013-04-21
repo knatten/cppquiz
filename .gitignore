@@ -2,3 +2,4 @@
 *.sqlite3
 *.swp
 local_settings.py
+Session.vim
