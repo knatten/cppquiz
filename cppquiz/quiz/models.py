@@ -15,6 +15,7 @@ class Question(models.Model):
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True)
     published = models.BooleanField(default=True)
+    author_email = models.EmailField(max_length=254, blank=True, default='')
 
 class UsersAnswer(models.Model):
     question = models.ForeignKey('Question')

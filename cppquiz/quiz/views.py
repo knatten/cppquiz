@@ -5,8 +5,10 @@ import random
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from django.core.mail import mail_admins
 
 from quiz.models import Question, UsersAnswer
+from quiz.forms import QuestionForm
 
 def index(request):
     return HttpResponseRedirect(get_url_for_unanswered_question(request.session))
@@ -40,6 +42,20 @@ class Answer():
             result=self.given_result,
             correct=self.correct,
             ip=self.ip)
+
+def create(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            mail_admins('Someone made a question!', 'http://127.0.0.1:8000/admin/quiz/question/')
+            return HttpResponseRedirect('/quiz/created')
+    else:
+        form = QuestionForm()
+    return render_to_response('quiz/create.html',
+        {'form':form},
+        context_instance=RequestContext(request)
+        )
 
 def question(request, question_id):
     request.session.set_expiry(60*60*24*365*10)

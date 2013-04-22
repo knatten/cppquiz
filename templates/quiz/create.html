@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+{%block content%}
+<h2>Create your own question</h2>
+<h3>Please remember:</h3>
+<ul>
+<li>Your question should <strong>be short</strong></li>
+<li>Your question should <strong>demonstrate one thing only</strong></li>
+<li>Your question should <strong>compile</strong> (unless it is not supposed to)</li>
+<li>Your question should <strong>be about standard C++</strong>, not compiler specific or about 3rd party libraries</li>
+<li>Your explanation should <strong>be clear and to the point</strong></li>
+<li>Your explanation should <strong>use correct terminology</strong></li>
+</ul>
+<hr>
+<form action="" method="post" class="create_question">{% csrf_token %}
+    {{ form.non_field_errors }}
+        <p><label for="id_question">Quiz source code: <span class="help_text">Only put C++ source code here. "What is the output of this program" will be added to the top automatically.</span></label></p>
+        <p>{{ form.question.errors }}</p>
+        <p>{{ form.question }}</p>
+        <p><label for="id_result">This program is:</label> {{ form.result }} {{ form.result.errors }}</p>
+        <p><label for="id_answer">The output of this program:</label> {{ form.answer }} {{ form.answer.errors }}</p>
+        <p><label for="id_explanation">Explanation: <span class="help_text">Please be clear and to the point. Please try to use correct terminology.</span></label></p>
+        <p>{{ form.explanation.errors }}</p>
+        <p>{{ form.explanation }}</p>
+        <p><label for="id_author_email">Your email (optional):</label> {{ form.author_email }} {{ form.author_email.errors }} <span class="help_text">To notify you when your question is accepted, or in case we need to ask you anything about this question. We don't spam, we don't share your email.</span></p>
+    <p><input type="submit" value="Send to moderation" /></p>
+</form>
+{%endblock%}

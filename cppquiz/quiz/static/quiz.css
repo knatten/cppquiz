@@ -7,6 +7,29 @@ body
     width:50em;
     margin-left:auto;
     margin-right:auto;
+    padding:0;
+    border:0;
+}
+#main_col
+{
+    padding:0;
+    border:0;
+    margin:0;
+    float:left;
+    width:39em;
+}
+#right_col
+{
+    padding:.5em;
+    border:0;
+    margin:0;
+    float:left;
+    width:10em;
+    background-color:#ccf;
+}
+hr.clear {
+    clear:both;
+    border:0;
 }
 h1
 {
@@ -47,5 +70,19 @@ div.correct p, div.incorrect p
 p#stats
 {
   background-color:#ccf;  
-  margin-top:0;
+  margin:0;
+}
+.create_question textarea
+{
+    width:100%;
+}
+.help_text
+{
+    color:#777;
+    font-size:.8em;
+    font-style:italic;
+}
+.errorlist
+{
+    color:red;
 }
