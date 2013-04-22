@@ -14,6 +14,7 @@ class Question(models.Model):
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True)
+    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
     published = models.BooleanField(default=True)
     author_email = models.EmailField(max_length=254, blank=True, default='')
 

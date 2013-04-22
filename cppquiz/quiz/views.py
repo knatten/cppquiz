@@ -48,7 +48,7 @@ def create(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             form.save()
-            mail_admins('Someone made a question!', 'http://127.0.0.1:8000/admin/quiz/question/')
+            mail_admins('Someone made a question!', 'http://' + request.get_host() + '/admin/quiz/question/?published__exact=0')
             return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()

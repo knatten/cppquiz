@@ -2,10 +2,11 @@ from django.contrib import admin
 from quiz.models import *
 
 def question_part(obj):
-    return obj.question[:250] + '...'
+    return obj.question[:250]
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=('pk', question_part, 'answer')
+    list_display=('pk', question_part, 'answer', 'published')
+    list_filter=('published',)
 
 def question_pk(obj):
     return obj.question.pk
