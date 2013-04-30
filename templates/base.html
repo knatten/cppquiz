@@ -14,7 +14,7 @@
 {%endblock%}
 <hr>
 <p id="footer">
-{%if is_staff%}
+{%if user.is_staff%}
 <a href="/admin/">Admin</a> |
 {%endif%}
 <a href="/quiz/about/">About</a> |

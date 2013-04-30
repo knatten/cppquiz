@@ -1,7 +1,7 @@
 {%extends "base.html"%}
 {%block content%}
 <p id="stats">
-You've answered {{stats.correct}} of {{stats.total}} questions correctly. <a href="/quiz/clear">(Clear)</a>
+You've answered {{user_data.get_correctly_answered_questions|length}} of {{total_questions}} questions correctly. <a href="/quiz/clear">(Clear)</a>
 </p>
 
 <div id="main_col">
@@ -21,7 +21,7 @@ What is the output of this program?
 {{question.explanation|linebreaks}}
 </p>
 </div>
-<a href="{{next_question}}">Next question</a>
+<a href="/quiz/random">Next question</a>
 {%else%}
 <h2 class="incorrect">Incorrect!</h2>
 <div class="incorrect"><p> Try again: </p></div>
@@ -41,15 +41,15 @@ This
 and the output is <input name="answer" size="4">
 <input type="submit" value="Answer" name="did_answer">
 
-{%if answered%} </p>Or try <a href="{{next_question}}">another question</a></p> {%endif%}
+{%if answered%} </p>Or try <a href="/quiz/random">another question</a></p> {%endif%}
 </p>
 </form>
 {%endif%}
 {%if not answered%}
-Or <a href="{{next_question}}">skip this question</a>
+Or try <a href="/quiz/random">another question</a>
 {%endif%}
 
-{%if is_staff%}
+{%if user.is_staff%}
 <p>
 Admins, <a href="/admin/quiz/question/{{question.id}}/">edit this question</a>
 </p>
