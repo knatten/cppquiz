@@ -7,7 +7,7 @@ from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Avg
 
-from models import Question
+from models import Question, UsersAnswer
 from forms import QuestionForm
 from answer import Answer
 from game_data import *
@@ -40,8 +40,10 @@ def categorize(request):
     else:
         changed = int(request.REQUEST.get('changed', 0))
         questions = Question.objects.filter(published=True).order_by('difficulty')\
-                    .annotate(num_answers=Count('usersanswer'))\
-                    .annotate(proportion_correct=Avg('usersanswer__correct'))
+                    .annotate(num_answers=Count('usersanswer'))
+        for q in questions:
+            num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
+            q.percentage_correct = num_correct * 100.0 / q.num_answers
         return render_to_response('quiz/categorize.html' ,
             {'questions': questions, 'changed':changed},
             context_instance=RequestContext(request)
