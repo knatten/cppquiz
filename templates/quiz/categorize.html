@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+{%block content%}
+<h2>Categorize difficulties</h2>
+<table>
+{%for q in questions%}
+<tr class="difficulty_{{q.difficulty}}">
+    <td>
+        <a id="question_{{q.pk}}"/>
+        <pre class="sh_cpp">
+{{q.question}}
+        </pre>
+    </td>
+    <td style="vertical-align:top" {%if changed == q.pk%}class="changed"{%endif%}>
+        <p>
+        It {{q.get_result_display}}
+        </p>
+        <p>
+        Output: {{q.answer}}
+        </p>
+        <p>
+        <em>{{q.explanation}}</em>
+        </p>
+        <p>
+        <form action="" method="post">
+            {%csrf_token%}
+            <select name="difficulty_{{q.pk}}">
+            {%for d in q.DIFFICULTY_CHOICES%}
+                <option value="{{d.0}}" {%if d.0 == q.difficulty%}selected{%endif%}>{{d.1}}</option>
+            {%endfor%}
+            </select>
+            <input type="submit" value="&#10003;">
+        </form>
+        </p>
+    </td>
+</tr>
+{{question}}
+{%endfor%}
+</table>
+{%endblock%}

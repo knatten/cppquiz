@@ -90,3 +90,23 @@ p#stats
 {
     color:#777;
 }
+.difficulty_0
+{
+    background-color:#ddd;
+}
+.difficulty_1
+{
+    background-color:#dfd;
+}
+.difficulty_2
+{
+    background-color:#ffc;
+}
+.difficulty_3
+{
+    background-color:#fdd;
+}
+.changed
+{
+    border-right:.5em solid #aaf;
+}

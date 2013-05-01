@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import mail_admins
+from django.contrib.admin.views.decorators import staff_member_required
 
 from models import Question
 from forms import QuestionForm
@@ -23,6 +24,25 @@ def clear(request):
     user_data.clear_correct_answers()
     save_user_data(user_data, request.session)
     return random_question(request)
+
+@staff_member_required
+def categorize(request):
+    if request.method == 'POST':
+        for key, value in request.POST.iteritems():
+            if key.startswith('difficulty_'):
+                pk = key.split('_')[1]
+                q = Question.objects.get(pk=pk)
+                q.difficulty = value
+                anchor = "#question_%d" % q.pk
+                q.save()
+                return HttpResponseRedirect("/quiz/categorize/?changed=%d#question_%d" % (q.pk, q.pk))
+    else:
+        changed = int(request.REQUEST.get('changed', 0))
+        return render_to_response('quiz/categorize.html' ,
+            {'questions':Question.objects.filter(published=True).order_by('difficulty'),
+                'changed':changed},
+            context_instance=RequestContext(request)
+            )
 
 def create(request):
     if request.method == 'POST':
