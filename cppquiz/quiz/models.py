@@ -23,6 +23,9 @@ class Question(models.Model):
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
 
+    def __str__(self):
+        return str(self.pk)
+
 class UsersAnswer(models.Model):
     question = models.ForeignKey('Question')
     result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)

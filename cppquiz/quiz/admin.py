@@ -8,11 +8,9 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display=('pk', question_part, 'answer', 'published', 'difficulty')
     list_filter=('published', 'difficulty')
 
-def question_pk(obj):
-    return obj.question.pk
-
 class UsersAnswerAdmin(admin.ModelAdmin):
-    list_display=(question_pk, 'result', 'answer', 'correct', 'ip', 'date_time')
+    list_display=('question', 'result', 'answer', 'correct', 'ip', 'date_time')
+    list_filter=('question',)
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UsersAnswer, UsersAnswerAdmin)
