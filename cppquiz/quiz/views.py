@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count, Avg
 
 from models import Question
 from forms import QuestionForm
@@ -38,9 +39,11 @@ def categorize(request):
                 return HttpResponseRedirect("/quiz/categorize/?changed=%d#question_%d" % (q.pk, q.pk))
     else:
         changed = int(request.REQUEST.get('changed', 0))
+        questions = Question.objects.filter(published=True).order_by('difficulty')\
+                    .annotate(num_answers=Count('usersanswer'))\
+                    .annotate(proportion_correct=Avg('usersanswer__correct'))
         return render_to_response('quiz/categorize.html' ,
-            {'questions':Question.objects.filter(published=True).order_by('difficulty'),
-                'changed':changed},
+            {'questions': questions, 'changed':changed},
             context_instance=RequestContext(request)
             )
 
