@@ -5,8 +5,8 @@ def question_part(obj):
     return obj.question[:250]
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=('pk', question_part, 'answer', 'published')
-    list_filter=('published',)
+    list_display=('pk', question_part, 'answer', 'published', 'difficulty')
+    list_filter=('published', 'difficulty')
 
 def question_pk(obj):
     return obj.question.pk
