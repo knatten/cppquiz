@@ -7,6 +7,7 @@ def question_part(obj):
 class QuestionAdmin(admin.ModelAdmin):
     list_display=('pk', question_part, 'answer', 'published', 'difficulty')
     list_filter=('published', 'difficulty')
+    search_fields=('question', 'explanation')
 
 class UsersAnswerAdmin(admin.ModelAdmin):
     list_display=('question', 'result', 'answer', 'correct', 'ip', 'date_time')
