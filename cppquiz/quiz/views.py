@@ -88,7 +88,8 @@ def question(request, question_id):
 def get_unanswered_question(user_data):
     available_questions = [q.id for q in Question.objects.filter(published=True)]
     for q in user_data.get_correctly_answered_questions():
-        available_questions.remove(int(q))
+        if int(q) in available_questions:
+            available_questions.remove(int(q))
     if len(available_questions) == 0:
         return Question.objects.filter(published=True).order_by('?')[0].id
     else:
