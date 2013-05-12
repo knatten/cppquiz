@@ -3,19 +3,23 @@ from fabric.api import cd, run, env, local
 env.hosts = ['cppquiz.org']
 env.user = 'riktigbil'
 
-directory = '/home/riktigbil/webapps/cppquiz/cppquiz/cppquiz'
 
-def pull():
-    sshagent_run('git pull')
+def production():
+    deploy('/home/riktigbil/webapps/cppquiz/cppquiz/cppquiz')
 
-def deploy():
-    pull()
-    sshagent_run('python2.7 manage.py migrate')
-    sshagent_run('python2.7 manage.py collectstatic --noinput')
-    sshagent_run('../../apache2/bin/restart')
+def test():
+    deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz/cppquiz')
 
+def deploy(directory):
+    pull(directory)
+    sshagent_run('python2.7 manage.py migrate', directory)
+    sshagent_run('python2.7 manage.py collectstatic --noinput', directory)
+    sshagent_run('../../apache2/bin/restart', directory)
 
-def sshagent_run(cmd):
+def pull(directory):
+    sshagent_run('git pull', directory)
+
+def sshagent_run(cmd, directory):
     """
     Stolen from http://lincolnloop.com/blog/2009/sep/22/easy-fabric-deployment-part-1-gitmercurial-and-ssh/ 
     Helper function.
