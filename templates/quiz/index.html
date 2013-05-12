@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{%load quiz_extras%}
 {%block content%}
 <p id="stats">
 You've answered {{user_data.get_correctly_answered_questions|length}} of {{total_questions}} questions correctly. <a href="/quiz/clear">(Clear)</a>
@@ -21,7 +22,7 @@ According to the C++11 standard, what is the output of this program?
 <h2 class="correct">Correct!</h2>
 <div class="correct">
 <p>
-{{question.explanation|linebreaks}}
+{{question.explanation|code_tags|linebreaks|urlize}}
 </p>
 </div>
 <a href="/quiz/random">Next question</a>

@@ -45,6 +45,11 @@ h1 a
 {
     background-color:#8f8;
 }
+.correct code
+{
+    font-family: "Courier New", Courier, monospace;
+    background-color:#af9;
+}
 .incorrect
 {
     background-color:#f88;
