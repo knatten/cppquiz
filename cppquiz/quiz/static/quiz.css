@@ -58,12 +58,12 @@ div.correct p, div.incorrect p
     padding-top:0.5em;
     margin-top:0;
 }
-#footer
+.footer
 {
     color:grey;
     font-size:0.8em;
 }
-#footer a
+.footer a
 {
     color:grey;
 }
