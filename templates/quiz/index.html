@@ -6,7 +6,10 @@ You've answered {{user_data.get_correctly_answered_questions|length}} of {{total
 
 <div id="main_col">
 <p>
-What is the output of this program? <span class="difficulty">(Difficulty: {{question.get_difficulty_display}})</span>
+<span class="difficulty">Difficulty: <img src="{{STATIC_URL}}level-{{question.difficulty}}.png"></span>
+</p>
+<p>
+According to the C++11 standard, what is the output of this program?
 </p>
 
 <pre class="sh_cpp">
