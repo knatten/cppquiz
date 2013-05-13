@@ -22,6 +22,7 @@
         <p>{{ form.explanation.errors }}</p>
         <p>{{ form.explanation }}</p>
         <p><label for="id_author_email">Your email (optional):</label> {{ form.author_email }} {{ form.author_email.errors }} <span class="help_text">To notify you when your question is accepted, or in case we need to ask you anything about this question. We don't spam, we don't share your email.</span></p>
+        <p><label for="id_difficulty">This program is:</label> {{ form.difficulty }} {{ form.difficulty.errors }}</p>
     <p><input type="submit" value="Send to moderation" /></p>
 </form>
 {%endblock%}
