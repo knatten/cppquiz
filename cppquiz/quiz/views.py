@@ -78,6 +78,7 @@ def question(request, question_id):
             user_data.register_correct_answer(question_id)
     d['total_questions'] = Question.objects.filter(published=True).count()
     d['user_data'] = user_data
+    d['show_hint'] = request.REQUEST.get('show_hint', False)
     save_user_data(user_data, request.session)
     return render_to_response('quiz/index.html',
         d,

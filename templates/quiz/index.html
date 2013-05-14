@@ -32,6 +32,10 @@ According to the C++11 standard, what is the output of this program?
 {%endif%}
 {%endif%}
 
+{%if show_hint %}
+{%include "quiz/hint.html"%}
+{%endif%}
+
 {%if not correct_result%}
 <form>
 <p>
@@ -47,12 +51,12 @@ and the output is <input name="answer" size="4">
 </span>
 <input type="submit" value="Answer" name="did_answer">
 
-{%if answered%} </p>Or try <a href="/quiz/random">another question</a></p> {%endif%}
+{%if answered%} {%include "quiz/problems.html"%} {%endif%}
 </p>
 </form>
 {%endif%}
 {%if not answered%}
-Or try <a href="/quiz/random">another question</a>
+{%include "quiz/problems.html"%}
 {%endif%}
 
 {%if user.is_staff%}

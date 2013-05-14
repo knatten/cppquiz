@@ -54,11 +54,15 @@ h1 a
 {
     background-color:#f88;
 }
-h2.correct, h2.incorrect
+.hint
+{
+    background-color:#ff8;
+}
+h2.correct, h2.incorrect, h2.hint
 {
     margin-bottom:0;
 }
-div.correct p, div.incorrect p
+div.correct p, div.incorrect p, div.hint p
 {
     padding-top:0.5em;
     margin-top:0;
