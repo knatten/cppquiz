@@ -1,6 +1,6 @@
 import random
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import mail_admins
@@ -63,7 +63,19 @@ def create(request):
         context_instance=RequestContext(request)
         )
 
+def preview(request, question_id):
+    if not request.user.is_staff:
+        raise Http404
+    d = {}
+    d['question'] = get_object_or_404(Question, id=question_id)
+    return render_to_response('quiz/preview.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
 def question(request, question_id):
+    if request.REQUEST.get('preview'):
+        return preview(request, question_id)
     user_data = UserData(request.session)
     q = get_object_or_404(Question, id=question_id, published=True)
     d = {}

@@ -1,0 +1,8 @@
+{%if answered%}
+{%if correct_result%}
+{%include "quiz/correct.html"%}
+{%else%}
+<h2 class="incorrect">Incorrect!</h2>
+<div class="incorrect"><p> Try again: </p></div>
+{%endif%}
+{%endif%}

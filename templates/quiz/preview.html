@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+
+<div id="main_col">
+
+{%include "quiz/question.html"%}
+{%include "quiz/hint.html"%}
+{%include "quiz/correct.html"%}
+{%include "quiz/admin_link.html"%}
+
+</div>
+<hr class=clear>
+{%endblock%}
