@@ -1,5 +1,5 @@
 from django.contrib import admin
-from quiz.models import *
+from models import *
 
 def question_part(obj):
     return obj.question[:250]

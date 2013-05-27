@@ -1,8 +1,7 @@
 from django.conf.urls.defaults import *
 from django.views.generic.base import TemplateView
 
-
-from quiz import views
+import views
 
 urlpatterns = patterns('',
     url(r'^quiz/question/(?P<question_id>.+)', views.question, name='question'),
