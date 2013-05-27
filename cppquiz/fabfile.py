@@ -5,16 +5,16 @@ env.user = 'riktigbil'
 
 
 def production():
-    deploy('/home/riktigbil/webapps/cppquiz/cppquiz/cppquiz')
+    deploy('/home/riktigbil/webapps/cppquiz/cppquiz')
 
 def test():
-    deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz/cppquiz')
+    deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz')
 
 def deploy(directory):
     pull(directory)
     sshagent_run('python2.7 manage.py migrate', directory)
     sshagent_run('python2.7 manage.py collectstatic --noinput', directory)
-    sshagent_run('../../apache2/bin/restart', directory)
+    sshagent_run('../apache2/bin/restart', directory)
 
 def pull(directory):
     sshagent_run('git pull', directory)
