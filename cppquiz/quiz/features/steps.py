@@ -1,11 +1,11 @@
 from lettuce import step, world
 from lettuce.django import django_url
 
-@step('I visit the root of the site')
-def i_visit_the_root(step):
-    world.browser.visit(django_url('/'))
-    pass
+@step('I visit (.+)')
+def visit(step, url):
+    world.browser.visit(django_url(url))
 
-@step('I should end up at a question')
-def i_should_end_up_at_a_question(step):
-    assert 'Question #' in world.browser.html
+@step('There is an error "(.+)" in (.+)')
+def there_is_an_error(step, error_msg, error_id):
+    errors = world.browser.find_by_id(error_id + '_errors')[0]
+    assert error_msg in errors.text
