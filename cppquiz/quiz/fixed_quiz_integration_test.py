@@ -33,11 +33,17 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'Correct!')
         self.assert_status_string_with(response, 1,1)
 
+    def test_incorrectly_answering_a_question__redisplays_it_with_a_message(self):
+        create_questions(1)
+        key = fixed_quiz.create_quiz(1)
+        response = self.answer_incorrectly(key)
+        self.assertContains(response, 'Incorrect!')
+
     def test_correctly_answering_the_last_question__takes_you_to_the_summary(self):
         create_questions(1)
         key = fixed_quiz.create_quiz(1)
         response = self.answer_correctly(key, 1)
-        self.assertContains(response, 'Allright!')
+        self.assertContains(response, 'All right!')
         self.assert_result_string_with(response, 1)
 
     def assert_result_string_with(self, response, points):
@@ -57,4 +63,10 @@ class FixedQuizIntegrationTest(TestCase):
         return self.client.post(
             reverse('quiz:quiz', args=(key,)),
             {'result':question.result, 'answer':question.answer},
+            follow=True)
+
+    def answer_incorrectly(self, key):
+        return self.client.post(
+            reverse('quiz:quiz', args=(key,)),
+            {'result':'NONSENSE', 'answer':'WROOOONG'},
             follow=True)

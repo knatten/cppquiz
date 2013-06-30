@@ -13,6 +13,9 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 {%if quiz_in_progress.get_previous_result == 'correct'%}
 <h3>Correct!</h3>
 {%endif%}
+{%if quiz_in_progress.get_previous_result == 'incorrect'%}
+<h3>Incorrect!</h3>
+{%endif%}
 
 {%include "quiz/question.html"%}
 
