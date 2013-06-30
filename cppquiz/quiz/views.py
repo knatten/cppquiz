@@ -101,7 +101,7 @@ def question(request, question_id):
 
 def start(request):
     clear_quiz_in_progress(request.session)
-    key = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
+    key = fixed_quiz.create_quiz()
     return HttpResponseRedirect('/q/%s' % key)
 
 def quiz(request, quiz_key):
@@ -115,6 +115,9 @@ def quiz(request, quiz_key):
     d['quiz_in_progress'] = quiz_in_progress
     if request.GET.has_key('skip'):
         quiz_in_progress.skip()
+    if request.GET.has_key('hint'):
+        quiz_in_progress.use_hint()
+        d['hint'] = True
     if quiz_in_progress.is_finished():
         return render_to_response('quiz/finished.html',
             d,

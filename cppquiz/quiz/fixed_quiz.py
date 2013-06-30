@@ -14,7 +14,7 @@ def get_unique_quiz_key(length):
 def make_quiz_key(length):
     return ''.join(random.sample(string.ascii_lowercase + string.ascii_uppercase + string.digits, length))
 
-def create_quiz(nof_questions):
+def create_quiz(nof_questions=nof_questions_in_quiz):
     quiz = Quiz.objects.create()
     question_ids = [q.pk for q in Question.objects.filter(published=True)]
     used_questions = random.sample(question_ids, nof_questions)

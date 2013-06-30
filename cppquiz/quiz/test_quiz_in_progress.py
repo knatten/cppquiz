@@ -90,6 +90,26 @@ class QuizInProgressTest(TestCase):
         self.answer_current_question_correctly()
         self.assertEqual(1.0/8, self.in_progress.score())
 
+    def test_when_hint_is_used__score_is_reduced_by_half_a_point(self):
+        self.set_up()
+        self.in_progress.use_hint()
+        self.answer_current_question_correctly()
+        self.assertEqual(.5, self.in_progress.score())
+
+    def test_when_hint_is_used_and_question_is_answered_correctly__doesnt_affect_next_question(self):
+        self.set_up()
+        self.in_progress.use_hint()
+        self.answer_current_question_correctly()
+        self.answer_current_question_correctly()
+        self.assertEqual(1.5, self.in_progress.score())
+
+    def test_when_hint_is_used_and_question_is_skipped__doesnt_affect_next_question(self):
+        self.set_up()
+        self.in_progress.use_hint()
+        self.in_progress.skip()
+        self.answer_current_question_correctly()
+        self.assertEqual(1, self.in_progress.score())
+
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
         request = RequestFactory().post('', data={'result' : question.result, 'answer' : question.answer})

@@ -10,7 +10,7 @@ You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{requ
 
 <div id="main_col">
 <h3>All right!</h3>
-<p>You finished with {{quiz_in_progress.score}} points.</p>
+<p>You finished with {{quiz_in_progress.score|floatformat:2}} out of {{quiz_in_progress.get_total_nof_questions|floatformat:1}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>possible</abbr> points.</p>
 </div>
 
 
