@@ -3,3 +3,4 @@
 *.swp
 local_settings.py
 Session.vim
+.ropeproject
