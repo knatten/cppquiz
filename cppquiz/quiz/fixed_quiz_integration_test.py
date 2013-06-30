@@ -31,14 +31,19 @@ class FixedQuizIntegrationTest(TestCase):
         pk = get_question_pk(response.content)
         response = self.answer_correctly(key, pk)
         self.assertContains(response, 'Correct!')
-        self.assert_status_string_with(response, 1,0)
+        self.assert_status_string_with(response, 1,1)
 
     def test_correctly_answering_the_last_question__takes_you_to_the_summary(self):
         create_questions(1)
         key = fixed_quiz.create_quiz(1)
         response = self.answer_correctly(key, 1)
         self.assertContains(response, 'Allright!')
-        self.assertContains(response, 'You finished the quiz, and got 0 points.')
+        self.assert_result_string_with(response, 1)
+
+    def assert_result_string_with(self, response, points):
+        match = re.search('You finished the quiz, and got (\d+) points?.', response.content)
+        self.assertTrue(match, 'Did not find result string')
+        self.assertEqual(points, int(match.group(1)))
 
     def assert_status_string_with(self, response, answered, points):
         match = re.search('After (\d+) of (\d+) questions, you have (\d+) points', response.content)

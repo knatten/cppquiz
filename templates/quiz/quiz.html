@@ -3,7 +3,7 @@
 {%block content%}
 <p id="stats">
 You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
-After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_total_nof_questions}} questions, you have 0 points.
+After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_total_nof_questions}} questions, you have {{quiz_in_progress.score}} points.
 </p>
 
 

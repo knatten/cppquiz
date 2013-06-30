@@ -112,13 +112,13 @@ def quiz(request, quiz_key):
         quiz_in_progress.answer(request)
         quiz_in_progress.save()
         return HttpResponseRedirect('/q/%s' % quiz_key)
+    d['quiz_in_progress'] = quiz_in_progress
     if quiz_in_progress.is_finished():
         return render_to_response('quiz/finished.html',
             d,
             context_instance=RequestContext(request)
             )
     d['question'] = quiz_in_progress.get_current_question()
-    d['quiz_in_progress'] = quiz_in_progress
     quiz_in_progress.save()
     return render_to_response('quiz/quiz.html',
         d,

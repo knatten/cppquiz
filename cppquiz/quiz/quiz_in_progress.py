@@ -29,6 +29,9 @@ class QuizInProgress:
     def is_finished(self):
         return self.quiz.questions.count() == self.nof_answered_questions()
 
+    def score(self):
+        return self.nof_answered_questions()
+
     def answer(self, request):
         answer = Answer(self.get_current_question(), request)
         if answer.correct:
