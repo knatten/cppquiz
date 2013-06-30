@@ -113,6 +113,8 @@ def quiz(request, quiz_key):
         quiz_in_progress.save()
         return HttpResponseRedirect('/q/%s' % quiz_key)
     d['quiz_in_progress'] = quiz_in_progress
+    if request.GET.has_key('skip'):
+        quiz_in_progress.skip()
     if quiz_in_progress.is_finished():
         return render_to_response('quiz/finished.html',
             d,

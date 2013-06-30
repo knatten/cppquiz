@@ -33,11 +33,20 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'Correct!')
         self.assert_status_string_with(response, 1,1)
 
-    def test_incorrectly_answering_a_question__redisplays_it_with_a_message(self):
+    def test_incorrectly_answering_a_question__redisplays_it_with_a_message_and_an_option_to_skip_it(self):
         create_questions(1)
         key = fixed_quiz.create_quiz(1)
         response = self.answer_incorrectly(key)
         self.assertContains(response, 'Incorrect!')
+
+    def test_skipping_a_question__takes_you_to_the_next_question_but_gives_you_no_points(self):
+        create_questions(fixed_quiz.nof_questions_in_quiz)
+        key = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
+        quiz = Quiz.objects.get(key=key)
+        response = self.answer_correctly(key, quiz.questions.all()[0].pk)
+        self.assert_status_string_with(response, answered=1, points=1)
+        response = self.skip(key)
+        self.assert_status_string_with(response, answered=2, points=1)
 
     def test_correctly_answering_the_last_question__takes_you_to_the_summary(self):
         create_questions(1)
@@ -47,16 +56,16 @@ class FixedQuizIntegrationTest(TestCase):
         self.assert_result_string_with(response, 1)
 
     def assert_result_string_with(self, response, points):
-        match = re.search('You finished the quiz, and got (\d+) points?.', response.content)
+        match = re.search('You finished with (\d+) points?.', response.content)
         self.assertTrue(match, 'Did not find result string')
         self.assertEqual(points, int(match.group(1)))
 
     def assert_status_string_with(self, response, answered, points):
         match = re.search('After (\d+) of (\d+) questions, you have (\d+) points', response.content)
         self.assertTrue(match, 'Did not find status string')
-        self.assertEqual(answered, int(match.group(1)))
-        self.assertEqual(fixed_quiz.nof_questions_in_quiz, int(match.group(2)))
-        self.assertEqual(points, int(match.group(3)))
+        self.assertEqual(answered, int(match.group(1)), 'Expected to have answered %d question(s), but status is "%s"' % (answered, match.group(0)))
+        self.assertEqual(fixed_quiz.nof_questions_in_quiz, int(match.group(2)), 'Expected to have a total of %d question(s), but status is "%s"' % (fixed_quiz.nof_questions_in_quiz, match.group(0)))
+        self.assertEqual(points, int(match.group(3)), 'Expected to have %d point(s), but status is "%s"' % (points, match.group(0)))
 
     def answer_correctly(self, key, question_pk):
         question = Question.objects.get(pk=question_pk)
@@ -70,3 +79,8 @@ class FixedQuizIntegrationTest(TestCase):
             reverse('quiz:quiz', args=(key,)),
             {'result':'NONSENSE', 'answer':'WROOOONG'},
             follow=True)
+
+    def skip(self, key):
+        return self.client.get(
+            reverse('quiz:quiz', args=(key,)),
+            {'skip':1})

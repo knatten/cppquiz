@@ -1,8 +1,11 @@
 from answer import Answer
 from models import Quiz
 
+class QuestionStats:
+    def __init__(self, skipped=False):
+        self.skipped = skipped
+
 #TODO akn what if there are two in progress...
-#TODO context manager to save when it goes out of scope?
 class QuizInProgress:
     def __init__(self, session, quiz):
         self.session = session
@@ -30,16 +33,20 @@ class QuizInProgress:
         return self.quiz.questions.count() == self.nof_answered_questions()
 
     def score(self):
-        return self.nof_answered_questions()
+        return len([q for q in self.answers if not q.skipped])
 
     def answer(self, request):
         answer = Answer(self.get_current_question(), request)
         if answer.correct:
-            self.answers.append(answer)
+            self.answers.append(QuestionStats())
             self.previous_result = 'correct'
         else:
             self.previous_result = 'incorrect'
         return
+
+    def skip(self):
+        self.previous_result = None
+        self.answers.append(QuestionStats(skipped=True))
 
     def save(self):
         self.session.modified = True

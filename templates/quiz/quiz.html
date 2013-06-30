@@ -19,6 +19,10 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 
 {%include "quiz/question.html"%}
 
+{%if quiz_in_progress.get_previous_result == 'incorrect'%}
+<p>Too hard? You can <a href="{{request.path}}?skip=1">skip this question</a>, but you won't get another shot at it.</p>
+{%endif%}
+
 <form action="" method="POST">
 {%csrf_token%}
 <p>
