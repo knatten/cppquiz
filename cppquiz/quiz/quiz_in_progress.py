@@ -2,8 +2,14 @@ from answer import Answer
 from models import Quiz
 
 class QuestionStats:
-    def __init__(self, skipped=False):
+    def __init__(self, skipped=False, attempts=0):
         self.skipped = skipped
+        self.attempts = attempts
+
+    def score(self):
+        score = self.skipped == False
+        score *=  pow(0.5, self.attempts)
+        return score
 
 #TODO akn what if there are two in progress...
 class QuizInProgress:
@@ -11,11 +17,14 @@ class QuizInProgress:
         self.session = session
         self.quiz = quiz
         if session.has_key('quiz_in_progress'):
-            self.answers = session['quiz_in_progress'].answers
-            self.previous_result = session['quiz_in_progress'].previous_result
+            other = session['quiz_in_progress']
+            self.answers = other.answers
+            self.previous_result = other.previous_result
+            self.attempts = other.attempts
         else:
             self.answers = []
             self.previous_result = None
+            self.attempts = 0
 
     def get_current_question(self):
         return self.quiz.questions.all()[len(self.answers)]
@@ -33,19 +42,22 @@ class QuizInProgress:
         return self.quiz.questions.count() == self.nof_answered_questions()
 
     def score(self):
-        return len([q for q in self.answers if not q.skipped])
+        return float(sum([q.score() for q in self.answers]))
 
     def answer(self, request):
         answer = Answer(self.get_current_question(), request)
         if answer.correct:
-            self.answers.append(QuestionStats())
+            self.answers.append(QuestionStats(attempts=self.attempts))
             self.previous_result = 'correct'
+            self.attempts = 0
         else:
             self.previous_result = 'incorrect'
+            self.attempts += 1
         return
 
     def skip(self):
         self.previous_result = None
+        self.attempts = 0
         self.answers.append(QuestionStats(skipped=True))
 
     def save(self):

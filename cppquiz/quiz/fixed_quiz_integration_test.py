@@ -56,16 +56,16 @@ class FixedQuizIntegrationTest(TestCase):
         self.assert_result_string_with(response, 1)
 
     def assert_result_string_with(self, response, points):
-        match = re.search('You finished with (\d+) points?.', response.content)
+        match = re.search('You finished with (\d+.\d+) points?.', response.content)
         self.assertTrue(match, 'Did not find result string')
-        self.assertEqual(points, int(match.group(1)))
+        self.assertEqual(points, float(match.group(1)))
 
     def assert_status_string_with(self, response, answered, points):
-        match = re.search('After (\d+) of (\d+) questions, you have (\d+) points', response.content)
+        match = re.search('After (\d+) of (\d+) questions, you have (\d+.\d+) .*points', response.content)
         self.assertTrue(match, 'Did not find status string')
         self.assertEqual(answered, int(match.group(1)), 'Expected to have answered %d question(s), but status is "%s"' % (answered, match.group(0)))
         self.assertEqual(fixed_quiz.nof_questions_in_quiz, int(match.group(2)), 'Expected to have a total of %d question(s), but status is "%s"' % (fixed_quiz.nof_questions_in_quiz, match.group(0)))
-        self.assertEqual(points, int(match.group(3)), 'Expected to have %d point(s), but status is "%s"' % (points, match.group(0)))
+        self.assertEqual(points, float(match.group(3)), 'Expected to have %d point(s), but status is "%s"' % (points, match.group(0)))
 
     def answer_correctly(self, key, question_pk):
         question = Question.objects.get(pk=question_pk)

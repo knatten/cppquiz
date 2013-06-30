@@ -77,6 +77,19 @@ class QuizInProgressTest(TestCase):
         self.assertEqual(1, self.in_progress.nof_answered_questions())
         self.assertEqual(0, self.in_progress.score())
 
+    def test_when_two_attempts_are_made__score_is_divided_by_two(self):
+        self.set_up()
+        self.answer_current_question_incorrectly()
+        self.answer_current_question_correctly()
+        self.assertEqual(.5, self.in_progress.score())
+
+    def test_when_three_attempts_are_made__score_is_divided_by_eight(self):
+        self.set_up()
+        for i in range(0,3):
+            self.answer_current_question_incorrectly()
+        self.answer_current_question_correctly()
+        self.assertEqual(1.0/8, self.in_progress.score())
+
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
         request = RequestFactory().post('', data={'result' : question.result, 'answer' : question.answer})
