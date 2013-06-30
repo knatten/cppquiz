@@ -1,0 +1,22 @@
+
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+<p id="stats">
+You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+</p>
+
+
+
+<div id="main_col">
+<h3>Allright!</h3>
+<p>You finished the quiz, and got 0 points.</p>
+</div>
+
+
+
+<div id="right_col">
+</div>
+
+<hr class=clear>
+{%endblock%}

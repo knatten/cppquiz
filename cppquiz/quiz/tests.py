@@ -1,16 +1,16 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+import unittest
 
-Replace this with more appropriate tests for your application.
-"""
+from fixed_quiz_test import *
+from fixed_quiz_integration_test import *
+from test_active_quiz import ActiveQuizTest
+from test_quiz_in_progress import *
 
-from django.test import TestCase
+def suite():
+    return unittest.TestSuite([
+        unittest.TestLoader().loadTestsFromTestCase(get_unique_quiz_key_Test),
+        unittest.TestLoader().loadTestsFromTestCase(create_quiz_Test),
+        unittest.TestLoader().loadTestsFromTestCase(ActiveQuizTest),
+        unittest.TestLoader().loadTestsFromTestCase(QuizInProgressTest),
+        unittest.TestLoader().loadTestsFromTestCase(FixedQuizIntegrationTest),
+        ])
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)

@@ -7,10 +7,12 @@ from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Avg
 
-from models import Question, UsersAnswer
+import fixed_quiz
+from models import *
 from forms import QuestionForm
 from answer import Answer
 from game_data import *
+from quiz_in_progress import *
 
 def index(request):
     return random_question(request)
@@ -93,6 +95,32 @@ def question(request, question_id):
     d['show_hint'] = request.REQUEST.get('show_hint', False)
     save_user_data(user_data, request.session)
     return render_to_response('quiz/index.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
+def start(request):
+    clear_quiz_in_progress(request.session)
+    key = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
+    return HttpResponseRedirect('/q/%s' % key)
+
+def quiz(request, quiz_key):
+    d = {}
+    quiz = Quiz.objects.get(key=quiz_key) #TODO akn remove key from url and store in session?
+    quiz_in_progress = QuizInProgress(request.session, quiz)
+    if request.POST:
+        quiz_in_progress.answer(request)
+        quiz_in_progress.save()
+        return HttpResponseRedirect('/q/%s' % quiz_key)
+    if quiz_in_progress.is_finished():
+        return render_to_response('quiz/finished.html',
+            d,
+            context_instance=RequestContext(request)
+            )
+    d['question'] = quiz_in_progress.get_current_question()
+    d['quiz_in_progress'] = quiz_in_progress
+    quiz_in_progress.save()
+    return render_to_response('quiz/quiz.html',
         d,
         context_instance=RequestContext(request)
         )

@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+<p id="stats">
+You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_total_nof_questions}} questions, you have 0 points.
+</p>
+
+
+
+<div id="main_col">
+
+{%if quiz_in_progress.get_previous_result == 'correct'%}
+<h3>Correct!</h3>
+{%endif%}
+
+{%include "quiz/question.html"%}
+
+<form action="" method="POST">
+{%csrf_token%}
+<p>
+{%include 'quiz/answer_form.html'%}
+</p>
+</form>
+
+</div>
+
+
+
+<div id="right_col">
+</div>
+
+<hr class=clear>
+{%endblock%}

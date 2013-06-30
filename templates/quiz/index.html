@@ -18,18 +18,7 @@ You've answered {{user_data.get_correctly_answered_questions|length}} of {{total
 {%if not correct_result%}
 <form>
 <p>
-
-This 
-<select name="result" id="result">
-{%for o in question.RESULT_CHOICES%}
-<option value="{{o.0}}">{{o.1}}</option>
-{%endfor%}
-</select>
-<span id="output_form_part">
-and the output is <input name="answer" size="4">
-</span>
-<input type="submit" value="Answer" name="did_answer">
-
+{%include 'quiz/answer_form.html'%}
 {%if answered%} {%include "quiz/problems.html"%} {%endif%}
 </p>
 </form>
@@ -41,6 +30,11 @@ and the output is <input name="answer" size="4">
 {%include "quiz/admin_link.html"%}
 </div>
 <div id="right_col">
+<h4>Compete</h4>
+You are currently answering random questions.
+<a href="/quiz/start">Start a new quiz!</a>
+Then you can boast about your score, and invite your friends.
+<h4>Contribute</h4>
 <p>
 <a href="/quiz/create">Create your own!</a>
 </p>

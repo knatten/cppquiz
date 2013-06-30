@@ -12,5 +12,7 @@ urlpatterns = patterns('',
     url(r'^quiz/categorize', views.categorize, name='categorize'),
     url(r'^quiz/about', TemplateView.as_view(template_name = 'quiz/help.html')),
     url(r'^quiz/help', TemplateView.as_view(template_name = 'quiz/help.html')),
+    url(r'^quiz/start', views.start, name='start'),
+    url(r'^q/(?P<quiz_key>.+)', views.quiz, name='quiz'),
     url(r'^$', views.index, name='index'),
 )
