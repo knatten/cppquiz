@@ -22,7 +22,11 @@ $(document).ready(function() {
     $('.confirm_hint').click(function(){
         return confirm("Are you sure you want to view the hint? Have you really thought through the question?");
     })
-     $('.fading_msg').delay(2000).animate({'backgroundColor' : 'white'}, 1000);
+    $('.fading_msg').delay(2000).animate({'backgroundColor' : 'white'}, 1000);
+    $('.dismiss_link').click(function(){
+        $.ajax('/quiz/dismiss_training_msg');
+        $(this).parent().hide(300);
+    });
 });
 </script>
 </head>

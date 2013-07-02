@@ -7,6 +7,13 @@ You've answered {{user_data.get_correctly_answered_questions|length}} of {{total
 
 <div id="main_col">
 
+{%if user_data.get_correctly_answered_questions|length > 3 and not dismissed_training_msg%}
+<div class="message">
+{%include 'quiz/start_a_new.html'%}
+<p class="dismiss_link"><a href="#">Not now</a></p>
+</div>
+{%endif%}
+
 {%include "quiz/question.html"%}
 
 {%include "quiz/answer.html"%}
@@ -31,9 +38,7 @@ You've answered {{user_data.get_correctly_answered_questions|length}} of {{total
 </div>
 <div id="right_col">
 <h4>Compete</h4>
-You are currently answering random questions.
-<a href="/quiz/start">Start a new quiz!</a>
-Then you can boast about your score, and invite your friends.
+{%include 'quiz/start_a_new.html'%}
 <h4>Contribute</h4>
 <p>
 <a href="/quiz/create">Create your own!</a>

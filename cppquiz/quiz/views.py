@@ -83,6 +83,7 @@ def question(request, question_id):
     d = {}
     d['answered'] = False
     d['question'] = q
+    d['dismissed_training_msg'] = user_data.dismissed_training_msg
     if request.REQUEST.get('did_answer'):
         d['answered'] = True
         answer = Answer(q, request)
@@ -129,6 +130,12 @@ def quiz(request, quiz_key):
         d,
         context_instance=RequestContext(request)
         )
+
+def dismiss_training_msg(request):
+    user_data = UserData(request.session)
+    user_data.dismiss_training_msg()
+    save_user_data(user_data, request.session)
+    return HttpResponse('')
 
 #TODO what if there are no questions
 def get_unanswered_question(user_data):

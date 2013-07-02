@@ -119,3 +119,12 @@ p#stats
 {
     border-right:.5em solid #aaf;
 }
+.message
+{
+    background-color:#ffa;
+}
+.dismiss_link
+{
+    text-align:right;
+    font-size:smaller;
+}
