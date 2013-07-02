@@ -70,7 +70,7 @@ class FixedQuizIntegrationTest(TestCase):
         self.assert_result_string_with(response, 1)
 
     def assert_result_string_with(self, response, points):
-        match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible .*points.', response.content)
+        match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', response.content)
         self.assertTrue(match, 'Did not find result string')
         self.assertEqual(points, float(match.group(1)))
 

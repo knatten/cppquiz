@@ -4,6 +4,7 @@
 <script type="text/javascript" src="{{STATIC_URL}}sh_main.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}sh_cpp.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}sh_nedit.css">
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css">
 <link rel="shortcut icon" href="{{STATIC_URL}}favicon.png">
@@ -21,6 +22,7 @@ $(document).ready(function() {
     $('.confirm_hint').click(function(){
         return confirm("Are you sure you want to view the hint? Have you really thought through the question?");
     })
+     $('.fading_msg').delay(2000).animate({'backgroundColor' : 'white'}, 1000);
 });
 </script>
 </head>

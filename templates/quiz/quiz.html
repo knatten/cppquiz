@@ -10,23 +10,28 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 
 <div id="main_col">
 
+
 {%if quiz_in_progress.get_previous_result == 'correct'%}
-<h3>Correct!</h3>
+{%if not hint %}
+<h2 class="correct fading_msg">Correct!</h2>
+<!-- <div class="correct fading_msg"><p> Next question: </p></div> -->
 {%endif%}
-{%if quiz_in_progress.get_previous_result == 'incorrect'%}
-<h3>Incorrect!</h3>
 {%endif%}
+
 
 {%include "quiz/question.html"%}
 
-{%if hint%}
-{%include "quiz/hint.html"%}
-{%else%}
-<p>Want <a href="{{request.path}}?hint=1">a hint</a>? (It will reduce the max score for this question from 1 to 0.5)</p>
-{%endif%}
 
 {%if quiz_in_progress.get_previous_result == 'incorrect'%}
-<p>Too hard? You can <a href="{{request.path}}?skip=1">skip this question</a>, but you won't get another shot at it.</p>
+{%if not hint %}
+<h2 class="incorrect">Incorrect!</h2>
+<div class="incorrect"><p> Try again: </p></div>
+{%endif%}
+{%endif%}
+
+
+{%if hint%}
+{%include "quiz/hint.html"%}
 {%endif%}
 
 <form action="" method="POST">
@@ -35,6 +40,15 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 {%include 'quiz/answer_form.html'%}
 </p>
 </form>
+
+
+{%if not hint%}
+<p>Want <a href="{{request.path}}?hint=1">a hint</a>? (It will reduce the max score for this question from 1 to 0.5)</p>
+{%endif%}
+
+{%if quiz_in_progress.get_previous_result == 'incorrect'%}
+<p>Too hard? You can <a href="{{request.path}}?skip=1">skip this question</a>, but you won't get another shot at it.</p>
+{%endif%}
 
 </div>
 
