@@ -107,7 +107,7 @@ def start(request):
 
 def quiz(request, quiz_key):
     d = {}
-    quiz = Quiz.objects.get(key=quiz_key) #TODO akn remove key from url and store in session?
+    quiz = Quiz.objects.get(key=quiz_key)
     quiz_in_progress = QuizInProgress(request.session, quiz)
     if request.POST:
         quiz_in_progress.answer(request)

@@ -69,6 +69,17 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'All right!')
         self.assert_result_string_with(response, 1)
 
+    def test_when_a_session_exists_with_a_different_key__the_old_state_is_deleted(self):
+        create_questions(10)
+        key1 = fixed_quiz.create_quiz(3)
+        key2 = fixed_quiz.create_quiz(3)
+        quiz1 = Quiz.objects.get(key=key1)
+        quiz2 = Quiz.objects.get(key=key2)
+        response = self.answer_correctly(key1, quiz1.questions.all()[0].pk)
+        self.assert_status_string_with(response, answered=1, points=1)
+        response = self.client.get(reverse('quiz:quiz', args=(key2,)))
+        self.assert_status_string_with(response, answered=0, points=0)
+
     def assert_result_string_with(self, response, points):
         match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', response.content)
         self.assertTrue(match, 'Did not find result string')

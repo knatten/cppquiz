@@ -14,12 +14,11 @@ class QuestionStats:
         score *=  pow(.5, self.attempts)
         return score
 
-#TODO akn what if there are two in progress...
 class QuizInProgress:
     def __init__(self, session, quiz):
         self.session = session
         self.quiz = quiz
-        if session.has_key('quiz_in_progress'):
+        if session.has_key('quiz_in_progress') and session['quiz_in_progress'].quiz.key == quiz.key:
             other = session['quiz_in_progress']
             self.answers = other.answers
             self.previous_result = other.previous_result
