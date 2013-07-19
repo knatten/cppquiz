@@ -70,9 +70,9 @@ class FixedQuizIntegrationTest(TestCase):
         self.assert_result_string_with(response, 1)
 
     def test_when_a_session_exists_with_a_different_key__the_old_state_is_deleted(self):
-        create_questions(10)
-        key1 = fixed_quiz.create_quiz(3)
-        key2 = fixed_quiz.create_quiz(3)
+        create_questions(20)
+        key1 = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
+        key2 = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
         quiz1 = Quiz.objects.get(key=key1)
         quiz2 = Quiz.objects.get(key=key2)
         response = self.answer_correctly(key1, quiz1.questions.all()[0].pk)
