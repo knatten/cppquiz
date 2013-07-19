@@ -7,10 +7,12 @@ from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Avg
 
-from models import Question, UsersAnswer
+import fixed_quiz
+from models import *
 from forms import QuestionForm
 from answer import Answer
 from game_data import *
+from quiz_in_progress import *
 
 def index(request):
     return random_question(request)
@@ -81,6 +83,7 @@ def question(request, question_id):
     d = {}
     d['answered'] = False
     d['question'] = q
+    d['dismissed_training_msg'] = user_data.dismissed_training_msg
     if request.REQUEST.get('did_answer'):
         d['answered'] = True
         answer = Answer(q, request)
@@ -96,6 +99,43 @@ def question(request, question_id):
         d,
         context_instance=RequestContext(request)
         )
+
+def start(request):
+    clear_quiz_in_progress(request.session)
+    key = fixed_quiz.create_quiz()
+    return HttpResponseRedirect('/q/%s' % key)
+
+def quiz(request, quiz_key):
+    d = {}
+    quiz = Quiz.objects.get(key=quiz_key)
+    quiz_in_progress = QuizInProgress(request.session, quiz)
+    if request.POST:
+        quiz_in_progress.answer(request)
+        quiz_in_progress.save()
+        return HttpResponseRedirect('/q/%s' % quiz_key)
+    d['quiz_in_progress'] = quiz_in_progress
+    if request.GET.has_key('skip'):
+        quiz_in_progress.skip()
+    if request.GET.has_key('hint'):
+        quiz_in_progress.use_hint()
+        d['hint'] = True
+    if quiz_in_progress.is_finished():
+        return render_to_response('quiz/finished.html',
+            d,
+            context_instance=RequestContext(request)
+            )
+    d['question'] = quiz_in_progress.get_current_question()
+    quiz_in_progress.save()
+    return render_to_response('quiz/quiz.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
+def dismiss_training_msg(request):
+    user_data = UserData(request.session)
+    user_data.dismiss_training_msg()
+    save_user_data(user_data, request.session)
+    return HttpResponse('')
 
 #TODO what if there are no questions
 def get_unanswered_question(user_data):

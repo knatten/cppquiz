@@ -1,0 +1,12 @@
+<h4>Mode :
+{%if quiz_in_progress%}
+    Quiz
+    </h4>
+    <p>
+    If you want to quit the current quiz and go back to training mode, click <a href="/">here</a>.
+    </p>
+{%else%}
+    Training
+    </h4>
+    {%include 'quiz/start_a_new.html'%}
+{%endif%}

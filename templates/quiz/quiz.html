@@ -1,0 +1,62 @@
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+<p id="stats">
+You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_total_nof_questions}} questions, you have {{quiz_in_progress.score|floatformat:2}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>points</abbr>.
+</p>
+
+
+
+<div id="main_col">
+
+
+{%if quiz_in_progress.get_previous_result == 'correct'%}
+{%if not hint %}
+<h2 class="correct fading_msg">Correct!</h2>
+<!-- <div class="correct fading_msg"><p> Next question: </p></div> -->
+{%endif%}
+{%endif%}
+
+
+{%include "quiz/question.html"%}
+
+
+{%if quiz_in_progress.get_previous_result == 'incorrect'%}
+{%if not hint %}
+<h2 class="incorrect">Incorrect!</h2>
+<div class="incorrect"><p> Try again: </p></div>
+{%endif%}
+{%endif%}
+
+
+{%if hint%}
+{%include "quiz/hint.html"%}
+{%endif%}
+
+<form action="" method="POST">
+{%csrf_token%}
+<p>
+{%include 'quiz/answer_form.html'%}
+</p>
+</form>
+
+
+{%if not hint%}
+<p>Want <a href="{{request.path}}?hint=1">a hint</a>? (It will reduce the max score for this question from 1 to 0.5)</p>
+{%endif%}
+
+{%if quiz_in_progress.get_previous_result == 'incorrect'%}
+<p>Too hard? You can <a href="{{request.path}}?skip=1">skip this question</a>, but you won't get another shot at it.</p>
+{%endif%}
+
+</div>
+
+
+
+<div id="right_col">
+{%include "quiz/mode.html"%}
+</div>
+
+<hr class=clear>
+{%endblock%}

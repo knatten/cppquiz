@@ -1,0 +1,33 @@
+
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+<p id="stats">
+You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+</p>
+
+
+
+<div id="main_col">
+
+<h3>All right!</h3>
+<p>You finished with {{quiz_in_progress.score|floatformat:2}} out of {{quiz_in_progress.get_total_nof_questions|floatformat:1}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>possible</abbr> points.</p>
+
+<p>
+Now <a href="https://twitter.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz http://{{request.get_host}}{{request.get_full_path}}! Can you match that?">boast about it on Twitter</a>!
+<br>
+(This link takes you to Twitter.com, we would never post on your behalf).
+</p>
+
+<p>
+Why not <a href="/quiz/start">Start a new quiz</a>, or <a href="/">go back to training mode</a>?
+</p>
+</div>
+
+
+
+<div id="right_col">
+</div>
+
+<hr class=clear>
+{%endblock%}

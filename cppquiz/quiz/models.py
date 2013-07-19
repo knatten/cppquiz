@@ -34,3 +34,11 @@ class UsersAnswer(models.Model):
     ip = models.CharField(max_length=45, default='', blank=True)
     date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
     correct = models.BooleanField(default=False)
+
+class Quiz(models.Model):
+    questions = models.ManyToManyField(Question, through='QuestionInQuiz')
+    key = models.CharField(max_length=10, default='')
+
+class QuestionInQuiz(models.Model):
+    question = models.ForeignKey(Question)
+    quiz = models.ForeignKey(Quiz)

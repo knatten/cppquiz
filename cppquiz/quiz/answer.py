@@ -1,7 +1,7 @@
 from models import UsersAnswer
 from util import get_client_ip
 
-class Answer():
+class Answer:
     def __init__(self, question, request):
         self.question = question
         self.given_answer = request.REQUEST.get('answer', '').strip()

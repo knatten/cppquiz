@@ -119,3 +119,18 @@ p#stats
 {
     border-right:.5em solid #aaf;
 }
+.message
+{
+    background-color:#ffa;
+}
+.dismiss_link
+{
+    text-align:right;
+    font-size:smaller;
+}
+.beta_warning
+{
+    background-color:#f55;
+    margin:0;
+    padding:.5em;
+}

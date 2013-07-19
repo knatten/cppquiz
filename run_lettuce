@@ -1,1 +1,2 @@
-python manage.py harvest --settings=cppquiz.lettuce_settings -a cppquiz.quiz
+#!/bin/bash
+python manage.py harvest --settings=cppquiz.lettuce_settings -a cppquiz.quiz $@

@@ -4,6 +4,7 @@
 <script type="text/javascript" src="{{STATIC_URL}}sh_main.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}sh_cpp.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}sh_nedit.css">
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css">
 <link rel="shortcut icon" href="{{STATIC_URL}}favicon.png">
@@ -21,11 +22,21 @@ $(document).ready(function() {
     $('.confirm_hint').click(function(){
         return confirm("Are you sure you want to view the hint? Have you really thought through the question?");
     })
+    $('.fading_msg').delay(2000).animate({'backgroundColor' : 'white'}, 1000);
+    $('.dismiss_link').click(function(){
+        $.ajax('/quiz/dismiss_training_msg');
+        $(this).parent().hide(300);
+    });
 });
 </script>
 </head>
 <body onload="sh_highlightDocument();">
 <div id="content">
+{%if request.get_host == "beta.cppquiz.org"%}
+<p class="beta_warning">
+<strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="http://cppquiz.org">the official site</a> instead.
+</p>
+{%endif%}
 <h1><a href="/">C++ Quiz</a> (beta)</h1>
 {%block content%}
 {%endblock%}

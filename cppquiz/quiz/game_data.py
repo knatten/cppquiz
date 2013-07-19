@@ -1,9 +1,11 @@
 class UserData:
     def __init__(self, session):
         if session.has_key('user_data'):
-            self.correctly_answered = session['user_data'].correctly_answered
+            self.correctly_answered = getattr(session['user_data'], 'correctly_answered', set())
+            self.dismissed_training_msg = getattr(session['user_data'], 'dismissed_training_msg', False)
         else:
             self.correctly_answered = set()
+            self.dismissed_training_msg = False
 
     def get_correctly_answered_questions(self):
         return list(self.correctly_answered)
@@ -13,6 +15,9 @@ class UserData:
 
     def clear_correct_answers(self):
         self.correctly_answered.clear()
+
+    def dismiss_training_msg(self):
+        self.dismissed_training_msg = True
 
 def save_user_data(user_data, session):
     session.modified = True
