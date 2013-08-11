@@ -10,7 +10,12 @@ def production():
 def test():
     deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz')
 
+def run_tests():
+    local('python2.7 ../manage.py test quiz')
+    local('cd .. && ./run_lettuce')
+
 def deploy(directory):
+    run_tests()
     pull(directory)
     sshagent_run('python2.7 manage.py migrate', directory)
     sshagent_run('python2.7 manage.py collectstatic --noinput', directory)
@@ -21,11 +26,11 @@ def pull(directory):
 
 def sshagent_run(cmd, directory):
     """
-    Stolen from http://lincolnloop.com/blog/2009/sep/22/easy-fabric-deployment-part-1-gitmercurial-and-ssh/ 
+    Stolen from http://lincolnloop.com/blog/2009/sep/22/easy-fabric-deployment-part-1-gitmercurial-and-ssh/
     Helper function.
     Runs a command with SSH agent forwarding enabled.
-    
-    Note:: Fabric (and paramiko) can't forward your SSH agent. 
+
+    Note:: Fabric (and paramiko) can't forward your SSH agent.
     This helper uses your system's ssh to do so.
     """
 
