@@ -38,6 +38,7 @@ class UsersAnswer(models.Model):
 class Quiz(models.Model):
     questions = models.ManyToManyField(Question, through='QuestionInQuiz')
     key = models.CharField(max_length=10, default='')
+    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
 
 class QuestionInQuiz(models.Model):
     question = models.ForeignKey(Question)
