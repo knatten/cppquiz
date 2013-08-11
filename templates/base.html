@@ -32,6 +32,11 @@ $(document).ready(function() {
 </head>
 <body onload="sh_highlightDocument();">
 <div id="content">
+{%if request.get_host == "beta.cppquiz.org"%}
+<p class="beta_warning">
+<strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="http://cppquiz.org">the official site</a> instead.
+</p>
+{%endif%}
 <h1><a href="/">C++ Quiz</a> (beta)</h1>
 {%block content%}
 {%endblock%}
