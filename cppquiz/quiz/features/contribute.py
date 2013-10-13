@@ -24,3 +24,11 @@ def the_administrators_should_get_an_email_about_a_new_question(step):
         message = mail.queue.get(True, timeout=5)
         assert admin[1] in message.recipients()
         assert 'Someone made a question' in message.subject
+
+@step('I fill in the spam protection correctly')
+def i_fill_in_the_spam_protection(step):
+    world.browser.fill('spam_protection', 'human')
+
+@step('I fill in the spam protection incorrectly')
+def i_fill_in_the_spam_protection(step):
+    world.browser.fill('spam_protection', 'spam-bot')
