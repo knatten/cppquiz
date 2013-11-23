@@ -13,7 +13,7 @@ class get_unique_quiz_key_Test(TestCase):
         self.assertEqual(type(''), type(key))
 
     def test_doesnt_reuse_a_key(self):
-        number_of_possible_keys = len(string.ascii_lowercase + string.ascii_uppercase + string.digits)
+        number_of_possible_keys = len(string.ascii_uppercase + string.digits)
         keys = []
         for i in range(1, number_of_possible_keys):
             key  = fixed_quiz.get_unique_quiz_key(1)

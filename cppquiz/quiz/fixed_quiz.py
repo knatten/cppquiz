@@ -12,7 +12,7 @@ def get_unique_quiz_key(length):
     return key
 
 def make_quiz_key(length):
-    return ''.join(random.sample(string.ascii_lowercase + string.ascii_uppercase + string.digits, length))
+    return ''.join(random.sample(string.ascii_lowercase + string.digits, length))
 
 def create_quiz(nof_questions=nof_questions_in_quiz):
     quiz = Quiz.objects.create()
