@@ -61,7 +61,7 @@ def create(request):
     else:
         form = QuestionForm()
     return render_to_response('quiz/create.html',
-        {'form':form},
+        {'form':form, 'title':'Create question'},
         context_instance=RequestContext(request)
         )
 
@@ -94,6 +94,7 @@ def question(request, question_id):
     d['total_questions'] = Question.objects.filter(published=True).count()
     d['user_data'] = user_data
     d['show_hint'] = request.REQUEST.get('show_hint', False)
+    d['title'] = ' - Question #%d' % q.pk
     save_user_data(user_data, request.session)
     return render_to_response('quiz/index.html',
         d,
@@ -125,6 +126,7 @@ def quiz(request, quiz_key):
             context_instance=RequestContext(request)
             )
     d['question'] = quiz_in_progress.get_current_question()
+    d['title'] = ' - Quiz "' + quiz_key + '"'
     quiz_in_progress.save()
     return render_to_response('quiz/quiz.html',
         d,
