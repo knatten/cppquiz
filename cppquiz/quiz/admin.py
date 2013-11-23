@@ -14,7 +14,7 @@ class UsersAnswerAdmin(admin.ModelAdmin):
     list_filter=('question',)
 
 class QuizAdmin(admin.ModelAdmin):
-    list_display=('key', 'date_time')
+    list_display=('key', 'date_time', 'question_ids')
     search_fields=('key',)
 
 admin.site.register(Question, QuestionAdmin)

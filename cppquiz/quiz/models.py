@@ -40,6 +40,9 @@ class Quiz(models.Model):
     key = models.CharField(max_length=10, default='')
     date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
 
+    def question_ids(self):
+        return ','.join([str(q) for q in self.questions.all()])
+
 class QuestionInQuiz(models.Model):
     question = models.ForeignKey(Question)
     quiz = models.ForeignKey(Quiz)
