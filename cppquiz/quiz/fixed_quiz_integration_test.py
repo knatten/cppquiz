@@ -94,15 +94,15 @@ class FixedQuizIntegrationTest(TestCase):
 
     def answer_correctly(self, key, question_pk):
         question = Question.objects.get(pk=question_pk)
-        return self.client.post(
+        return self.client.get(
             reverse('quiz:quiz', args=(key,)),
-            {'result':question.result, 'answer':question.answer},
+            {'result':question.result, 'answer':question.answer, 'did_answer':'Answer'},
             follow=True)
 
     def answer_incorrectly(self, key):
-        return self.client.post(
+        return self.client.get(
             reverse('quiz:quiz', args=(key,)),
-            {'result':'NONSENSE', 'answer':'WROOOONG'},
+            {'result':'NONSENSE', 'answer':'WROOOONG', 'did_answer':'Answer'},
             follow=True)
 
     def skip(self, key):
