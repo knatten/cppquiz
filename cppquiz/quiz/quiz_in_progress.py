@@ -29,7 +29,10 @@ class QuizInProgress:
             self._reset_question_state()
 
     def get_current_question(self):
-        return self.quiz.questions.all()[len(self.answers)]
+        try:
+            return self.quiz.questions.all()[len(self.answers)]
+        except IndexError:
+            raise Exception("%d questions, %d answers" % (self.quiz.questions.count(), len(self.answers)))
 
     def get_previous_result(self):
         return self.previous_result

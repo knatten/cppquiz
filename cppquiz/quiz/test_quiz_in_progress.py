@@ -110,6 +110,16 @@ class QuizInProgressTest(TestCase):
         self.answer_current_question_correctly()
         self.assertEqual(1, self.in_progress.score())
 
+    def test_when_we_somehow_get_index_error__get_current_question_provides_good_info(self):
+        self.set_up(2)
+        for i in range(0,2):
+            self.answer_current_question_correctly()
+        try:
+            self.in_progress.get_current_question()
+            self.fail()
+        except Exception as e:
+            self.assertEqual("2 questions, 2 answers", e.message)
+
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
         request = RequestFactory().post('', data={'result' : question.result, 'answer' : question.answer})

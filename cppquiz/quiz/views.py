@@ -110,7 +110,7 @@ def quiz(request, quiz_key):
     d = {}
     quiz = Quiz.objects.get(key=quiz_key)
     quiz_in_progress = QuizInProgress(request.session, quiz)
-    if request.POST:
+    if request.REQUEST.get('did_answer'):
         quiz_in_progress.answer(request)
         quiz_in_progress.save()
         return HttpResponseRedirect('/q/%s' % quiz_key)
