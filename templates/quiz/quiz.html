@@ -34,7 +34,7 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 {%include "quiz/hint.html"%}
 {%endif%}
 
-<form action="" method="POST">
+<form action="" method="GET">
 {%csrf_token%}
 <p>
 {%include 'quiz/answer_form.html'%}
