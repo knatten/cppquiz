@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^quiz/start', views.start, name='start'),
     url(r'^quiz/dismiss_training_msg', views.dismiss_training_msg, name='dismiss_training_msg'),
     url(r'^q/(?P<quiz_key>\w+)', views.quiz, name='quiz'),
+    url(r'^raise', views.raise_exception, name='raise_exception'),
     url(r'^$', views.index, name='index'),
 )

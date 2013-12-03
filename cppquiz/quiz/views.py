@@ -149,3 +149,6 @@ def get_unanswered_question(user_data):
         return Question.objects.filter(published=True).order_by('?')[0].id
     else:
         return random.choice(available_questions)
+
+def raise_exception(request):
+    raise Exception("Test exception raised")
