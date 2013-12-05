@@ -1,4 +1,7 @@
 # Django settings for cppquiz project.
+import os
+here = lambda *x: os.path.join(os.path.dirname(
+                               os.path.realpath(__file__)), *x)
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -153,7 +156,7 @@ LOGGING = {
         'file' : {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'quiz.log',
+            'filename': here('quiz.log'),
             'formatter': 'simple_stamped',
         },
     },
