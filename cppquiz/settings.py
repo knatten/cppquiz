@@ -138,12 +138,24 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+        'simple_stamped': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%Y-%b-%d %H:%M:%S",
+        },
+    },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
-        }
+        },
+        'file' : {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'quiz.log',
+            'formatter': 'simple_stamped',
+        },
     },
     'loggers': {
         'django.request': {
@@ -151,6 +163,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'quiz': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        }
     },
 }
 
