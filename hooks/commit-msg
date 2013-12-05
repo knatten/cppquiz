@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if grep -q '#[0-9]' $1; then
+    return 0
+else
+    echo "You must reference a GitHub issue like this: #42";
+    return 1
+fi

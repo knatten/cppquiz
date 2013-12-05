@@ -118,7 +118,7 @@ class QuizInProgressTest(TestCase):
             self.in_progress.get_current_question()
             self.fail()
         except Exception as e:
-            self.assertEqual("2 questions, 2 answers", e.message)
+            self.assertEqual("2 questions, 2 answers", str(e))
 
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()

@@ -1,4 +1,7 @@
 # Django settings for cppquiz project.
+import os
+here = lambda *x: os.path.join(os.path.dirname(
+                               os.path.realpath(__file__)), *x)
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -133,11 +136,29 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'simple_stamped': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%Y-%b-%d %H:%M:%S",
+        },
+    },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'file' : {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': here('quiz.log'),
+            'formatter': 'simple_stamped',
+        },
     },
     'loggers': {
         'django.request': {
@@ -145,7 +166,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-    }
+        'quiz': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        }
+    },
 }
 
 import local_settings

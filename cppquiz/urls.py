@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.views.generic.base import TemplateView
 
 # Uncomment the next two lines to enable the admin:

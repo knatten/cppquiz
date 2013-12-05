@@ -3,7 +3,7 @@ import re
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from models import Quiz, Question
+from models import Quiz, Question, UsersAnswer
 from test_helpers import *
 import fixed_quiz
 
@@ -32,12 +32,14 @@ class FixedQuizIntegrationTest(TestCase):
         response = self.answer_correctly(key, pk)
         self.assertContains(response, 'Correct!')
         self.assert_status_string_with(response, 1,1)
+        self.assertEqual(1, UsersAnswer.objects.count())
 
     def test_incorrectly_answering_a_question__redisplays_it_with_a_message_and_an_option_to_skip_it(self):
         create_questions(1)
         key = fixed_quiz.create_quiz(1)
         response = self.answer_incorrectly(key)
         self.assertContains(response, 'Incorrect!')
+        self.assertEqual(1, UsersAnswer.objects.count())
 
     def test_skipping_a_question__takes_you_to_the_next_question_but_gives_you_no_points(self):
         create_questions(fixed_quiz.nof_questions_in_quiz)
@@ -45,8 +47,10 @@ class FixedQuizIntegrationTest(TestCase):
         quiz = Quiz.objects.get(key=key)
         response = self.answer_correctly(key, quiz.questions.all()[0].pk)
         self.assert_status_string_with(response, answered=1, points=1)
+        users_answers_before_skipping = UsersAnswer.objects.count()
         response = self.skip(key)
         self.assert_status_string_with(response, answered=2, points=1)
+        self.assertEqual(users_answers_before_skipping, UsersAnswer.objects.count())
 
     def test_asking_for_a_hint__displays_the_hint_but_takes_away_half_a_point(self):
         create_questions(fixed_quiz.nof_questions_in_quiz)
@@ -68,6 +72,7 @@ class FixedQuizIntegrationTest(TestCase):
         response = self.answer_correctly(key, 1)
         self.assertContains(response, 'All right!')
         self.assert_result_string_with(response, 1)
+        self.assertEqual(1, UsersAnswer.objects.count())
 
     def test_when_a_session_exists_with_a_different_key__the_old_state_is_deleted(self):
         create_questions(20)
