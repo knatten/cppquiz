@@ -51,6 +51,7 @@ class QuizInProgress:
 
     def answer(self, request):
         answer = Answer(self.get_current_question(), request)
+        answer.register_given_answer()
         if answer.correct:
             self.answers.append(QuestionStats(attempts=self.attempts, used_hint=self.used_hint))
             self._reset_question_state()
