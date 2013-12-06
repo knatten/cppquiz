@@ -18,7 +18,7 @@ class Question(models.Model):
     question = models.TextField(default='', blank=True)
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
-    explanation = models.TextField(default='', blank=True, help_text='Refer to the standard like this: §x.y¶z. Wrap code like this: `int i`')
+    explanation = models.TextField(default='', blank=True, help_text='Refer to the standard like this: §x.y¶z. Wrap code like this: `int i`. Wrap in stars to ***emphasize***')
     hint = models.TextField(default='No hint', blank=True)
     date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
     published = models.BooleanField(default=True)
