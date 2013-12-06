@@ -28,4 +28,4 @@ def emphasize(text, autoescape=None):
     if autoescape:
         text = conditional_escape(text)
     return mark_safe(
-        re.sub(u'\*\*\*(.*)\*\*\*', '<em>\\1</em>', text))
+        re.sub(u'\*\*\*(.*)\*\*\*', '<strong>\\1</strong>', text))
