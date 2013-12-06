@@ -33,4 +33,4 @@ class standard_ref_Test(unittest.TestCase):
 class emphasize_test(unittest.TestCase):
     def test(self):
         self.assertEqual('foo',  emphasize('foo'))
-        self.assertEqual('<em>foo</em> bar',  emphasize('***foo*** bar'))
+        self.assertEqual('<strong>foo</strong> bar',  emphasize('***foo*** bar'))
