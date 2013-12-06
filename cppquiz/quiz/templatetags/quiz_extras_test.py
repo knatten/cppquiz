@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from quiz_extras import code_tags, standard_ref
+from quiz_extras import code_tags, standard_ref, emphasize
 
 class CodeTagsTest(unittest.TestCase):
 
@@ -29,3 +29,8 @@ class standard_ref_Test(unittest.TestCase):
 
     def test_doesnt_include_too_much(self):
         self.assertEqual(u'<em>§3.4¶1</em>.', standard_ref(u'§3.4¶1.'))
+
+class emphasize_test(unittest.TestCase):
+    def test(self):
+        self.assertEqual('foo',  emphasize('foo'))
+        self.assertEqual('<em>foo</em> bar',  emphasize('***foo*** bar'))

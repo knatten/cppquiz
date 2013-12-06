@@ -22,3 +22,10 @@ def standard_ref(text, autoescape=None):
         text = conditional_escape(text)
     return mark_safe(
         re.sub(u'(§[\d\.]+[¶\d]*)', '<em>\\1</em>', text))
+
+@register.filter(needs_autoescape=True)
+def emphasize(text, autoescape=None):
+    if autoescape:
+        text = conditional_escape(text)
+    return mark_safe(
+        re.sub(u'\*\*\*(.*)\*\*\*', '<em>\\1</em>', text))
