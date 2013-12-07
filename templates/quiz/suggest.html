@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div id="main_col">
+<h2>Quiz not found</h2>
+<p>A quiz with key <strong>{{key}}</strong> does not exist. Did you mean:</p>
+<ul>
+{%for suggestion in suggestions %}
+<li><a href="/q/{{suggestion.1}}">{{suggestion.1}}</a></li>
+{%endfor%}
+</ul>
+</div>
+
+<div id="right_col">
+{%include "quiz/mode.html"%}
+</div>
+
+<hr class=clear>
+{%endblock%}

@@ -1,3 +1,4 @@
+import difflib
 import random
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -106,9 +107,13 @@ def start(request):
     key = fixed_quiz.create_quiz()
     return HttpResponseRedirect('/q/%s' % key)
 
+
 def quiz(request, quiz_key):
     d = {}
-    quiz = Quiz.objects.get(key=quiz_key)
+    try:
+        quiz = Quiz.objects.get(key=quiz_key)
+    except Quiz.DoesNotExist:
+        return suggest_quiz_similar_to(quiz_key, request)
     quiz_in_progress = QuizInProgress(request.session, quiz)
     if request.REQUEST.get('did_answer'):
         quiz_in_progress.answer(request)
@@ -129,6 +134,20 @@ def quiz(request, quiz_key):
     d['title'] = ' - Quiz "' + quiz_key + '"'
     quiz_in_progress.save()
     return render_to_response('quiz/quiz.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
+def suggest_quiz_similar_to(key, request):
+    suggestions = reversed(sorted(
+            [(difflib.SequenceMatcher(None, q.key, key).ratio(), q.key)
+                for q in Quiz.objects.all()]
+                    )[-5:])
+    d = {
+        'key': key,
+        'suggestions': suggestions,
+    }
+    return render_to_response('quiz/suggest.html',
         d,
         context_instance=RequestContext(request)
         )
