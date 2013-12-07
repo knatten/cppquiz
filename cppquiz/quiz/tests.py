@@ -6,6 +6,7 @@ from test_active_quiz import ActiveQuizTest
 from test_quiz_in_progress import *
 from session_test import *
 from templatetags.quiz_extras_test import *
+from model_test import *
 
 def suite():
     return unittest.TestSuite([
@@ -19,5 +20,6 @@ def suite():
         unittest.TestLoader().loadTestsFromTestCase(CodeTagsTest),
         unittest.TestLoader().loadTestsFromTestCase(standard_ref_Test),
         unittest.TestLoader().loadTestsFromTestCase(emphasize_test),
+        unittest.TestLoader().loadTestsFromTestCase(QuestionTest),
         ])
 
