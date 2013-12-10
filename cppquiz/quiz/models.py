@@ -1,8 +1,13 @@
  # -*- coding: utf-8 -*-
 import datetime
+import random
+import string
 
 from django.core.exceptions import ValidationError
 from django.db import models
+
+def generate_preview_key():
+    return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 
 class Question(models.Model):
     RESULT_CHOICES = (
@@ -26,6 +31,7 @@ class Question(models.Model):
     published = models.BooleanField(default=False)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
+    preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
 
     def __str__(self):
         return str(self.pk)

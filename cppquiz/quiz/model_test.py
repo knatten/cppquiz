@@ -20,3 +20,9 @@ class QuestionTest(TestCase):
         q = Question(question='foo')
         q.save()
         self.assertEqual('foo', Question.objects.get(pk=q.pk).question)
+
+    def test_questions_get_a_random_preview_key(self):
+        q = Question.objects.create()
+        self.assertEqual(10, len(q.preview_key))
+        q2 = Question.objects.create()
+        self.assertNotEqual(q.preview_key, q2.preview_key)

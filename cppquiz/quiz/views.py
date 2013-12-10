@@ -76,9 +76,20 @@ def preview(request, question_id):
         context_instance=RequestContext(request)
         )
 
+def preview_with_key(request, question_id):
+    key = request.REQUEST.get('preview_key')
+    d = {}
+    d['question'] = get_object_or_404(Question, id=question_id, preview_key=key)
+    return render_to_response('quiz/preview.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
 def question(request, question_id):
     if request.REQUEST.get('preview'):
         return preview(request, question_id)
+    if request.REQUEST.get('preview_key'):
+        return preview_with_key(request, question_id)
     user_data = UserData(request.session)
     q = get_object_or_404(Question, id=question_id, published=True)
     d = {}

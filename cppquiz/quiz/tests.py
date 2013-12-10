@@ -2,6 +2,7 @@ import unittest
 
 from fixed_quiz_test import *
 from fixed_quiz_integration_test import *
+from training_integration_test import *
 from test_active_quiz import ActiveQuizTest
 from test_quiz_in_progress import *
 from session_test import *
@@ -15,6 +16,7 @@ def suite():
         unittest.TestLoader().loadTestsFromTestCase(ActiveQuizTest),
         unittest.TestLoader().loadTestsFromTestCase(QuizInProgressTest),
         unittest.TestLoader().loadTestsFromTestCase(FixedQuizIntegrationTest),
+        unittest.TestLoader().loadTestsFromTestCase(TrainingIntegrationTest),
         unittest.TestLoader().loadTestsFromTestCase(UserDataTest),
         unittest.TestLoader().loadTestsFromTestCase(save_user_dataTest),
         unittest.TestLoader().loadTestsFromTestCase(CodeTagsTest),
