@@ -31,6 +31,8 @@ class FixedQuizIntegrationTest(TestCase):
         pk = get_question_pk(response.content)
         response = self.answer_correctly(key, pk)
         self.assertContains(response, 'Correct!')
+        explanation = Question.objects.get(pk=pk).explanation
+        self.assertContains(response, explanation)
         self.assert_status_string_with(response, 1,1)
         self.assertEqual(1, UsersAnswer.objects.count())
 
