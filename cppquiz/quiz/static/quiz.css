@@ -134,3 +134,8 @@ p#stats
     margin:0;
     padding:.5em;
 }
+.show_previous_explanation
+{
+    font-size:.5em;
+    font-weight:normal;
+}

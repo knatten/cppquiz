@@ -25,6 +25,7 @@ class QuizInProgress:
             other = session['quiz_in_progress']
             self.answers = other.answers
             self.previous_result = other.previous_result
+            self.previous_explanation = getattr(other, 'previous_explanation', '')
             self.attempts = other.attempts
             self.used_hint = other.used_hint
         else:
@@ -40,6 +41,9 @@ class QuizInProgress:
     def get_previous_result(self):
         return self.previous_result
 
+    def get_previous_explanation(self):
+        return self.previous_explanation
+
     def nof_answered_questions(self):
         return len(self.answers)
 
@@ -54,7 +58,7 @@ class QuizInProgress:
 
     def answer(self, request):
         debug_string = "IP:%s, quiz:%s, result:%s, answer:%s, answers:%d" %\
-            (util.get_client_ip(request), self.quiz.pk, request.REQUEST.get('result', ''), request.REQUEST.get('answer', ''), len(self.answers))
+            (util.get_client_ip(request), self.quiz.key, request.REQUEST.get('result', ''), request.REQUEST.get('answer', ''), len(self.answers))
         logging.getLogger('quiz').debug(debug_string)
         answer = Answer(self.get_current_question(), request)
         answer.register_given_answer()
@@ -62,6 +66,7 @@ class QuizInProgress:
             self.answers.append(QuestionStats(attempts=self.attempts, used_hint=self.used_hint))
             self._reset_question_state()
             self.previous_result = 'correct'
+            self.previous_explanation = answer.question.explanation
         else:
             self.previous_result = 'incorrect'
             self.attempts += 1
@@ -83,6 +88,7 @@ class QuizInProgress:
         self.session.set_expiry(60*60*24*365*10) #TODO akn DRY
 
     def _reset_question_state(self):
+        self.previous_explanation = None
         self.previous_result = None
         self.attempts = 0
         self.used_hint = 0

@@ -13,8 +13,7 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 
 {%if quiz_in_progress.get_previous_result == 'correct'%}
 {%if not hint %}
-<h2 class="correct fading_msg">Correct!</h2>
-<!-- <div class="correct fading_msg"><p> Next question: </p></div> -->
+{%include "quiz/correct_collapsed.html"%}
 {%endif%}
 {%endif%}
 
