@@ -1,0 +1,7 @@
+{%load quiz_extras%}
+<div class="correct">
+<h2>Correct! <a class="show_previous_explanation" href="#">Show explanation</a></h2>
+<p class="previous_explanation">
+{{quiz_in_progress.get_previous_explanation|urlize|code_tags|linebreaks|standard_ref|emphasize}}
+</p>
+</div>
