@@ -13,13 +13,12 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 
 {%if quiz_in_progress.get_previous_result == 'correct'%}
 {%if not hint %}
-<div class="correct fading_msg">
+<div class="correct">
 <h2>Correct! <a class="show_previous_explanation" href="#">Show explanation</a></h2>
 <p class="previous_explanation">
 {{quiz_in_progress.get_previous_explanation}}
 </p>
 </div>
-<!-- <div class="correct fading_msg"><p> Next question: </p></div> -->
 {%endif%}
 {%endif%}
 
