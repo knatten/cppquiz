@@ -78,6 +78,15 @@ class FixedQuizIntegrationTest(TestCase):
         explanation = Quiz.objects.get(key=key).questions.all()[0].explanation
         self.assertContains(response, explanation)
 
+    def test_skipping_the_last_question__takes_you_to_the_summary(self):
+        create_questions(1)
+        key = fixed_quiz.create_quiz(1)
+        response = self.skip(key)
+        self.assertContains(response, 'All right!')
+        self.assert_result_string_with(response, 0)
+        self.assertEqual(0, UsersAnswer.objects.count())
+        self.assertNotContains(response, 'Correct')
+
     def test_when_a_session_exists_with_a_different_key__the_old_state_is_deleted(self):
         create_questions(20)
         key1 = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
