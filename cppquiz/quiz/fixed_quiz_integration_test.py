@@ -75,6 +75,8 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'All right!')
         self.assert_result_string_with(response, 1)
         self.assertEqual(1, UsersAnswer.objects.count())
+        explanation = Quiz.objects.get(key=key).questions.all()[0].explanation
+        self.assertContains(response, explanation)
 
     def test_when_a_session_exists_with_a_different_key__the_old_state_is_deleted(self):
         create_questions(20)
