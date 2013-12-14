@@ -19,7 +19,7 @@
         <p>{{ form.question }}</p>
         <p><label for="id_result">This program is:</label> {{ form.result }} {{ form.result.errors }}</p>
         <p><label for="id_answer">The output of this program:</label> {{ form.answer }} {{ form.answer.errors }}</p>
-        <p><label for="id_explanation">Explanation: <span class="help_text">Please be clear and to the point. Please try to use correct terminology. Refer to the standard like this: §x.y¶z. Wrap code in backticks like this: `int i`. Wrap in stars to ***emphasize***. Don't worry if you don't get the formatting perfect, a moderator will go over it before publishing. </span></label></p>
+        <p><label for="id_explanation">Explanation: <span class="help_text">Please be clear and to the point. Please try to use correct terminology. Refer to the standard like this: §x.y¶z. Wrap code in backticks like this: `int i`, or indent whole blocks with four spaces. Wrap in stars to ***emphasize***. Don't worry if you don't get the formatting perfect, a moderator will go over it before publishing. </span></label></p>
         <div id="explanation_errors">{{ form.explanation.errors }}</div>
         <p>{{ form.explanation }}</p>
         <p><label for="id_author_email">Your email (optional):</label> {{ form.author_email }} {{ form.author_email.errors }} <span class="help_text">To notify you when your question is accepted, or in case we need to ask you anything about this question. We don't spam, we don't share your email.</span></p>
