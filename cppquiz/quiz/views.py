@@ -107,6 +107,7 @@ def question(request, question_id):
     d['user_data'] = user_data
     d['show_hint'] = request.REQUEST.get('show_hint', False)
     d['title'] = ' - Question #%d' % q.pk
+    d['attempts_required'] = 3
     save_user_data(user_data, request.session)
     return render_to_response('quiz/index.html',
         d,

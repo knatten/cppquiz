@@ -31,6 +31,9 @@ $(document).ready(function() {
     $('.show_previous_explanation').click(function(){
         $('.previous_explanation').toggle();
     });
+    $('a.disabled').click(function(e) {
+        e.preventDefault();
+    });
 });
 </script>
 </head>
