@@ -66,6 +66,10 @@ div.correct p, div.incorrect p, div.hint p
     padding-top:0.5em;
     margin-top:0;
 }
+h4.quiz_mode
+{
+    background-color:#aaf;
+}
 .footer
 {
     color:grey;
