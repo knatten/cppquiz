@@ -41,6 +41,10 @@ h1 a
     text-decoration:none;
     color:black;
 }
+h2.preview
+{
+    background-color:#faa;
+}
 .correct
 {
     background-color:#8f8;
