@@ -47,12 +47,20 @@ class TrainingIntegrationTest(TestCase):
         self.assertContains(response, 'Correct')
         self.assertNotContains(response, 'more attempts first')
 
-    def test_when_viewing_an_incorrectly_nanswered_question__is_told_that_attempts_are_needed_before_giving_up_is_allowed(self):
+    def test_when_viewing_an_incorrectly_answered_question__is_told_that_more_attempts_are_needed_before_giving_up_is_allowed(self):
         question = self.create_question(True)
-        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
-            {'did_answer': 'answer', 'result':question.result, 'answer':'wrong'})
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertContains(response, 'make 3 more attempts first')
+        response = self.answer_question_incorrectly(question)
+        self.assertContains(response, 'make 2 more attempts first')
+        response = self.answer_question_incorrectly(question)
+        self.assertContains(response, 'make 1 more attempts first')
+        response = self.answer_question_incorrectly(question)
+        self.assertNotContains(response, 'more attempts first')
 
     def create_question(self, published, preview_key=''):
         return Question.objects.create(published=published, question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
 
+    def answer_question_incorrectly(self, question):
+        return self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
+            {'did_answer': 'answer', 'result':question.result, 'answer':'wrong'})

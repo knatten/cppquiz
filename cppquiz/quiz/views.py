@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count, Avg
+from django.db.models import Count
 
 import fixed_quiz
 from models import *
@@ -100,6 +100,7 @@ def question(request, question_id):
         d['answered'] = True
         answer = Answer(q, request)
         answer.register_given_answer()
+        user_data.register_attempt(answer)
         if answer.correct:
             d['correct_result'] = True
             user_data.register_correct_answer(question_id)
@@ -107,7 +108,7 @@ def question(request, question_id):
     d['user_data'] = user_data
     d['show_hint'] = request.REQUEST.get('show_hint', False)
     d['title'] = ' - Question #%d' % q.pk
-    d['attempts_required'] = 3
+    d['attempts_required'] = max(0, 3 - user_data.attempts_given_for(question_id))
     save_user_data(user_data, request.session)
     return render_to_response('quiz/index.html',
         d,

@@ -154,7 +154,7 @@ p#stats
     padding-bottom: 0;
     background-color:#8f8;
 }
-.disabled
+.disabled, .disabled a
 {
-    color:#666;
+    color:#999;
 }
