@@ -5,6 +5,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^quiz/question/(?P<question_id>\d+)', views.question, name='question'),
+    url(r'^quiz/giveup/(?P<question_id>\d+)', views.giveup, name='giveup'),
     url(r'^quiz/clear', views.clear, name='clear'),
     url(r'^quiz/random', views.random_question, name='random'),
     url(r'^quiz/created', TemplateView.as_view(template_name = 'quiz/created.html')),

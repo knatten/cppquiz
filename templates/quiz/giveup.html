@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{%load quiz_extras%}
+{%block content%}
+
+<div id="main_col">
+
+<h2 class="giveup">You gave up!</h2>
+<p>That's ok, sometimes you just don't know. At least you gave it a few tries!</p>
+{%include "quiz/question.html"%}
+<h3>Answer</h3>
+<p>This question {{question.get_result_display}}.</p>
+{%if question.result == "OK"%}
+<p>Its output is "{{question.answer}}".</p>
+{%endif%}
+<h3>Explanation</h3>
+<div>
+{{question.explanation|urlize|code_tags|code_blocks|linebreaks|standard_ref|emphasize}}
+</div>
+{%include "quiz/admin_link.html"%}
+
+</div>
+<hr class=clear>
+{%endblock%}

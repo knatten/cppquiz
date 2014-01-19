@@ -58,6 +58,11 @@ class TrainingIntegrationTest(TestCase):
         response = self.answer_question_incorrectly(question)
         self.assertNotContains(response, 'more attempts first')
 
+    def test_when_less_than_three_attempts_were_made__going_directly_to_the_giveup_page_is_not_allowed(self):
+        question = self.create_question(True)
+        response = self.client.get(reverse('quiz:giveup', kwargs={'question_id': question.pk}))
+        self.assertEqual(404, response.status_code)
+
     def create_question(self, published, preview_key=''):
         return Question.objects.create(published=published, question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
 

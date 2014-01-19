@@ -115,6 +115,17 @@ def question(request, question_id):
         context_instance=RequestContext(request)
         )
 
+def giveup(request, question_id):
+    user_data = UserData(request.session)
+    if user_data.attempts_given_for(question_id) < 3:
+        raise Http404
+    d = {}
+    d['question'] = get_object_or_404(Question, id=question_id)
+    return render_to_response('quiz/giveup.html',
+        d,
+        context_instance=RequestContext(request)
+        )
+
 def start(request):
     clear_quiz_in_progress(request.session)
     key = fixed_quiz.create_quiz()
