@@ -12,7 +12,7 @@ def beta():
 
 def run_tests():
     local('python2.7 manage.py test quiz')
-    local('./run_lettuce')
+    #local('./run_lettuce')
 
 def deploy(directory):
     run_tests()

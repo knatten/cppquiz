@@ -1,1 +1,11 @@
-<p>Problems? View a <a href="{{request.path}}?show_hint=1" class="confirm_hint">hint</a> or try <a href="/quiz/random">another question</a></p>
+<p>Problems? View a <a href="{{request.path}}?show_hint=1" class="confirm_hint">hint</a> or try <a href="/quiz/random">another question</a>.</p>
+{%if attempts_required%}
+<p class="disabled">
+{%else%}
+<p>
+{%endif%}
+<a href="/quiz/giveup/{{question.pk}}">I give up, show me the answer</a>
+{%if attempts_required%}
+(make {{attempts_required}} more attempts first).
+{%endif%}
+</p>

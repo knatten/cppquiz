@@ -41,7 +41,7 @@ h1 a
     text-decoration:none;
     color:black;
 }
-h2.preview
+h2.preview, h2.giveup
 {
     background-color:#faa;
 }
@@ -153,4 +153,8 @@ p#stats
     padding-top: 0;
     padding-bottom: 0;
     background-color:#8f8;
+}
+.disabled, .disabled a
+{
+    color:#999;
 }
