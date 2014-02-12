@@ -34,7 +34,7 @@ class QuizInProgress:
 
     def get_current_question(self):
         try:
-            return self.quiz.questions.all()[len(self.answers)]
+            return self.quiz.get_ordered_questions()[len(self.answers)]
         except IndexError:
             raise Exception("%d questions, %d answers" % (self.quiz.questions.count(), len(self.answers)))
 

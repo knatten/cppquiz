@@ -21,27 +21,27 @@ class QuizInProgressTest(TestCase):
 
     def test_given_new_quiz__returns_first_question_and_no_result_from_previous_question(self):
         self.set_up()
-        self.assertEqual(self.quiz.questions.all()[0], self.in_progress.get_current_question())
+        self.assertEqual(self.quiz.get_ordered_questions()[0], self.in_progress.get_current_question())
         self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_answered_correctly__returns_next_question_and_previous_result_is_correct_and_explained(self):
         self.set_up()
         self.answer_current_question_correctly()
-        self.assertEqual(self.quiz.questions.all()[1], self.in_progress.get_current_question())
+        self.assertEqual(self.quiz.get_ordered_questions()[1], self.in_progress.get_current_question())
         self.assertEqual('correct', self.in_progress.get_previous_result())
-        explanation = self.quiz.questions.all()[0].explanation
+        explanation = self.quiz.get_ordered_questions()[0].explanation
         self.assertEqual(explanation, self.in_progress.get_previous_explanation())
 
     def test_when_answered_incorrectly__returns_same_question_and_previous_result_is_incorrect(self):
         self.set_up()
         self.answer_current_question_incorrectly()
-        self.assertEqual(self.quiz.questions.all()[0], self.in_progress.get_current_question())
+        self.assertEqual(self.quiz.get_ordered_questions()[0], self.in_progress.get_current_question())
         self.assertEqual('incorrect', self.in_progress.get_previous_result())
 
     def test_when_skipped__returns_next_question_and_no_result_from_previous_question(self):
         self.set_up()
         self.in_progress.skip()
-        self.assertEqual(self.quiz.questions.all()[1], self.in_progress.get_current_question())
+        self.assertEqual(self.quiz.get_ordered_questions()[1], self.in_progress.get_current_question())
         self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_skipped__clears_previous_result(self):

@@ -43,7 +43,7 @@ class create_quiz_Test(TestCase):
     def test_creating_a_quiz__has_questions_in_random_order(self):
         create_questions(10)
         fixed_quiz.create_quiz(10)
-        pks = [q.pk for q in Quiz.objects.get(pk=1).questions.all()]
+        pks = [q.pk for q in Quiz.objects.get(pk=1).get_ordered_questions()]
         self.assertNotEqual(sorted(pks), pks)
 
     def test_creating_a_quiz__only_uses_published_questions(self):
