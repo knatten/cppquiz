@@ -19,7 +19,7 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'You are taking quiz')
         self.assertRegexpMatches(response.content, 'You are taking quiz.*%s' % redirect_relative)
 
-        first_question_in_quiz = Quiz.objects.all()[0].questions.all()[0].pk
+        first_question_in_quiz = Quiz.objects.all()[0].get_ordered_questions()[0].pk
         self.assertContains(response, 'Question #%d' % first_question_in_quiz)
 
         self.assert_status_string_with(response, 0,0)
@@ -47,7 +47,7 @@ class FixedQuizIntegrationTest(TestCase):
         create_questions(fixed_quiz.nof_questions_in_quiz)
         key = fixed_quiz.create_quiz()
         quiz = Quiz.objects.get(key=key)
-        response = self.answer_correctly(key, quiz.questions.all()[0].pk)
+        response = self.answer_correctly(key, quiz.get_ordered_questions()[0].pk)
         self.assert_status_string_with(response, answered=1, points=1)
         users_answers_before_skipping = UsersAnswer.objects.count()
         response = self.skip(key)
@@ -65,7 +65,7 @@ class FixedQuizIntegrationTest(TestCase):
         response = self.client.get(reverse('quiz:quiz', args=(key,)), {'hint':'1'})
         self.assertContains(response, '>a hint<', count=0)
         self.assertContains(response, 'Hint')
-        response = self.answer_correctly(key, quiz.questions.all()[0].pk)
+        response = self.answer_correctly(key, quiz.get_ordered_questions()[0].pk)
         self.assert_status_string_with(response, answered=1, points=0.5)
 
     def test_correctly_answering_the_last_question__takes_you_to_the_summary(self):
@@ -75,7 +75,7 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'All right!')
         self.assert_result_string_with(response, 1)
         self.assertEqual(1, UsersAnswer.objects.count())
-        explanation = Quiz.objects.get(key=key).questions.all()[0].explanation
+        explanation = Quiz.objects.get(key=key).get_ordered_questions()[0].explanation
         self.assertContains(response, explanation)
 
     def test_skipping_the_last_question__takes_you_to_the_summary(self):
@@ -93,7 +93,7 @@ class FixedQuizIntegrationTest(TestCase):
         key2 = fixed_quiz.create_quiz(fixed_quiz.nof_questions_in_quiz)
         quiz1 = Quiz.objects.get(key=key1)
         quiz2 = Quiz.objects.get(key=key2)
-        response = self.answer_correctly(key1, quiz1.questions.all()[0].pk)
+        response = self.answer_correctly(key1, quiz1.get_ordered_questions()[0].pk)
         self.assert_status_string_with(response, answered=1, points=1)
         response = self.client.get(reverse('quiz:quiz', args=(key2,)))
         self.assert_status_string_with(response, answered=0, points=0)

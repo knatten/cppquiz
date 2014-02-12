@@ -59,6 +59,10 @@ class Quiz(models.Model):
     key = models.CharField(max_length=10, default='')
     date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
 
+    def get_ordered_questions(self):
+        #Order pseudo-randomly but not in order of primary key
+        return self.questions.all().order_by('hint', 'id')
+
     def question_ids(self):
         return ','.join([str(q) for q in self.questions.all()])
 
