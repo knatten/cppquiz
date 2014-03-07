@@ -45,6 +45,10 @@ h2.preview, h2.giveup
 {
     background-color:#faa;
 }
+pre
+{
+    white-space:pre-wrap;
+}
 .correct
 {
     background-color:#8f8;
