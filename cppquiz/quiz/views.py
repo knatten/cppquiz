@@ -149,7 +149,7 @@ def quiz(request, quiz_key):
     if request.GET.has_key('hint'):
         quiz_in_progress.use_hint()
         d['hint'] = True
-    if quiz_in_progress.is_finished():
+    if quiz_in_progress.is_finished(request):
         return render_to_response('quiz/finished.html',
             d,
             context_instance=RequestContext(request)

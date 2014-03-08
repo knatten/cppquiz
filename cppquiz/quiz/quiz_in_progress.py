@@ -50,7 +50,10 @@ class QuizInProgress:
     def get_total_nof_questions(self):
         return self.quiz.questions.count()
 
-    def is_finished(self):
+    def is_finished(self, request):
+        debug_string = "is_finished? IP:%s, quiz:%s, (%d/%d/%d)" % \
+            (util.get_client_ip(request), self.quiz.key, self.nof_answered_questions(), len(self.answers), self.quiz.questions.count())
+        logging.getLogger('quiz').debug(debug_string)
         return self.quiz.questions.count() == self.nof_answered_questions()
 
     def score(self):
