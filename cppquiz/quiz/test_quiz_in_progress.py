@@ -52,9 +52,10 @@ class QuizInProgressTest(TestCase):
 
     def test_when_all_questions_are_answered__is_finished(self):
         self.set_up(1)
-        self.assertFalse(self.in_progress.is_finished())
+        request = RequestFactory().get('')
+        self.assertFalse(self.in_progress.is_finished(request))
         self.answer_current_question_correctly()
-        self.assertTrue(self.in_progress.is_finished())
+        self.assertTrue(self.in_progress.is_finished(request))
 
     def test_when_starting__count_and_score_are_zero(self):
         self.set_up()
