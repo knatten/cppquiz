@@ -40,14 +40,16 @@ class QuizInProgressTest(TestCase):
 
     def test_when_skipped__returns_next_question_and_no_result_from_previous_question(self):
         self.set_up()
-        self.in_progress.skip()
+        request = RequestFactory().get('')
+        self.in_progress.skip(request)
         self.assertEqual(self.quiz.get_ordered_questions()[1], self.in_progress.get_current_question())
         self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_skipped__clears_previous_result(self):
         self.set_up()
         for function in [self.answer_current_question_correctly, self.answer_current_question_incorrectly]:
-            self.in_progress.skip()
+            request = RequestFactory().get('')
+            self.in_progress.skip(request)
             self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_all_questions_are_answered__is_finished(self):
@@ -76,7 +78,8 @@ class QuizInProgressTest(TestCase):
 
     def test_when_skippting_a_question__count_is_one_but_score_is_zero(self):
         self.set_up()
-        self.in_progress.skip()
+        request = RequestFactory().get('')
+        self.in_progress.skip(request)
         self.assertEqual(1, self.in_progress.nof_answered_questions())
         self.assertEqual(0, self.in_progress.score())
 
@@ -109,7 +112,8 @@ class QuizInProgressTest(TestCase):
     def test_when_hint_is_used_and_question_is_skipped__doesnt_affect_next_question(self):
         self.set_up()
         self.in_progress.use_hint()
-        self.in_progress.skip()
+        request = RequestFactory().get('')
+        self.in_progress.skip(request)
         self.answer_current_question_correctly()
         self.assertEqual(1, self.in_progress.score())
 

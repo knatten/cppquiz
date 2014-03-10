@@ -1,4 +1,5 @@
 import difflib
+import logging
 import random
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -145,11 +146,13 @@ def quiz(request, quiz_key):
         return HttpResponseRedirect('/q/%s' % quiz_key)
     d['quiz_in_progress'] = quiz_in_progress
     if request.GET.has_key('skip'):
-        quiz_in_progress.skip()
+        quiz_in_progress.skip(request)
     if request.GET.has_key('hint'):
         quiz_in_progress.use_hint()
         d['hint'] = True
     if quiz_in_progress.is_finished(request):
+        debug_string = "IP:%s, quiz:%s was served the finished-screen " % (util.get_client_ip(request), quiz_in_progress.quiz.key)
+        logging.getLogger('quiz').debug(debug_string)
         return render_to_response('quiz/finished.html',
             d,
             context_instance=RequestContext(request)

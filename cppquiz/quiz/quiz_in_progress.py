@@ -81,7 +81,9 @@ class QuizInProgress:
     def use_hint(self):
         self.used_hint = 1
 
-    def skip(self):
+    def skip(self, request):
+        if self.is_finished(request):
+            return
         self._reset_question_state()
         self.answers.append(QuestionStats(skipped=True))
 
