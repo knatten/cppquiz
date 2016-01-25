@@ -14,6 +14,7 @@ class QuestionForm(ModelForm):
 
     class Meta:
         model = Question
+        fields = '__all__'
 
     def clean_question(self):
         return cannot_be_empty(self.cleaned_data['question'])

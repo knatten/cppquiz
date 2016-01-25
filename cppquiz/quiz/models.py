@@ -27,7 +27,7 @@ class Question(models.Model):
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True, help_text='Refer to the standard like this: §x.y¶z. Wrap code like this: `int i`. Wrap in stars to ***emphasize***')
     hint = models.TextField(default='No hint', blank=True)
-    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
+    date_time = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
@@ -51,13 +51,13 @@ class UsersAnswer(models.Model):
     result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
     ip = models.CharField(max_length=45, default='', blank=True)
-    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
+    date_time = models.DateTimeField(auto_now_add=True)
     correct = models.BooleanField(default=False)
 
 class Quiz(models.Model):
     questions = models.ManyToManyField(Question, through='QuestionInQuiz')
     key = models.CharField(max_length=10, default='')
-    date_time = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now)
+    date_time = models.DateTimeField(auto_now_add=True)
 
     def get_ordered_questions(self):
         #Order pseudo-randomly but not in order of primary key
