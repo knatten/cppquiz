@@ -129,7 +129,7 @@ class QuizInProgressTest(TestCase):
 
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
-        request = RequestFactory().post('', data={'result' : question.result, 'answer' : question.answer})
+        request = RequestFactory().get('', data={'result' : question.result, 'answer' : question.answer})
         self.in_progress.answer(request)
 
     def answer_current_question_incorrectly(self):

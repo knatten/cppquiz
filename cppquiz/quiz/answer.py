@@ -4,8 +4,8 @@ from util import get_client_ip
 class Answer:
     def __init__(self, question, request):
         self.question = question
-        self.given_answer = request.REQUEST.get('answer', '').strip()
-        self.given_result = request.REQUEST.get('result', '').strip()
+        self.given_answer = request.GET.get('answer', '').strip()
+        self.given_result = request.GET.get('result', '').strip()
         self.correct = self.given_result == self.question.result and\
             (self.question.result != 'OK' or self.given_answer == self.question.answer.strip())
         self.ip = get_client_ip(request)

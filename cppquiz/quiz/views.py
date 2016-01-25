@@ -45,7 +45,7 @@ def categorize(request):
                 q.save()
                 return HttpResponseRedirect("/quiz/categorize/?changed=%d#question_%d" % (q.pk, q.pk))
     else:
-        changed = int(request.REQUEST.get('changed', 0))
+        changed = int(request.GET.get('changed', 0))
         questions = Question.objects.filter(published=True).order_by('difficulty')\
                     .annotate(num_answers=Count('usersanswer'))
         for q in questions:
@@ -81,7 +81,7 @@ def preview(request, question_id):
         )
 
 def preview_with_key(request, question_id):
-    key = request.REQUEST.get('preview_key')
+    key = request.GET.get('preview_key')
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id, preview_key=key)
     return render_to_response('quiz/preview.html',
@@ -90,9 +90,9 @@ def preview_with_key(request, question_id):
         )
 
 def question(request, question_id):
-    if request.REQUEST.get('preview'):
+    if request.GET.get('preview'):
         return preview(request, question_id)
-    if request.REQUEST.get('preview_key'):
+    if request.GET.get('preview_key'):
         return preview_with_key(request, question_id)
     user_data = UserData(request.session)
     q = get_object_or_404(Question, id=question_id, published=True)
@@ -100,7 +100,7 @@ def question(request, question_id):
     d['answered'] = False
     d['question'] = q
     d['dismissed_training_msg'] = user_data.dismissed_training_msg
-    if request.REQUEST.get('did_answer'):
+    if request.GET.get('did_answer'):
         d['answered'] = True
         answer = Answer(q, request)
         answer.register_given_answer()
@@ -110,7 +110,7 @@ def question(request, question_id):
             user_data.register_correct_answer(question_id)
     d['total_questions'] = Question.objects.filter(published=True).count()
     d['user_data'] = user_data
-    d['show_hint'] = request.REQUEST.get('show_hint', False)
+    d['show_hint'] = request.GET.get('show_hint', False)
     d['title'] = ' - Question #%d' % q.pk
     d['attempts_required'] = max(0, 3 - user_data.attempts_given_for(question_id))
     save_user_data(user_data, request.session)
@@ -143,7 +143,7 @@ def quiz(request, quiz_key):
     except Quiz.DoesNotExist:
         return suggest_quiz_similar_to(quiz_key, request)
     quiz_in_progress = QuizInProgress(request.session, quiz)
-    if request.REQUEST.get('did_answer'):
+    if request.GET.get('did_answer'):
         quiz_in_progress.answer(request)
         quiz_in_progress.save()
         return HttpResponseRedirect('/q/%s' % quiz_key)

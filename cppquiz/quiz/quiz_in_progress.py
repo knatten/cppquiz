@@ -61,7 +61,7 @@ class QuizInProgress:
 
     def answer(self, request):
         debug_string = "IP:%s, quiz:%s, result:%s, answer:%s, answers:%d" %\
-            (util.get_client_ip(request), self.quiz.key, request.REQUEST.get('result', ''), request.REQUEST.get('answer', ''), len(self.answers))
+            (util.get_client_ip(request), self.quiz.key, request.GET.get('result', ''), request.GET.get('answer', ''), len(self.answers))
         logging.getLogger('quiz').debug(debug_string)
         answer = Answer(self.get_current_question(), request)
         answer.register_given_answer()
