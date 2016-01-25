@@ -50,7 +50,7 @@ def categorize(request):
                     .annotate(num_answers=Count('usersanswer'))
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
-            q.percentage_correct = num_correct * 100.0 / q.num_answers
+            q.percentage_correct = num_correct * 100.0 / q.num_answers if q.num_answers > 0 else 0
         return render_to_response('quiz/categorize.html' ,
             {'questions': questions, 'changed':changed},
             context_instance=RequestContext(request)
