@@ -11,7 +11,7 @@ def beta():
     deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz')
 
 def run_tests():
-    local('python2.7 manage.py test quiz')
+    local('python2.7 manage.py test')
     #local('./run_lettuce')
 
 def deploy(directory):
