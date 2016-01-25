@@ -2,3 +2,13 @@ This is the source code (but not the content) for http://cppquiz.org
 
 Both this code and the contents of the site are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License:
 http://creativecommons.org/licenses/by-sa/4.0/
+
+# Contributing
+
+- Clone this repository
+- Install Django 1.9 (Yes, we probably should use virtualenv)
+- `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
+- Read the Django docs
+- `python manage.py migrate'
+- `python manage.py createsuperuser`
+- `python manage.py runserver'
