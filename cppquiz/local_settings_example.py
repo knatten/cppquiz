@@ -25,3 +25,5 @@ settings.STATIC_ROOT=''
 settings.STATIC_URL='/static/'
 
 settings.EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+settings.SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
