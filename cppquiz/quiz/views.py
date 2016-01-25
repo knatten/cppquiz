@@ -20,8 +20,11 @@ def index(request):
     return random_question(request)
 
 def random_question(request):
-    return HttpResponseRedirect(
-    "/quiz/question/%d" % get_unanswered_question(UserData(request.session)))
+    try:
+        return HttpResponseRedirect(
+            "/quiz/question/%d" % get_unanswered_question(UserData(request.session)))
+    except NoQuestionsExist:
+        return HttpResponseRedirect("/quiz/no_questions")
 
 def clear(request):
     user_data = UserData(request.session)
@@ -188,6 +191,8 @@ def dismiss_training_msg(request):
 #TODO what if there are no questions
 def get_unanswered_question(user_data):
     available_questions = [q.id for q in Question.objects.filter(published=True)]
+    if len(available_questions) == 0:
+        raise NoQuestionsExist
     for q in user_data.get_correctly_answered_questions():
         if int(q) in available_questions:
             available_questions.remove(int(q))
@@ -198,3 +203,6 @@ def get_unanswered_question(user_data):
 
 def raise_exception(request):
     raise Exception("Test exception raised")
+
+class NoQuestionsExist(Exception):
+    pass
