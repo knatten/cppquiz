@@ -29,6 +29,7 @@ The system tests are currently not maintained. If you want to have a go, you nee
 
 ## Deployment
 - `sudo pip install fabric`
+- Bump the version in `templates.base.html` (this should be scripted)
 - `fab beta`
 - Check `http://beta.cppquiz.org/`
 - `fab production`
