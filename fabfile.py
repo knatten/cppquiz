@@ -5,7 +5,7 @@ env.user = 'riktigbil'
 
 
 def production():
-    deploy('/home/riktigbil/webapps/cppquiz/cppquiz')
+    deploy('/home/riktigbil/webapps/cppquiz_prod/cppquiz')
 
 def beta():
     deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz')
