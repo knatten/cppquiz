@@ -11,9 +11,9 @@ def generate_preview_key():
 
 class Question(models.Model):
     RESULT_CHOICES = (
-        ('OK', 'is compilable and deterministic'),
+        ('OK', 'is compilable'),
         ('CE', 'has a compilation error'),
-        ('US', 'is unspecified'),
+        ('US', 'is unspecified / impl. defined'),
         ('UD', 'is undefined'),
     )
     DIFFICULTY_CHOICES = (
