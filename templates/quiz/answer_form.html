@@ -1,10 +1,10 @@
-This 
+Answer:
 <select name="result" id="result">
 {%for o in question.RESULT_CHOICES%}
 <option value="{{o.0}}">{{o.1}}</option>
 {%endfor%}
 </select>
 <span id="output_form_part">
-and the output is guaranteed to be <input name="answer" size="4" autocomplete="off">
+<input name="answer" size="4" autocomplete="off">
 </span>
 <input type="submit" value="Answer" name="did_answer">
