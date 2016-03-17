@@ -29,6 +29,7 @@ class Question(models.Model):
     hint = models.TextField(default='No hint', blank=True)
     date_time = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False)
+    refused = models.BooleanField(default=False)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
