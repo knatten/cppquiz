@@ -4,7 +4,7 @@ import random
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
@@ -51,10 +51,8 @@ def categorize(request):
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
             q.percentage_correct = num_correct * 100.0 / q.num_answers if q.num_answers > 0 else 0
-        return render_to_response('quiz/categorize.html' ,
-            {'questions': questions, 'changed':changed},
-            context_instance=RequestContext(request)
-            )
+        return render(request, 'quiz/categorize.html' ,
+            {'questions': questions, 'changed':changed})
 
 def create(request):
     if request.method == 'POST':
@@ -65,29 +63,21 @@ def create(request):
             return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()
-    return render_to_response('quiz/create.html',
-        {'form':form, 'title':'Create question'},
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/create.html',
+        {'form':form, 'title':'Create question'})
 
 def preview(request, question_id):
     if not request.user.is_staff:
         raise Http404
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id)
-    return render_to_response('quiz/preview.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/preview.html', d)
 
 def preview_with_key(request, question_id):
     key = request.GET.get('preview_key')
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id, preview_key=key)
-    return render_to_response('quiz/preview.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/preview.html', d)
 
 def question(request, question_id):
     if request.GET.get('preview'):
@@ -114,10 +104,7 @@ def question(request, question_id):
     d['title'] = ' - Question #%d' % q.pk
     d['attempts_required'] = max(0, 3 - user_data.attempts_given_for(question_id))
     save_user_data(user_data, request.session)
-    return render_to_response('quiz/index.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/index.html', d)
 
 def giveup(request, question_id):
     user_data = UserData(request.session)
@@ -125,10 +112,7 @@ def giveup(request, question_id):
         raise Http404
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id)
-    return render_to_response('quiz/giveup.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/giveup.html', d)
 
 def start(request):
     clear_quiz_in_progress(request.session)
@@ -156,17 +140,11 @@ def quiz(request, quiz_key):
     if quiz_in_progress.is_finished(request):
         debug_string = "IP:%s, quiz:%s was served the finished-screen " % (util.get_client_ip(request), quiz_in_progress.quiz.key)
         logging.getLogger('quiz').debug(debug_string)
-        return render_to_response('quiz/finished.html',
-            d,
-            context_instance=RequestContext(request)
-            )
+        return render(request, 'quiz/finished.html', d)
     d['question'] = quiz_in_progress.get_current_question()
     d['title'] = ' - Quiz "' + quiz_key + '"'
     quiz_in_progress.save()
-    return render_to_response('quiz/quiz.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/quiz.html', d)
 
 def suggest_quiz_similar_to(key, request):
     suggestions = reversed(sorted(
@@ -177,10 +155,7 @@ def suggest_quiz_similar_to(key, request):
         'key': key,
         'suggestions': suggestions,
     }
-    return render_to_response('quiz/suggest.html',
-        d,
-        context_instance=RequestContext(request)
-        )
+    return render(request, 'quiz/suggest.html', d)
 
 def dismiss_training_msg(request):
     user_data = UserData(request.session)

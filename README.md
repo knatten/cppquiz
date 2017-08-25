@@ -8,7 +8,7 @@ http://creativecommons.org/licenses/by-sa/4.0/
 ## Setting up the environment
 Note: CppQuiz is still running on Python 2.7
 - Clone this repository
-- Install Django 1.9 (Yes, we probably should use virtualenv)
+- Install Django 1.11 (Using Virtualenv is recommended)
 - `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
 - Read the Django docs
 - `python manage.py migrate'

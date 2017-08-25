@@ -17,9 +17,8 @@ settings.DATABASES = {
     }
 }
 
-settings.TEMPLATE_DIRS = (
-    '/path/to/your/code/cppquiz/templates',
-)
+settings.TEMPLATES[0]['DIRS'].append('/path/to/your/code/cppquiz/templates')
+settings.TEMPLATES[0]['OPTIONS']['debug'] = True
 
 settings.STATIC_ROOT=''
 settings.STATIC_URL='/static/'

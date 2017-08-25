@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 
 import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^quiz/question/(?P<question_id>\d+)', views.question, name='question'),
     url(r'^quiz/giveup/(?P<question_id>\d+)', views.giveup, name='giveup'),
     url(r'^quiz/clear', views.clear, name='clear'),
@@ -19,4 +19,4 @@ urlpatterns = patterns('',
     url(r'^q/(?P<quiz_key>\w+)', views.quiz, name='quiz'),
     url(r'^raise', views.raise_exception, name='raise_exception'),
     url(r'^$', views.index, name='index'),
-)
+]
