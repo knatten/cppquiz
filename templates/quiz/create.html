@@ -19,9 +19,9 @@
         <div id="question_errors">{{ form.question.errors }}</div>
         <p>{{ form.question }}</p>
 
-        <p><label for="id_result">This program is:</label> {{ form.result }} {{ form.result.errors }}</p>
+        <p><label for="id_result">Result:</label> {{ form.result }} {{ form.result.errors }}</p>
 
-        <p><label for="id_answer">The output of this program:</label> {{ form.answer }} {{ form.answer.errors }}</p>
+        <p><label for="id_answer">The output of this program is:</label> {{ form.answer }} {{ form.answer.errors }}<span class="help_text">Leave blank for questions with errors / undefined behavior</span></p>
 
         <p><label for="id_explanation">Explanation: <span class="help_text">Please be clear and to the point. Please try to use correct terminology. Refer to the standard like this: §x.y¶z. Wrap code in backticks like this: `int i`, or indent whole blocks with four spaces. Wrap in stars to ***emphasize***. Don't worry if you don't get the formatting perfect, a moderator will go over it before publishing. </span></label></p>
         <div id="explanation_errors">{{ form.explanation.errors }}</div>
