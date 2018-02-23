@@ -4,10 +4,14 @@ from models import *
 def question_part(obj):
     return obj.question[:250]
 
+def result_short(obj):
+    return obj.result
+
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=('pk', 'published', 'refused', question_part, 'answer', 'difficulty')
-    list_filter=('published', 'refused', 'difficulty')
+    list_display=('pk', 'published', 'refused', question_part, result_short, 'answer', 'difficulty', 'date_time')
+    list_filter=('published', 'refused', 'difficulty', 'result')
     search_fields=('question', 'explanation')
+    readonly_fields=('date_time',)
 
 class UsersAnswerAdmin(admin.ModelAdmin):
     list_display=('question', 'result', 'answer', 'correct', 'ip', 'date_time')
