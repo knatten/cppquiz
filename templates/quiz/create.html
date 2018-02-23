@@ -31,6 +31,10 @@
         <div id="hint_errors">{{ form.hint.errors }}</div>
         <p><textarea rows="3" name="hint" id="id_hint" cols="40">No hint</textarea></p>
 
+        <p><label for="id_comment">Comment (optional): <span class="help_text">If you have any comments for the moderators / admins, please enter them below. They will not be displayed on the public site.</span></label></p>
+        <div id="comment_errors">{{ form.comment.errors }}</div>
+        <p>{{form.comment}}</p>
+
         <p><label for="id_author_email">Your email (optional):</label> {{ form.author_email }} {{ form.author_email.errors }} <span class="help_text">To notify you when your question is accepted, or in case we need to ask you anything about this question. We don't spam, we don't share your email.</span></p>
 
         <p><label for="id_difficulty">Difficulty:</label> {{ form.difficulty }} {{ form.difficulty.errors }}</p>

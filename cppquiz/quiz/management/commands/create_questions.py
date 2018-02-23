@@ -14,6 +14,7 @@ class Command(BaseCommand):
             q.question = question.replace("pk", str(q.pk))
             q.answer = str(q.pk)
             q.hint = "It's " + str(q.pk)
+            q.comment = "I'm pretty sure it's " + str(q.pk)
             q.explanation = "Because " + str(q.pk)
             q.save()
 

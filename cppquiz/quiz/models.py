@@ -27,6 +27,7 @@ class Question(models.Model):
     answer = models.CharField(max_length=200, default='', blank=True)
     explanation = models.TextField(default='', blank=True, help_text='Refer to the standard like this: §x.y¶z. Wrap code like this: `int i`. Wrap in stars to ***emphasize***')
     hint = models.TextField(default='No hint', blank=True)
+    comment = models.TextField(default='', blank=True, help_text='Comments for admins and contributors, not displayed on the site')
     date_time = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False)
     refused = models.BooleanField(default=False)
