@@ -29,7 +29,7 @@
 
         <p><label for="id_hint">Hint (optional): <span class="help_text">Feel free to add a short hint that doesn't give too much away. If you don't, a moderator will add one for you before publishing. </span></label></p>
         <div id="hint_errors">{{ form.hint.errors }}</div>
-        <p><textarea rows="3" name="hint" id="id_hint" cols="40">No hint</textarea></p>
+        <p>{{form.hint}}</p>
 
         <p><label for="id_comment">Comment (optional): <span class="help_text">If you have any comments for the moderators / admins, please enter them below. They will not be displayed on the public site.</span></label></p>
         <div id="comment_errors">{{ form.comment.errors }}</div>
