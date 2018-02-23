@@ -19,9 +19,9 @@
         <div id="question_errors">{{ form.question.errors }}</div>
         <p>{{ form.question }}</p>
 
-        <p><label for="id_result">This program is:</label> {{ form.result }} {{ form.result.errors }}</p>
+        <p><label for="id_result">Result:</label> {{ form.result }} {{ form.result.errors }}</p>
 
-        <p><label for="id_answer">The output of this program:</label> {{ form.answer }} {{ form.answer.errors }}</p>
+        <p><label for="id_answer">The output of this program is:</label> {{ form.answer }} {{ form.answer.errors }}<span class="help_text">Leave blank for questions with errors / undefined behavior</span></p>
 
         <p><label for="id_explanation">Explanation: <span class="help_text">Please be clear and to the point. Please try to use correct terminology. Refer to the standard like this: §x.y¶z. Wrap code in backticks like this: `int i`, or indent whole blocks with four spaces. Wrap in stars to ***emphasize***. Don't worry if you don't get the formatting perfect, a moderator will go over it before publishing. </span></label></p>
         <div id="explanation_errors">{{ form.explanation.errors }}</div>
@@ -29,7 +29,11 @@
 
         <p><label for="id_hint">Hint (optional): <span class="help_text">Feel free to add a short hint that doesn't give too much away. If you don't, a moderator will add one for you before publishing. </span></label></p>
         <div id="hint_errors">{{ form.hint.errors }}</div>
-        <p><textarea rows="3" name="hint" id="id_hint" cols="40">No hint</textarea></p>
+        <p>{{form.hint}}</p>
+
+        <p><label for="id_comment">Comment (optional): <span class="help_text">If you have any comments for the moderators / admins, please enter them below. They will not be displayed on the public site.</span></label></p>
+        <div id="comment_errors">{{ form.comment.errors }}</div>
+        <p>{{form.comment}}</p>
 
         <p><label for="id_author_email">Your email (optional):</label> {{ form.author_email }} {{ form.author_email.errors }} <span class="help_text">To notify you when your question is accepted, or in case we need to ask you anything about this question. We don't spam, we don't share your email.</span></p>
 

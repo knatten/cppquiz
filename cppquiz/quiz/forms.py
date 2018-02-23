@@ -15,6 +15,11 @@ class QuestionForm(ModelForm):
     class Meta:
         model = Question
         fields = '__all__'
+        widgets = {
+            'question': forms.Textarea(attrs={'rows':20}),
+            'hint': forms.Textarea(attrs={'rows':5}),
+            'comment': forms.Textarea(attrs={'rows':5})
+        }
 
     def clean_question(self):
         return cannot_be_empty(self.cleaned_data['question'])
