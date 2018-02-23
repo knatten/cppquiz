@@ -11,9 +11,9 @@ Note: CppQuiz is still running on Python 2.7
 - Install Django 1.11 (Using Virtualenv is recommended)
 - `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
 - Read the Django docs
-- `python manage.py migrate'
+- `python manage.py migrate`
 - `python manage.py createsuperuser`
-- `python manage.py runserver'
+- `python manage.py runserver`
 - `python manage.py create_questions 10` (Or whatever number, just so you have some dummy questions)
 
 ## Testing
