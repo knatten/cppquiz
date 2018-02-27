@@ -54,6 +54,14 @@ class create_quiz_Test(TestCase):
         with self.assertRaises(ValueError):
             fixed_quiz.create_quiz(1)
 
+    def test_creating_a_quiz__only_uses_published_questions(self):
+        create_questions(1)
+        q = Question.objects.all()[0]
+        q.retracted = 1
+        q.save()
+        with self.assertRaises(ValueError):
+            fixed_quiz.create_quiz(1)
+
     def assertLooksKindOfRandom(self, question_ids):
         #Only works if there are more questions in the db than we are asked to use in the quiz
         self.assertNotEqual(range(1, len(question_ids) + 1), question_ids)

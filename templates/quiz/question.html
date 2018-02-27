@@ -1,3 +1,9 @@
+{%if question.retracted%}
+<p class="retracted_warning">
+<strong>WARNING:</strong> This question has been retracted, and should not be part of new quizzes. You're on this page because you're taking an old quiz which includes this question, or have followed an old link.
+</p>
+{%endif%}
+
 <p>
 <span class="about_the_question"><a href="/quiz/question/{{question.id}}">Question #{{question.id}}</a> Difficulty: <img src="{{STATIC_URL}}level-{{question.difficulty}}.png"></span>
 </p>
