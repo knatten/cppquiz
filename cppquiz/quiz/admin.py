@@ -8,8 +8,8 @@ def result_short(obj):
     return obj.result
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=('pk', 'published', 'refused', question_part, result_short, 'answer', 'difficulty', 'date_time')
-    list_filter=('published', 'refused', 'difficulty', 'result')
+    list_display=('pk', 'published', 'retracted', 'refused', question_part, result_short, 'answer', 'difficulty', 'date_time')
+    list_filter=('published', 'retracted', 'refused', 'difficulty', 'result')
     search_fields=('question', 'explanation')
     readonly_fields=('date_time',)
 

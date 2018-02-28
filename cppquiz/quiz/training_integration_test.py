@@ -63,6 +63,13 @@ class TrainingIntegrationTest(TestCase):
         response = self.client.get(reverse('quiz:giveup', kwargs={'question_id': question.pk}))
         self.assertEqual(404, response.status_code)
 
+    def test_when_viewing_a_retracted_question__is_warned(self):
+        question = self.create_question(True)
+        question.retracted=True
+        question.save()
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
+        self.assertContains(response, 'This question has been retracted')
+
     def create_question(self, published, preview_key=''):
         return Question.objects.create(published=published, question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
 

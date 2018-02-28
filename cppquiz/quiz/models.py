@@ -30,6 +30,7 @@ class Question(models.Model):
     comment = models.TextField(default='', blank=True, help_text='Comments for admins and contributors, not displayed on the site')
     date_time = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False)
+    retracted = models.BooleanField(default=False)
     refused = models.BooleanField(default=False)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)

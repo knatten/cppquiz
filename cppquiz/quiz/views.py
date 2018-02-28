@@ -165,14 +165,14 @@ def dismiss_training_msg(request):
 
 #TODO what if there are no questions
 def get_unanswered_question(user_data):
-    available_questions = [q.id for q in Question.objects.filter(published=True)]
+    available_questions = [q.id for q in Question.objects.filter(published=True, retracted=False)]
     if len(available_questions) == 0:
         raise NoQuestionsExist
     for q in user_data.get_correctly_answered_questions():
         if int(q) in available_questions:
             available_questions.remove(int(q))
     if len(available_questions) == 0:
-        return Question.objects.filter(published=True).order_by('?')[0].id
+        return Question.objects.filter(published=True, retracted=False).order_by('?')[0].id
     else:
         return random.choice(available_questions)
 
