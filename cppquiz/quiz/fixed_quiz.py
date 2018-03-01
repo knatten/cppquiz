@@ -16,7 +16,7 @@ def make_quiz_key(length):
 
 def create_quiz(nof_questions=nof_questions_in_quiz):
     quiz = Quiz.objects.create()
-    question_ids = [q.pk for q in Question.objects.filter(published=True, retracted=False)]
+    question_ids = [q.pk for q in Question.objects.filter(state='PUB')]
     used_questions = random.sample(question_ids, nof_questions)
     for pk in used_questions:
         qinq = QuestionInQuiz(question=Question.objects.get(pk=pk), quiz=quiz)

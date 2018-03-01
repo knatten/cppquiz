@@ -47,18 +47,19 @@ class create_quiz_Test(TestCase):
         self.assertNotEqual(sorted(pks), pks)
 
     def test_creating_a_quiz__only_uses_published_questions(self):
-        create_questions(1)
-        q = Question.objects.all()[0]
-        q.published = 0
-        q.save()
-        with self.assertRaises(ValueError):
-            fixed_quiz.create_quiz(1)
-
-    def test_creating_a_quiz__only_uses_published_questions(self):
-        create_questions(1)
-        q = Question.objects.all()[0]
-        q.retracted = 1
-        q.save()
+        create_questions(4)
+        q0 = Question.objects.all()[0]
+        q1 = Question.objects.all()[1]
+        q2 = Question.objects.all()[2]
+        q3 = Question.objects.all()[3]
+        q0.state = 'NEW'
+        q1.state = 'RET'
+        q2.state = 'REF'
+        q3.state = 'ACC'
+        q0.save()
+        q1.save()
+        q2.save()
+        q3.save()
         with self.assertRaises(ValueError):
             fixed_quiz.create_quiz(1)
 

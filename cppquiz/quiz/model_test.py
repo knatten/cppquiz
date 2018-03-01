@@ -5,13 +5,13 @@ from models import Question
 
 class QuestionTest(TestCase):
     def test_is_not_allowed_to_save_published_questions_without_difficulty(self):
-        q = Question(published=True, hint = 'hint', difficulty=0)
+        q = Question(state='PUB', hint = 'hint', difficulty=0)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn('Cannot publish a question without a difficulty setting', str(cm.exception))
 
     def test_is_not_allowed_to_save_published_questions_without_hint(self):
-        q = Question(published=True, hint = '', difficulty=1)
+        q = Question(state='PUB', hint = '', difficulty=1)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn('Cannot publish a question without a hint', str(cm.exception))

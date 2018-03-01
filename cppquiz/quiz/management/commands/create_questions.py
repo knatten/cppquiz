@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print options['nof_questions']
         for i in range(0, options['nof_questions'][0]):
-            q = Question.objects.create(question='', answer='', result='OK', published=True, hint='no hint', difficulty=randint(1,3), explanation='')
+            q = Question.objects.create(question='', answer='', result='OK', state='PUB', hint='no hint', difficulty=randint(1,3), explanation='')
             q.question = question.replace("pk", str(q.pk))
             q.answer = str(q.pk)
             q.hint = "It's " + str(q.pk)
