@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.urls import reverse
 from models import *
 
 def question_part(obj):
@@ -12,6 +13,9 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter=('published', 'retracted', 'refused', 'difficulty', 'result')
     search_fields=('question', 'explanation')
     readonly_fields=('date_time',)
+
+    def view_on_site(self, obj):
+        return reverse('quiz:question', args=[obj.pk]) + "?preview_key=" + obj.preview_key
 
 class UsersAnswerAdmin(admin.ModelAdmin):
     list_display=('question', 'result', 'answer', 'correct', 'ip', 'date_time')
