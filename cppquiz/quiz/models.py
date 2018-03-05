@@ -22,6 +22,13 @@ class Question(models.Model):
         (2, 'Intermediate'),
         (3, 'Expert'),
     )
+    STATE_CHOICES = (
+        ('NEW', 'New'),
+        ('ACC', 'Accepted'),
+        ('REF', 'Refused'),
+        ('PUB', 'Published'),
+        ('RET', 'Retracted'),
+    )
     question = models.TextField(default='', blank=True)
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
@@ -29,9 +36,7 @@ class Question(models.Model):
     hint = models.TextField(default='No hint', blank=True)
     comment = models.TextField(default='', blank=True, help_text='Comments for admins and contributors, not displayed on the site')
     date_time = models.DateTimeField(auto_now_add=True)
-    published = models.BooleanField(default=False)
-    retracted = models.BooleanField(default=False)
-    refused = models.BooleanField(default=False)
+    state = models.CharField(max_length=3, default='NEW', choices=STATE_CHOICES)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
@@ -40,9 +45,9 @@ class Question(models.Model):
         return str(self.pk)
 
     def clean(self):
-        if self.published and self.hint == '':
+        if self.state == 'PUB' and self.hint == '':
             raise ValidationError('Cannot publish a question without a hint')
-        if self.published and self.difficulty == 0:
+        if self.state == 'PUB' and self.difficulty == 0:
             raise ValidationError('Cannot publish a question without a difficulty setting')
 
     def save(self, *args, **kwargs):

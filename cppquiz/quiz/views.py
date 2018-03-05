@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count
+from django.db.models import Count, Q
 
 import fixed_quiz
 from models import *
@@ -46,7 +46,7 @@ def categorize(request):
                 return HttpResponseRedirect("/quiz/categorize/?changed=%d#question_%d" % (q.pk, q.pk))
     else:
         changed = int(request.GET.get('changed', 0))
-        questions = Question.objects.filter(published=True).order_by('difficulty')\
+        questions = Question.objects.filter(state='PUB').order_by('difficulty')\
                     .annotate(num_answers=Count('usersanswer'))
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
@@ -59,7 +59,7 @@ def create(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             form.save()
-            mail_admins('Someone made a question!', 'http://' + request.get_host() + '/admin/quiz/question/?published__exact=0')
+            mail_admins('Someone made a question!', 'http://' + request.get_host() + '/admin/quiz/question/?state=NEW')
             return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()
@@ -85,7 +85,7 @@ def question(request, question_id):
     if request.GET.get('preview_key'):
         return preview_with_key(request, question_id)
     user_data = UserData(request.session)
-    q = get_object_or_404(Question, id=question_id, published=True)
+    q = get_object_or_404(Question, Q(id=question_id), Q(state='PUB') | Q(state='RET'))
     d = {}
     d['answered'] = False
     d['question'] = q
@@ -98,7 +98,7 @@ def question(request, question_id):
         if answer.correct:
             d['correct_result'] = True
             user_data.register_correct_answer(question_id)
-    d['total_questions'] = Question.objects.filter(published=True).count()
+    d['total_questions'] = Question.objects.filter(state='PUB').count()
     d['user_data'] = user_data
     d['show_hint'] = request.GET.get('show_hint', False)
     d['title'] = ' - Question #%d' % q.pk
@@ -165,14 +165,14 @@ def dismiss_training_msg(request):
 
 #TODO what if there are no questions
 def get_unanswered_question(user_data):
-    available_questions = [q.id for q in Question.objects.filter(published=True, retracted=False)]
+    available_questions = [q.id for q in Question.objects.filter(state='PUB')]
     if len(available_questions) == 0:
         raise NoQuestionsExist
     for q in user_data.get_correctly_answered_questions():
         if int(q) in available_questions:
             available_questions.remove(int(q))
     if len(available_questions) == 0:
-        return Question.objects.filter(published=True, retracted=False).order_by('?')[0].id
+        return Question.objects.filter(state='PUB').order_by('?')[0].id
     else:
         return random.choice(available_questions)
 

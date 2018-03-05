@@ -14,7 +14,7 @@ class QuestionForm(ModelForm):
 
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = ('question', 'result', 'answer', 'explanation', 'hint', 'comment', 'difficulty', 'author_email', 'spam_protection')
         widgets = {
             'question': forms.Textarea(attrs={'rows':20}),
             'hint': forms.Textarea(attrs={'rows':5}),

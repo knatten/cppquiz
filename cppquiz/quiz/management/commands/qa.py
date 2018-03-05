@@ -16,5 +16,5 @@ class Command(BaseCommand):
         print
         print "CHECKING FOR MISSING HINTS"
         for question in Question.objects.all():
-            if question.published and len(question.hint) < 10:
+            if question.state == 'PUB' and len(question.hint) < 10:
                 print "Question", question.pk, "is published and missing a hint"
