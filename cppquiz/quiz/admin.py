@@ -9,7 +9,7 @@ def result_short(obj):
     return obj.result
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=('pk', 'state', question_part, result_short, 'answer', 'difficulty', 'date_time')
+    list_display=('pk', 'state', 'author_email', question_part, result_short, 'answer', 'difficulty', 'date_time')
     list_filter=('state', 'difficulty', 'result')
     search_fields=('question', 'explanation')
     readonly_fields=('date_time',)
