@@ -6,10 +6,10 @@
 
 <h2 class="preview">Question Preview!</h2>
 {%include "quiz/question.html"%}
-<p>This question {{question.get_result_display}}.</p>
-{%if question.result == "OK"%}
-<p>Its output is "{{question.answer}}".</p>
-{%endif%}
+<h2>Answer</h2>
+<p>
+    {{question.get_result_display}} {%if question.result == "OK"%} <code>{{question.answer}}</code> {%endif%}
+</p>
 {%include "quiz/hint.html"%}
 {%include "quiz/correct.html"%}
 {%include "quiz/admin_link.html"%}
