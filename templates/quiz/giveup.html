@@ -9,10 +9,9 @@
 <h3>Question</h3>
 {%include "quiz/question.html"%}
 <h3>Answer</h3>
-<p>This question {{question.get_result_display}}.</p>
-{%if question.result == "OK"%}
-<p>Its output is "{{question.answer}}".</p>
-{%endif%}
+<p>
+    {{question.get_result_display}} {%if question.result == "OK"%} <code>{{question.answer}}</code> {%endif%}
+</p>
 <h3>Explanation</h3>
 <div>
 {{question.explanation|to_html}}
