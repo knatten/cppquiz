@@ -21,10 +21,7 @@ def suite():
         unittest.TestLoader().loadTestsFromTestCase(TrainingIntegrationTest),
         unittest.TestLoader().loadTestsFromTestCase(UserDataTest),
         unittest.TestLoader().loadTestsFromTestCase(save_user_dataTest),
-        unittest.TestLoader().loadTestsFromTestCase(CodeTagsTest),
-        unittest.TestLoader().loadTestsFromTestCase(code_blocks_Test),
         unittest.TestLoader().loadTestsFromTestCase(standard_ref_Test),
-        unittest.TestLoader().loadTestsFromTestCase(emphasize_test),
         unittest.TestLoader().loadTestsFromTestCase(QuestionTest),
         ])
 

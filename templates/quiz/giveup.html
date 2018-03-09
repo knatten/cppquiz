@@ -15,7 +15,7 @@
 {%endif%}
 <h3>Explanation</h3>
 <div>
-{{question.explanation|urlize|code_tags|code_blocks|linebreaks|standard_ref|emphasize}}
+{{question.explanation|to_html}}
 </div>
 {%include "quiz/admin_link.html"%}
 

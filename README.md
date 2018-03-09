@@ -18,17 +18,18 @@ Note: CppQuiz is still running on Python 2.7
 
 ## Testing
 ### Setting up
-- `sudo pip install mock`
-- `sudo pip install six` If you're on OS X and get an error about importing `wraps`, see http://stackoverflow.com/questions/31417964/importerror-cannot-import-name-wraps
+- `pip install mock`
+- `pip install markdown`
+- `pip install six` If you're on OS X and get an error about importing `wraps`, see http://stackoverflow.com/questions/31417964/importerror-cannot-import-name-wraps
 
 ### Unit tests
 - `./manage.py test`
 
 ### System tests
-The system tests are currently not maintained. If you want to have a go, you need at least `sudo pip install lettuce` and `sudo pip install splinter`. Then try to get `./run_lettuce` to work.
+The system tests are currently not maintained. If you want to have a go, you need at least `pip install lettuce` and `pip install splinter`. Then try to get `./run_lettuce` to work.
 
 ## Deployment
-- `sudo pip install fabric`
+- `pip install fabric`
 - Bump the version in `templates.base.html` (this should be scripted)
 - `fab beta`
 - Check `http://beta.cppquiz.org/`

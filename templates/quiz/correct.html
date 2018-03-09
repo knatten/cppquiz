@@ -1,6 +1,6 @@
 {%load quiz_extras%}
 <h2 class="correct">Correct!</h2>
 <div class="correct">
-{{question.explanation|urlize|code_tags|code_blocks|linebreaks|standard_ref|emphasize}}
+{{question.explanation|to_html}}
 </div>
 <a href="/quiz/random">Next question</a>
