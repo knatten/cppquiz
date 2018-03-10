@@ -13,12 +13,15 @@ def standard_ref(text):
     return re.sub(u'(§[\d\.]+[¶\d]*)', '<em>\\1</em>', text)
 
 def custom_linebreaks(text):
-    return text.replace("\n", "<br />")
+    return (text
+        .replace("\n", "<br />")
+        .replace("</p><br />", "</p>")
+        .replace("</pre><br />", "</pre>"))
 
 @register.filter(needs_autoescape=True)
 def to_html(text, autoescape=None):
     return mark_safe(
         standard_ref(
-            markdown.markdown(
-                custom_linebreaks(
+            custom_linebreaks(
+                markdown.markdown(
                     defaultfilters.urlize(text, False)))))
