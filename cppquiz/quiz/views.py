@@ -66,13 +66,6 @@ def create(request):
     return render(request, 'quiz/create.html',
         {'form':form, 'title':'Create question'})
 
-def preview(request, question_id):
-    if not request.user.is_staff:
-        raise Http404
-    d = {}
-    d['question'] = get_object_or_404(Question, id=question_id)
-    return render(request, 'quiz/preview.html', d)
-
 def preview_with_key(request, question_id):
     key = request.GET.get('preview_key')
     d = {}
@@ -80,8 +73,6 @@ def preview_with_key(request, question_id):
     return render(request, 'quiz/preview.html', d)
 
 def question(request, question_id):
-    if request.GET.get('preview'):
-        return preview(request, question_id)
     if request.GET.get('preview_key'):
         return preview_with_key(request, question_id)
     user_data = UserData(request.session)
