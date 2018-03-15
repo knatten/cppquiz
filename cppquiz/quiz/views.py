@@ -77,6 +77,7 @@ def question(request, question_id):
         return preview_with_key(request, question_id)
     user_data = UserData(request.session)
     q = get_object_or_404(Question, Q(id=question_id), Q(state='PUB') | Q(state='RET'))
+    q.mark_viewed()
     d = {}
     d['answered'] = False
     d['question'] = q
@@ -133,6 +134,7 @@ def quiz(request, quiz_key):
         logging.getLogger('quiz').debug(debug_string)
         return render(request, 'quiz/finished.html', d)
     d['question'] = quiz_in_progress.get_current_question()
+    d['question'].mark_viewed()
     d['title'] = ' - Quiz "' + quiz_key + '"'
     quiz_in_progress.save()
     return render(request, 'quiz/quiz.html', d)
