@@ -12,7 +12,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display=('pk', 'state', 'author_email', question_part, result_short, 'answer', 'difficulty', 'date_time')
     list_filter=('state', 'difficulty', 'result')
     search_fields=('question', 'explanation')
-    readonly_fields=('date_time',)
+    readonly_fields=('date_time','last_viewed')
 
     def view_on_site(self, obj):
         return reverse('quiz:question', args=[obj.pk]) + "?preview_key=" + obj.preview_key

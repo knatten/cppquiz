@@ -1,3 +1,4 @@
+import datetime
 import re
 
 from django.test import TestCase
@@ -97,6 +98,13 @@ class FixedQuizIntegrationTest(TestCase):
         self.assert_status_string_with(response, answered=1, points=1)
         response = self.client.get(reverse('quiz:quiz', args=(key2,)))
         self.assert_status_string_with(response, answered=0, points=0)
+
+    def test_when_viewing_a_question__it_gets_timestamped(self):
+        create_questions(fixed_quiz.nof_questions_in_quiz)
+        key = fixed_quiz.create_quiz()
+        response = self.client.get(reverse('quiz:quiz', args=(key,)))
+        pk = get_question_pk(response.content)
+        self.assertLess((datetime.datetime.now() - Question.objects.get(pk=pk).last_viewed).total_seconds(), 10)
 
     def assert_result_string_with(self, response, points):
         match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', response.content)

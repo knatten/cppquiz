@@ -40,6 +40,7 @@ class Question(models.Model):
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
+    last_viewed = models.DateTimeField(default=datetime.datetime.min)
 
     def __str__(self):
         return str(self.pk)
@@ -53,6 +54,10 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super(Question, self).save(*args, **kwargs)
+
+    def mark_viewed(self):
+        self.last_viewed = datetime.datetime.now()
+        self.save()
 
 class UsersAnswer(models.Model):
     question = models.ForeignKey('Question')

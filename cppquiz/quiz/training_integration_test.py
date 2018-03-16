@@ -1,3 +1,4 @@
+import datetime
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
@@ -69,6 +70,13 @@ class TrainingIntegrationTest(TestCase):
         question.save()
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertContains(response, 'This question has been retracted')
+
+    def test_when_viewing_a_question__it_gets_timestamped(self):
+        question = self.create_question(True)
+        self.assertGreater((datetime.datetime.now() - question.last_viewed).total_seconds(), 10)
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
+        self.assertEqual(200, response.status_code)
+        self.assertLess((datetime.datetime.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
 
     def create_question(self, published, preview_key=''):
         return Question.objects.create(state = 'PUB' if published else 'NEW', question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
