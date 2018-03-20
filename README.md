@@ -8,19 +8,15 @@ http://creativecommons.org/licenses/by-sa/4.0/
 ## Setting up the environment
 Note: CppQuiz is still running on Python 2.7
 - Clone this repository
-- Install Django 1.11 (Using Virtualenv is recommended)
+- (We recommend using Virtualenv)
+- `pip install -r requirements.txt`
 - `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
-- Read the Django docs
 - `python manage.py migrate`
 - `python manage.py createsuperuser`
-- `python manage.py runserver`
 - `python manage.py create_questions 10` (Or whatever number, just so you have some dummy questions)
+- `python manage.py runserver`
 
 ## Testing
-### Setting up
-- `pip install mock`
-- `pip install markdown`
-- `pip install six` If you're on OS X and get an error about importing `wraps`, see http://stackoverflow.com/questions/31417964/importerror-cannot-import-name-wraps
 
 ### Unit tests
 - `./manage.py test`
