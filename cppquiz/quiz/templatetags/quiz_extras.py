@@ -8,7 +8,11 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 def standard_ref(text):
-    return re.sub(u'(§[\d\.]+[¶\d]*)', '<em>\\1</em>', text)
+    possible_named_reference = u'(\[\S+(\.\S+)*\])?'
+    numbered_reference = u'§\d+(\.\d+)*'
+    possible_pilcrow_reference = u'(¶\d+(\.\d+)*)*'
+    regex = '(' + possible_named_reference + '\(?' + numbered_reference + '\)?' + possible_pilcrow_reference + ')'
+    return re.sub(regex, '<em>\\1</em>', text)
 
 def custom_linebreaks(text):
     return (text
