@@ -12,10 +12,14 @@ class standard_ref_Test(unittest.TestCase):
         self.assertEqual(u'<em>§3</em>', standard_ref(u'§3'))
 
     def test_given_sub_paragraph_references(self):
-        self.assertEqual(u'<em>§3.4</em>', standard_ref(u'§3.4'))
+        self.assertEqual(u'<em>§3.45</em>', standard_ref(u'§3.45'))
 
     def test_given_pilcrow_references(self):
-        self.assertEqual(u'<em>§3.4¶1</em>', standard_ref(u'§3.4¶1'))
+        self.assertEqual(u'<em>§33.44¶16.123</em>', standard_ref(u'§33.44¶16.123'))
+
+    def test_given_name_references(self):
+        self.assertEqual(u'<em>[foo]§3.4</em>', standard_ref(u'[foo]§3.4'))
+        self.assertEqual(u'<em>[foo.bar.baz]§3.4¶1</em>', standard_ref(u'[foo.bar.baz]§3.4¶1'))
 
     def test_doesnt_include_too_much(self):
         self.assertEqual(u'<em>§3.4¶1</em>.', standard_ref(u'§3.4¶1.'))
