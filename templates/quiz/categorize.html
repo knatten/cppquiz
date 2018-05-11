@@ -6,8 +6,8 @@
 <tr class="difficulty_{{q.difficulty}}">
     <td>
         <a id="question_{{q.pk}}"/>
-        <pre class="sh_cpp">
-{{q.question}}
+        <pre>
+            <code class="cpp hljs">{{q.question}}</code>
         </pre>
     </td>
     <td style="vertical-align:top" {%if changed == q.pk%}class="changed"{%endif%}>

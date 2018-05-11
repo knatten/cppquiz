@@ -2,18 +2,20 @@
 <html>
 <head>
 <title>CppQuiz.org {{title}}</title>
-<script type="text/javascript" src="{{STATIC_URL}}sh_main.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}sh_cpp.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}highlight.pack.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}sh_nedit.css">
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}styles/vs.css">
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css">
 <link rel="shortcut icon" href="{{STATIC_URL}}favicon.png">
 <script type="text/javascript">
 $(document).ready(function() {
+
+    hljs.initHighlightingOnLoad();
+
     $("select#result").change(function() {
         option = $(this).val();
-        if (option == 'OK')
+        if (option === 'OK')
         {
             $("span#output_form_part").show('fast');
         } else {
@@ -37,7 +39,7 @@ $(document).ready(function() {
 });
 </script>
 </head>
-<body onload="sh_highlightDocument();">
+<body onload="hljs.initHighlightingOnLoad();">
 <div id="content">
 {%if request.get_host == "beta.cppquiz.org"%}
 <p class="beta_warning">
