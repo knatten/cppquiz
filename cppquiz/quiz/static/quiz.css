@@ -168,3 +168,12 @@ p#stats
 {
     color:#999;
 }
+.twitter-follow {
+    background-color: #1da1f2;
+    border-radius: 3px;
+    padding: 1px 8px 1px 6px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.footer a.twitter-follow {
+    color: #fff;
+}
