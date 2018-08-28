@@ -38,6 +38,29 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#ccccff",
+      "text": "#000000"
+    },
+    "button": {
+      "background": "#aaaaff",
+      "text": "#000000"
+    }
+  },
+  "theme": "edgeless",
+  "content": {
+    "href": "http://cppquiz.org/quiz/about#cookies"
+  }
+})});
+</script>
+
 </head>
 <body onload="hljs.initHighlightingOnLoad();">
 <div id="content">
