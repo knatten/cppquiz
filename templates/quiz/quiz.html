@@ -2,7 +2,7 @@
 {%load quiz_extras%}
 {%block content%}
 <p id="stats">
-You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.
 After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_total_nof_questions}} questions, you have {{quiz_in_progress.score|floatformat:2}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>points</abbr>.
 </p>
 

@@ -69,11 +69,14 @@ window.cookieconsent.initialise({
 <strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="http://cppquiz.org">the official site</a> instead.
 </p>
 {%endif%}
+<div id="header">
 <h1><a href="/">C++ Quiz</a></h1>
+</div>
 {%block content%}
 {%endblock%}
 <hr>
-<p class="footer">
+<div id="footer">
+<p>
 {%if user.is_staff%}
 <a href="/admin/">Admin</a> |
 {%endif%}
@@ -85,12 +88,13 @@ window.cookieconsent.initialise({
 v1.6 |
 © <a href="http://knatten.org">Anders Schau Knatten</a> {% now "Y"%}.
 </p>
-<p class="footer">
+<p>
 Thanks to <a href="http://www.pvv.org/~oma/cv.html">Olve Maudal</a>, several people in the <a href="http://accu.org/">ACCU</a> and all other contributers for valuable input!
 </p>
-<p class="footer">
+<p>
  Contents licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </p>
+</div>
 </div>
 <script type="text/javascript">
 

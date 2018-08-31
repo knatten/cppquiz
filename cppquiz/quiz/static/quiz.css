@@ -4,7 +4,7 @@ body
 }
 #content
 {
-    width:50em;
+    width:55em;
     margin-left:auto;
     margin-right:auto;
     padding:0;
@@ -12,36 +12,43 @@ body
 }
 #main_col
 {
-    padding:0;
+    padding:0.5em;
     border:0;
     margin:0;
     float:left;
-    width:39em;
+    width:43em;
 }
 #right_col
 {
-    padding:.5em;
+    padding:0 .5em 0 .5em;
     border:0;
     margin:0;
     float:left;
     width:10em;
     background-color:#ccf;
 }
+#right_col h4:first-of-type
+{
+    margin-top:0.5em;
+}
 hr.clear {
     clear:both;
     border:0;
 }
-h1
+#header
 {
     background-color:#aaf;
-    margin-bottom:0;
+    padding:0.5em;
+}
+#header h1 {
+    margin:0;
 }
 h1 a
 {
     text-decoration:none;
     color:black;
 }
-h2.preview, h2.giveup
+#giveup, #preview
 {
     background-color:#faa;
 }
@@ -49,48 +56,55 @@ pre
 {
     white-space:pre-wrap;
 }
-.correct
+#correct
 {
     background-color:#8f8;
 }
-.correct code
+#correct code
 {
     font-family: "Courier New", Courier, monospace;
 }
-.incorrect
+#incorrect
 {
     background-color:#f88;
 }
-.hint
+#hint
 {
     background-color:#ff8;
 }
-h2.correct, h2.incorrect, h2.hint
+#correct, #incorrect, #hint, #giveup, #preview
 {
-    margin-bottom:0;
+    padding:0.5em;
+    margin:0 -0.5em 0 -0.5em;
 }
-div.correct p, div.incorrect p, div.hint p
+#hint h2, #correct h2, #incorrect h2, #giveup h2, #preview h2
 {
-    padding-top:0.5em;
-    margin-top:0;
+    margin:0;
+    padding:0;
 }
 h4.quiz_mode
 {
     background-color:#aaf;
 }
-.footer
+#footer
 {
     color:grey;
     font-size:0.8em;
+    padding:0 0.5em 0 0.5em;
 }
-.footer a
+#footer a
 {
     color:grey;
 }
-p#stats
+#stats
 {
   background-color:#ccf;  
   margin:0;
+  padding:0.5em;
+}
+#stats p {
+    margin-top:.2em;
+    margin-bottom.2em;
 }
 .create_question textarea
 {
@@ -148,7 +162,7 @@ p#stats
 .retracted_warning
 {
     background-color:#f55;
-    margin:0;
+    margin:-.5em;
     padding:.5em;
 }
 .show_previous_explanation
@@ -174,6 +188,6 @@ p#stats
     padding: 1px 8px 1px 6px;
     font-family: "Helvetica Neue", Arial, sans-serif;
 }
-.footer a.twitter-follow {
+#footer a.twitter-follow {
     color: #fff;
 }
