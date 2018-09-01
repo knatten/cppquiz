@@ -1,6 +1,7 @@
 body
 {
     font-family: verdana, sans-serif;
+    color:#111;
 }
 #content
 {
@@ -14,9 +15,9 @@ body
 {
     padding:0.5em;
     border:0;
-    margin:0;
+    margin:0 1em 0 0;
     float:left;
-    width:43em;
+    width:42em;
 }
 #right_col
 {
@@ -25,7 +26,6 @@ body
     margin:0;
     float:left;
     width:10em;
-    background-color:#ccf;
 }
 #right_col h4:first-of-type
 {
@@ -58,7 +58,7 @@ pre
 }
 #correct
 {
-    background-color:#8f8;
+    background-color:#cfc;
 }
 #correct code
 {
@@ -66,11 +66,11 @@ pre
 }
 #incorrect
 {
-    background-color:#f88;
+    background-color:#fcc;
 }
 #hint
 {
-    background-color:#ff8;
+    background-color:#ffa;
 }
 #correct, #incorrect, #hint, #giveup, #preview
 {
@@ -88,6 +88,7 @@ h4.quiz_mode
 }
 #footer
 {
+    border-top:1px solid #ccf;
     color:grey;
     font-size:0.8em;
     padding:0 0.5em 0 0.5em;
@@ -105,6 +106,9 @@ h4.quiz_mode
 #stats p {
     margin-top:.2em;
     margin-bottom.2em;
+}
+#right_col h4 {
+    color:#44a;
 }
 .create_question textarea
 {
@@ -176,7 +180,7 @@ h4.quiz_mode
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
-    background-color:#8f8;
+    background-color:#cfc;
 }
 .disabled, .disabled a
 {
