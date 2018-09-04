@@ -2,6 +2,7 @@ import json
 
 from django.core.management.base import BaseCommand, CommandError
 from cppquiz.quiz.models import *
+from cppquiz import settings
 
 class Command(BaseCommand):
 
@@ -17,4 +18,4 @@ class Command(BaseCommand):
                 "hint" : q.hint,
                 "difficulty" : q.difficulty,
             })
-        print(json.dumps(questions))
+        print(json.dumps({'cpp_standard': settings.CPP_STD, 'questions': questions}))
