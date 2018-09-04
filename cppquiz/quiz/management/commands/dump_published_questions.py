@@ -5,6 +5,7 @@ from cppquiz.quiz.models import *
 from cppquiz import settings
 
 class Command(BaseCommand):
+    version = 1
 
     def handle(self, *args, **options):
         questions = []
@@ -18,4 +19,4 @@ class Command(BaseCommand):
                 "hint" : q.hint,
                 "difficulty" : q.difficulty,
             })
-        print(json.dumps({'cpp_standard': settings.CPP_STD, 'questions': questions}))
+        print(json.dumps({'version': Command.version, 'cpp_standard': settings.CPP_STD, 'questions': questions}))
