@@ -35,3 +35,30 @@ class Command(BaseCommand):
                 f.write(q.hint)
             with codecs.open(os.path.join(question_root, 'explanation.md'), 'w', 'utf-8') as f:
                 f.write(q.explanation)
+            with codecs.open(os.path.join(question_root, 'README.md'), 'w', 'utf-8') as f:
+                result_display = q.get_result_display().replace('is undefined', 'has undefined behavior') 
+                if q.result == 'OK':
+                    result_display = result_display + ' `' + q.answer + '`'
+                readme = readme_template.replace('{{ANSWER}}', result_display)
+                f.write(readme)
+
+
+readme_template = """
+### Thanks for helping!
+
+Thank you for helping to port this question from C++11 to C++17.
+
+You'll find the source code in [question.cpp](question.cpp), this should normally not need modification.
+
+In C++11, the correct answer is:
+> {{ANSWER}}
+
+Please verify that this is still correct in C++17. If it is, please do the following:
+- Update [explanation.md](explanation.md):
+  - Refer to the correct section numbers
+  - Use updated quotes from those sections (the wording might have changed)
+  - Make sure the rest of the text in the explanation is consistent with the new standard
+- Update [hint.md](hint.md) if needed (usually not needed)
+
+If the correct answer has changed from C++11 to C++17, you can either just leave a comment in this issue and assign it to @knatten, or see the instructions for [updating meta data](/METADATA_HOWTO.md).
+"""
