@@ -17,6 +17,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         repo_root = options['repo_root'][0]
         print("Repo root is '" + repo_root + "'")
+
+        print("Writing instructions")
+        with open(os.path.join(repo_root, 'METADATA_HOWTO.md'), 'w') as f:
+            f.write(text_generator.meta_data_howto)
+        with open(os.path.join(repo_root, 'README.md'), 'w') as f:
+            f.write(text_generator.main_readme)
+
+        print("Exporting questions")
         for q in Question.objects.filter(Q(state='PUB') | Q(state='ACC')):
             print("Exporting question " + str(q.id))
             meta_data = {
