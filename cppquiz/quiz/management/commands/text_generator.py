@@ -5,10 +5,12 @@ def get_readme(question):
         .replace('{{ROOT_PATH}}', '/')
 
 def get_issue(question):
+    question_path = '../blob/master/questions/' + str(question.id) + '/'
     return get_template_with_answer(question)\
         .replace('{{BULLET}}', '- [ ]')\
-        .replace('{{QUESTION_PATH}}', '../blob/master/questions/' + str(question.id) + '/')\
-        .replace('{{ROOT_PATH}}', '../blob/master/')
+        .replace('{{QUESTION_PATH}}', question_path)\
+        .replace('{{ROOT_PATH}}', '../blob/master/')\
+        .replace('this question', '[this question](' + question_path + ')')
 
 def get_template_with_answer(question):
     return template.replace('{{ANSWER}}', get_result_display(question))
