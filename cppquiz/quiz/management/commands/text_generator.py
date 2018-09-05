@@ -41,6 +41,8 @@ Please verify that this is still correct in C++17. If it is, please do the follo
 
 *Note that some older questions are missing references to the standard, we don't need to fix that now.*
 
+If you get stuck, please describe the problem in detail in a comment to the issue, and a maintainer will add the `help wanted` tag so others can chime in.
+
 If the correct answer has changed from C++11 to C++17, you can either just leave a comment in this issue, or see the instructions for [updating meta data]({{ROOT_PATH}}METADATA_HOWTO.md).
 """
 
@@ -78,7 +80,7 @@ All the CppQuiz questions are currently targetting C++11. We need to update them
 
 Doing this all by myself is going to take months, so I would very much appreciate some help from the community. To make this as simple as possible, I've created this repository. There is a [directory for each question](/questions), named after the question number. That directory contains the source code of the question in a `.cpp` file, the hint and explanation in `.md` files, as well as a `README.md` explaining everything you need to do to port the question. There's also an issue for each question, making it easier to track progress. The issue has the same information as the `README.md` file.
 
-### How to help
+### How to help porting questions
 There are two ways to contribute, listed below. I prefer the first alternative, but if that prevents you from contributing, the second is also ok.
 
 #### Contributing using a fork and pull requests
@@ -92,6 +94,11 @@ If you think forking and PRs is too cumbersome, or you are not able to do this f
 1. Pick the issue for a question you want to port. Add a comment that you'll be handling that issue.
 1. Follow the instructions in the issue to port the question.
 1. Paste the updated files as comments to the issue.
+
+### Other ways to help
+- Look for questions labeled `help wanted`. It means the person responsible needs a second pair of eyes.
+- Look at pull requests, review them and comment `LGTM` if they should be merged.
+- Other ideas for help are also welcome, please get in touch (see [Questions](#questions) below).
 
 ### Questions
 If you have any questions, either file an issue in this repo, contact [@knatten on Twitter](https://twitter.com/knatten), or email me at anders@knatten.org.
