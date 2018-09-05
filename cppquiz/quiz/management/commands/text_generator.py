@@ -7,7 +7,7 @@ def get_readme(question):
 def get_issue(question):
     return get_template_with_answer(question)\
         .replace('{{BULLET}}', '- [ ]')\
-        .replace('{{QUESTION_PATH}}', '../blob/master/' + str(question.id) + '/')\
+        .replace('{{QUESTION_PATH}}', '../blob/master/questions/' + str(question.id) + '/')\
         .replace('{{ROOT_PATH}}', '../blob/master/')
 
 def get_template_with_answer(question):
@@ -74,7 +74,7 @@ CppQuiz.org is an open source C++ quiz site. If you're unfamiliar with it, you c
 
 All the CppQuiz questions are currently targetting C++11. We need to update them for C++17. Most questions will still have the same answers, we just need to update the explanations and references to the standard. A few questions will also have different answers.
 
-Doing this all by myself is going to take months, so I would very much appreciate some help from the community. To make this as simple as possible, I've created this repository. There is a directory for each question, named after the question number. That directory contains the source code of the question in a `.cpp` file, the hint and explanation in `.md` files, as well as a `README.md` explaining everything you need to do to port the question. There's also an issue for each question, making it easier to track progress. The issue has the same information as the `README.md` file.
+Doing this all by myself is going to take months, so I would very much appreciate some help from the community. To make this as simple as possible, I've created this repository. There is a [directory for each question](/questions), named after the question number. That directory contains the source code of the question in a `.cpp` file, the hint and explanation in `.md` files, as well as a `README.md` explaining everything you need to do to port the question. There's also an issue for each question, making it easier to track progress. The issue has the same information as the `README.md` file.
 
 ### How to help
 There are two ways to contribute, listed below. I prefer the first alternative, but if that prevents you from contributing, the second is also ok.

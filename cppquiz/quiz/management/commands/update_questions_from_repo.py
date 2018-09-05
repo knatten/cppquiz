@@ -13,18 +13,18 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('repo_root', nargs=1)
 
-    def get_question_ids(self, repo_root):
-        return [d for d in os.listdir(repo_root) if os.path.isdir(os.path.join(repo_root,d))]
+    def get_question_ids(self, questions_root):
+        return [d for d in os.listdir(questions_root) if os.path.isdir(os.path.join(questions_root,d))]
 
     def handle(self, *args, **options):
-        repo_root = options['repo_root'][0]
-        print("Repo root is '" + repo_root + "'")
-        if (not os.path.isdir(repo_root)):
-            raise Exception("Repo root '" + repo_root + "'does not exist or is not a directory!")
+        questions_root = os.path.join(options['repo_root'][0], 'questions')
+        print("Questions root is '" + questions_root + "'")
+        if (not os.path.isdir(questions_root)):
+            raise Exception("Questions root '" + questions_root + "'does not exist or is not a directory!")
 
-        question_ids = self.get_question_ids(repo_root)
+        question_ids = self.get_question_ids(questions_root)
         self.check_that_questions_exist(question_ids)
-        self.update_questions(repo_root, question_ids)
+        self.update_questions(questions_root, question_ids)
 
     def check_that_questions_exist(self, question_ids):
         print("Checking that all questions are in the database...")
@@ -32,13 +32,13 @@ class Command(BaseCommand):
             Question.objects.get(pk=question_id)
         print("ok")
 
-    def update_questions(self, repo_root, question_ids):
+    def update_questions(self, questions_root, question_ids):
         print("Updating all questions...")
         for question_id in question_ids:
-            self.update_question(repo_root, question_id)
+            self.update_question(questions_root, question_id)
 
-    def update_question(self, repo_root, question_id):
-        question_root = os.path.join(repo_root, question_id)
+    def update_question(self, questions_root, question_id):
+        question_root = os.path.join(questions_root, question_id)
         print("Updating question '" + question_id + "' from '" + question_root + "'" )
         question = Question.objects.get(pk=question_id)
         self.set_meta_data(question, os.path.join(question_root, 'meta_data.json'))

@@ -16,7 +16,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         repo_root = options['repo_root'][0]
+        questions_root = os.path.join(repo_root, 'questions')
         print("Repo root is '" + repo_root + "'")
+        if not os.path.isdir(repo_root):
+            raise Exception("Repo root '" + repo_root + "' does not exist.")
+        if not os.path.isdir(questions_root):
+            os.mkdir(questions_root)
 
         print("Writing instructions")
         with open(os.path.join(repo_root, 'METADATA_HOWTO.md'), 'w') as f:
@@ -34,7 +39,7 @@ class Command(BaseCommand):
                 "state" : q.state,
                 "difficulty" : q.difficulty,
             }
-            question_root = os.path.join(repo_root, str(q.id))
+            question_root = os.path.join(questions_root, str(q.id))
             os.mkdir(question_root)
             with open(os.path.join(question_root, 'meta_data.json'), 'w') as f:
                 f.write(json.dumps(meta_data, indent=4))
