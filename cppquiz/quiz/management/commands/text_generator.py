@@ -94,3 +94,6 @@ If you think forking and PRs is too cumbersome, or you are not able to do this f
 ### Questions
 If you have any questions, either file an issue in this repo, contact [@knatten on Twitter](https://twitter.com/knatten), or email me at anders@knatten.org.
 """
+
+pull_request_template = """ Fixes #<issue number> (Make sure to enter the issue number, not the question number! If this PR fixes multiple issues, just duplicate this line.)
+"""
