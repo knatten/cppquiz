@@ -6,7 +6,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}highlight.css">
-<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css?v=1">
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css?v=3">
 <link rel="shortcut icon" href="{{STATIC_URL}}favicon.png">
 <script type="text/javascript">
 $(document).ready(function() {
@@ -69,11 +69,11 @@ window.cookieconsent.initialise({
 <strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="http://cppquiz.org">the official site</a> instead.
 </p>
 {%endif%}
-<div class="help_port">
-<h2>Help save CppQuiz.org!</h2>
-<p>All questions are currently using C++11, and needs updating to C++17 to stay relevant. We need everyone to help porting questions! Please see <a href="https://blog.knatten.org/2018/09/07/help-save-cppquiz-org-were-porting-to-c17/">this blog post</a> for instructions.</p>
+{%if TOP_WARNING|safe %}
+<div id="top_warning">
+{{TOP_WARNING|safe}}
 </div>
-
+{% endif %}
 <div id="header">
 <h1><a href="/">C++ Quiz</a></h1>
 </div>
