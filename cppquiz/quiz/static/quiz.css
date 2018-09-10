@@ -198,3 +198,8 @@ h4.quiz_mode
 #info_page {
     margin:0.5em;
 }
+#top_warning {
+    background-color:#fcc;
+    padding:0.5em;
+    margin-bottom:0.5em;
+}

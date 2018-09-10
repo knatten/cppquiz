@@ -175,4 +175,6 @@ LOGGING = {
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+TOP_WARNING=''
+
 import local_settings
