@@ -18,6 +18,7 @@ def custom_linebreaks(text):
     return (text
         .replace("\n", "<br />")
         .replace("</p><br />", "</p>")
+        .replace("<br /><p>", "<p>")
         .replace("</pre><br />", "</pre>"))
 
 @register.filter(needs_autoescape=True)
