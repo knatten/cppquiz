@@ -1,4 +1,4 @@
-Django==1.11.4
+Django==1.11.15
 funcsigs==1.0.2
 Markdown==2.6.11
 mock==2.0.0
