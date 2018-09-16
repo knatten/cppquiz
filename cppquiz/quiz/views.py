@@ -15,6 +15,7 @@ from forms import QuestionForm
 from answer import Answer
 from game_data import *
 from quiz_in_progress import *
+import system_info
 
 def index(request):
     return random_question(request)
@@ -105,6 +106,11 @@ def giveup(request, question_id):
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id)
     return render(request, 'quiz/giveup.html', d)
+
+@staff_member_required
+def show_system_info(request):
+    info = system_info.get_system_info()
+    return render(request, 'quiz/system_info.html', info)
 
 def start(request):
     clear_quiz_in_progress(request.session)

@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div id="main_col">
+<table>
+<tr>
+    <th>Package</th>
+    <th>Desired version</th>
+    <th>Actual version</th>
+    <th>Location</th>
+</tr>
+{% for package in packages %}
+    <tr>
+        <td>{{package.name}}</td>
+        <td>{{package.desired_version}}</td>
+        <td>{{package.actual_version}}</td>
+        <td>{{package.path}}</td>
+    </tr>
+{% endfor %}
+<table>
+</div>
+<hr class=clear>
+{%endblock%}
