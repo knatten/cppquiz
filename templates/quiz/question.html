@@ -1,8 +1,17 @@
+{%load quiz_extras%}
+
 {%if question.state == 'RET' %}
-<p class="retracted_warning">
+<div class="retracted_warning">
+<p>
 <strong>WARNING:</strong> This question has been retracted, and should not be part of new quizzes. You're on this page because you're taking an old quiz which includes this question, or have followed an old link.
 </p>
+
+    {% if question.retraction_message%}
+    <h4>Reason for retraction:</h4>
+    {{question.retraction_message|to_html}}
+    {%endif%}
 {%endif%}
+</div>
 
 <p>
 <span class="about_the_question"><a href="/quiz/question/{{question.id}}">Question #{{question.id}}</a> Difficulty: <img src="{{STATIC_URL}}level-{{question.difficulty}}.png"></span>
