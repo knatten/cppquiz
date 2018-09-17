@@ -67,9 +67,11 @@ class TrainingIntegrationTest(TestCase):
     def test_when_viewing_a_retracted_question__is_warned(self):
         question = self.create_question(True)
         question.state = 'RET'
+        question.retraction_message = 'A very good reason'
         question.save()
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertContains(response, 'This question has been retracted')
+        self.assertContains(response, 'A very good reason')
 
     def test_when_viewing_a_question__it_gets_timestamped(self):
         question = self.create_question(True)

@@ -41,6 +41,7 @@ class Question(models.Model):
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
     last_viewed = models.DateTimeField(default=datetime.datetime.min)
+    retraction_message = models.TextField(default='', blank=True, help_text='Use markdown')
 
     def __str__(self):
         return str(self.pk)
