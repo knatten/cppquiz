@@ -31,7 +31,13 @@ $(document).ready(function() {
     });
     $('.previous_explanation').hide();
     $('.show_previous_explanation').click(function(){
-        $('.previous_explanation').toggle();
+        explanation = $('.previous_explanation');
+        explanation.toggle();
+        if (explanation.is(":visible")) {
+            $('.show_previous_explanation').text(function () {return $(this).text().replace("Show", "Hide"); });
+        } else {
+            $('.show_previous_explanation').text(function () {return $(this).text().replace("Hide", "Show"); });
+        }
     });
     $('p.disabled a').click(function(e) {
         e.preventDefault();
