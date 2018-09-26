@@ -9,6 +9,7 @@ from test_quiz_in_progress import *
 from session_test import *
 from templatetags.quiz_extras_test import *
 from model_test import *
+from api_test import ApiTest
 
 def suite():
     return unittest.TestSuite([
@@ -23,5 +24,6 @@ def suite():
         unittest.TestLoader().loadTestsFromTestCase(save_user_dataTest),
         unittest.TestLoader().loadTestsFromTestCase(standard_ref_Test),
         unittest.TestLoader().loadTestsFromTestCase(QuestionTest),
+        unittest.TestLoader().loadTestsFromTestCase(ApiTest),
         ])
 
