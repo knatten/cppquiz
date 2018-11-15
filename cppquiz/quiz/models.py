@@ -24,6 +24,7 @@ class Question(models.Model):
     )
     STATE_CHOICES = (
         ('NEW', 'New'),
+        ('WAI', 'Waiting'),
         ('ACC', 'Accepted'),
         ('REF', 'Refused'),
         ('PUB', 'Published'),
