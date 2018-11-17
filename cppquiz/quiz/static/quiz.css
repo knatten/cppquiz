@@ -56,6 +56,10 @@ pre
 {
     white-space:pre-wrap;
 }
+code
+{
+    background: rgba(255, 255, 255, 0.2);
+}
 #correct
 {
     background-color:#cfc;
