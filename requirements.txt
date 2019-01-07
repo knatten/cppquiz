@@ -1,4 +1,4 @@
-Django==1.11.16
+Django==1.11.18
 funcsigs==1.0.2
 ipcalc==1.99.0
 Markdown==2.6.11
