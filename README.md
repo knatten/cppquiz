@@ -15,6 +15,7 @@ Note: CppQuiz is still running on Python 2.7
 - `python manage.py createsuperuser`
 - `python manage.py create_questions 10` (Or whatever number, just so you have some dummy questions)
 - `python manage.py runserver`
+- Click the link displayed to go to the site. Visit `/admin` to log in with the superuser you created above.
 
 ## Testing
 
