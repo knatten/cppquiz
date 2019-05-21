@@ -20,7 +20,7 @@ Note: CppQuiz is still running on Python 2.7
 ## Testing
 
 ### Unit tests
-- `./manage.py test`
+- `python manage.py test`
 
 ### System tests
 The system tests are currently not maintained. If you want to have a go, you need at least `pip install lettuce` and `pip install splinter`. Then try to get `./run_lettuce` to work.
