@@ -24,13 +24,13 @@ def standard_ref(text):
     numbered_reference = u'§\d+(\.\d+)*'
     possible_pilcrow_reference = u'(¶(\d+(\.\d+)*))*'
     regex = re.compile('(' + possible_named_reference + '\(?' + numbered_reference + '\)?' + possible_pilcrow_reference + ')([^\.\d]?)')
-    for m in re.finditer(regex, text):        
+    for m in re.finditer(regex, text):
         full_paragraph = m.group(0)
         section_name = m.group(3)
         paragraph_number = m.group(7)
         after_char = m.group(9)
         text = text.replace(full_paragraph,
-            format_paragraph(section_name, paragraph_number, full_paragraph, after_char))        
+           format_paragraph(section_name, paragraph_number, full_paragraph, after_char))        
     return text
 
 def custom_linebreaks(text):
