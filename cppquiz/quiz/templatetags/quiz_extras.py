@@ -23,7 +23,7 @@ def standard_ref(text):
     possible_named_reference = u'(\[(\w+(\.\w+)*)\])?'
     numbered_reference = u'§\d+(\.\d+)*'
     possible_pilcrow_reference = u'(¶(\d+(\.\d+)*))*'
-    regex = re.compile('(' + possible_named_reference + '\(?' + numbered_reference + '\)?' + possible_pilcrow_reference + ')([^\.\d]?)')
+    regex = re.compile('(' + possible_named_reference + numbered_reference + possible_pilcrow_reference + ')([^\.\d]?)')
     for m in re.finditer(regex, text):
         full_paragraph = m.group(0)
         section_name = m.group(3)
