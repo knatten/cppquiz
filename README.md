@@ -3,6 +3,8 @@ This is the source code (but not the content) for http://cppquiz.org
 Both this code and the contents of the site are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License:
 http://creativecommons.org/licenses/by-sa/4.0/
 
+[![Build Status](https://knatten.visualstudio.com/CppQuiz/_apis/build/status/knatten.cppquiz?branchName=master)](https://knatten.visualstudio.com/CppQuiz/_build/latest?definitionId=1&branchName=master)
+
 # Contributing
 
 ## Setting up the environment
