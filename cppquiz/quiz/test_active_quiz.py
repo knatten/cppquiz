@@ -1,9 +1,9 @@
 from django.test import TestCase
 
-from models import Quiz
-from active_quiz import *
-from fixed_quiz import *
-from test_helpers import *
+from .models import Quiz
+from .active_quiz import *
+from .fixed_quiz import *
+from .test_helpers import *
 
 class ActiveQuizTest(TestCase):
     def test_shows_total_number_of_questions(self):

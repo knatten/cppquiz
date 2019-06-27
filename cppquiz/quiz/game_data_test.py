@@ -1,8 +1,8 @@
 import mock
 import unittest
 
-from game_data import *
-from answer import *
+from .game_data import *
+from .answer import *
 
 def fake_answer(question_id):
     answer = mock.Mock()

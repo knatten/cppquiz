@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import reverse
-from models import *
+from .models import *
 
 def question_part(obj):
     return obj.question[:250]

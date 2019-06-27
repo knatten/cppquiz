@@ -2,11 +2,11 @@ from django.test import RequestFactory
 from django.test import TestCase
 import mock
 
-from answer import Answer
-from models import Quiz, Question
-from fixed_quiz import create_quiz
-from quiz_in_progress import QuizInProgress
-from test_helpers import *
+from .answer import Answer
+from .models import Quiz, Question
+from .fixed_quiz import create_quiz
+from .quiz_in_progress import QuizInProgress
+from .test_helpers import *
 
 class QuizInProgressTest(TestCase):
     def set_up(self, nof_questions=10):

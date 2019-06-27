@@ -179,4 +179,4 @@ TOP_WARNING=''
 
 CPP_STD='C++17'
 
-import local_settings
+from . import local_settings

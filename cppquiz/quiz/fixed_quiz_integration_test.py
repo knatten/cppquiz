@@ -4,9 +4,9 @@ import re
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from models import Quiz, Question, UsersAnswer
-from test_helpers import *
-import fixed_quiz
+from .models import Quiz, Question, UsersAnswer
+from .test_helpers import *
+from . import fixed_quiz
 
 class FixedQuizIntegrationTest(TestCase):
     def test_creating_a_quiz__creates_it_and_redirects_you_to_its_first_question(self):
@@ -18,7 +18,7 @@ class FixedQuizIntegrationTest(TestCase):
         redirect_relative = re.sub('http://\w*', '', redirect)
         response = self.client.get(redirect_relative)
         self.assertContains(response, 'You are taking quiz')
-        self.assertRegexpMatches(response.content, 'You are taking quiz.*%s' % redirect_relative)
+        self.assertRegex(str(response.content), 'You are taking quiz.*%s' % redirect_relative)
 
         first_question_in_quiz = Quiz.objects.all()[0].get_ordered_questions()[0].pk
         self.assertContains(response, 'Question #%d' % first_question_in_quiz)
@@ -29,7 +29,7 @@ class FixedQuizIntegrationTest(TestCase):
         create_questions(fixed_quiz.nof_questions_in_quiz)
         key = fixed_quiz.create_quiz()
         response = self.client.get(reverse('quiz:quiz', args=(key,)))
-        pk = get_question_pk(response.content)
+        pk = get_question_pk(str(response.content))
         response = self.answer_correctly(key, pk)
         self.assertContains(response, 'Correct!')
         explanation = Question.objects.get(pk=pk).explanation
@@ -103,16 +103,16 @@ class FixedQuizIntegrationTest(TestCase):
         create_questions(fixed_quiz.nof_questions_in_quiz)
         key = fixed_quiz.create_quiz()
         response = self.client.get(reverse('quiz:quiz', args=(key,)))
-        pk = get_question_pk(response.content)
+        pk = get_question_pk(str(response.content))
         self.assertLess((datetime.datetime.now() - Question.objects.get(pk=pk).last_viewed).total_seconds(), 10)
 
     def assert_result_string_with(self, response, points):
-        match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', response.content)
+        match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', str(response.content))
         self.assertTrue(match, 'Did not find result string')
         self.assertEqual(points, float(match.group(1)))
 
     def assert_status_string_with(self, response, answered, points):
-        match = re.search('After (\d+) of (\d+) questions, you have (\d+.\d+) .*points', response.content)
+        match = re.search("After (\d+) of (\d+) questions, you have (\d+.\d+) .*points", str(response.content))
         self.assertTrue(match, 'Did not find status string')
         self.assertEqual(answered, int(match.group(1)), 'Expected to have answered %d question(s), but status is "%s"' % (answered, match.group(0)))
         self.assertEqual(fixed_quiz.nof_questions_in_quiz, int(match.group(2)), 'Expected to have a total of %d question(s), but status is "%s"' % (fixed_quiz.nof_questions_in_quiz, match.group(0)))

@@ -5,10 +5,13 @@ http://creativecommons.org/licenses/by-sa/4.0/
 
 [![Build Status](https://knatten.visualstudio.com/CppQuiz/_apis/build/status/knatten.cppquiz?branchName=master)](https://knatten.visualstudio.com/CppQuiz/_build/latest?definitionId=1&branchName=master)
 
+# Requirements
+- Python 3.6 or 3.7
+- CppQuiz is only tested on Ubuntu and MacOS, but will probably work on many other OSes as well
+
 # Contributing
 
 ## Setting up the environment
-Note: CppQuiz is still running on Python 2.7
 - Clone this repository
 - (We recommend using Virtualenv)
 - `pip install -r requirements.txt`

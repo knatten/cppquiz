@@ -1,7 +1,7 @@
 import mock
 import unittest
 
-from game_data import *
+from .game_data import *
 
 class UserDataTest(unittest.TestCase):
 

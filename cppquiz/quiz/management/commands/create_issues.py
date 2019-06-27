@@ -1,5 +1,5 @@
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 from django.core.management.base import BaseCommand
 from cppquiz.quiz.models import Question
@@ -25,6 +25,6 @@ class Command(BaseCommand):
                 'Authorization' : 'token ' + options['token'][0],
                 'Accept' : 'application/vnd.github.golden-comet-preview+json'
             }
-            request = urllib2.Request(url, data, headers)
-            response=urllib2.urlopen(request)
+            request = urllib.request.Request(url, data, headers)
+            response=urllib.request.urlopen(request)
             print(response.read())

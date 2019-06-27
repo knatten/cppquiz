@@ -1,8 +1,5 @@
-Django==1.11.18
-funcsigs==1.0.2
-ipcalc==1.99.0
-Markdown==2.6.11
-mock==2.0.0
-pbr==3.1.1
-pytz==2018.5
-six==1.11.0
+Django==1.11.21
+Markdown==3.1.1
+mock==3.0.5
+pytz==2019.1
+six==1.12.0
