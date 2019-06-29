@@ -9,13 +9,13 @@ from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Q
 
-import fixed_quiz
-from models import *
-from forms import QuestionForm
-from answer import Answer
-from game_data import *
-from quiz_in_progress import *
-import system_info
+from . import fixed_quiz
+from .models import *
+from .forms import QuestionForm
+from .answer import Answer
+from .game_data import *
+from .quiz_in_progress import *
+from . import system_info
 
 def index(request):
     return random_question(request)
@@ -37,7 +37,7 @@ def clear(request):
 @staff_member_required
 def categorize(request):
     if request.method == 'POST':
-        for key, value in request.POST.iteritems():
+        for key, value in request.POST.items():
             if key.startswith('difficulty_'):
                 pk = key.split('_')[1]
                 q = Question.objects.get(pk=pk)
@@ -130,9 +130,9 @@ def quiz(request, quiz_key):
         quiz_in_progress.save()
         return HttpResponseRedirect('/q/%s' % quiz_key)
     d['quiz_in_progress'] = quiz_in_progress
-    if request.GET.has_key('skip'):
+    if 'skip' in request.GET:
         quiz_in_progress.skip(request)
-    if request.GET.has_key('hint'):
+    if 'hint' in request.GET:
         quiz_in_progress.use_hint()
         d['hint'] = True
     if quiz_in_progress.is_finished(request):

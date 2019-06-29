@@ -11,14 +11,14 @@ def beta():
     deploy('/home/riktigbil/webapps/cppquiz_beta/cppquiz')
 
 def run_tests():
-    local('python2.7 manage.py test')
+    local('python3.6 manage.py test')
     #local('./run_lettuce')
 
 def deploy(directory):
     run_tests()
     pull(directory)
-    sshagent_run('python2.7 manage.py migrate', directory)
-    sshagent_run('python2.7 manage.py collectstatic --noinput', directory)
+    sshagent_run('python3.6 manage.py migrate', directory)
+    sshagent_run('python3.6 manage.py collectstatic --noinput', directory)
     sshagent_run('../apache2/bin/restart', directory)
 
 def pull(directory):

@@ -1,7 +1,7 @@
 import random
 import string
 
-from models import Question, Quiz, QuestionInQuiz
+from .models import Question, Quiz, QuestionInQuiz
 
 nof_questions_in_quiz = 10
 

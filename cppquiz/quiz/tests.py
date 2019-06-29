@@ -1,15 +1,15 @@
 import unittest
 
-from fixed_quiz_test import *
-from fixed_quiz_integration_test import *
-from game_data_test import *
-from training_integration_test import *
-from test_active_quiz import ActiveQuizTest
-from test_quiz_in_progress import *
-from session_test import *
-from templatetags.quiz_extras_test import *
-from model_test import *
-from api_test import ApiTest
+from .fixed_quiz_test import *
+from .fixed_quiz_integration_test import *
+from .game_data_test import *
+from .training_integration_test import *
+from .test_active_quiz import ActiveQuizTest
+from .test_quiz_in_progress import *
+from .session_test import *
+from .templatetags.quiz_extras_test import *
+from .model_test import *
+from .api_test import ApiTest
 
 def suite():
     return unittest.TestSuite([

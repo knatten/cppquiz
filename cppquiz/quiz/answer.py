@@ -1,5 +1,5 @@
-from models import UsersAnswer
-from util import get_client_ip
+from .models import UsersAnswer
+from .util import get_client_ip
 
 class Answer:
     def __init__(self, question, request):

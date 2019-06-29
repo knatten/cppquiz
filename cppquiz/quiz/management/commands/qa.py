@@ -7,14 +7,14 @@ class Command(BaseCommand):
     max_line_length = 60
 
     def handle(self, *args, **options):
-        print "CHECKING FOR LONG LINES:"
+        print("CHECKING FOR LONG LINES:")
         for question in Question.objects.all():
             for line in question.question.splitlines():
                 if len(line) > self.max_line_length:
-                    print "In question", question.pk, ":"
-                    print line
-        print
-        print "CHECKING FOR MISSING HINTS"
+                    print("In question", question.pk, ":")
+                    print(line)
+        print()
+        print("CHECKING FOR MISSING HINTS")
         for question in Question.objects.all():
             if question.state == 'PUB' and len(question.hint) < 10:
-                print "Question", question.pk, "is published and missing a hint"
+                print("Question", question.pk, "is published and missing a hint")

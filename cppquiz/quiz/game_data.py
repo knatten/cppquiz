@@ -2,7 +2,7 @@ from collections import defaultdict
 
 class UserData:
     def __init__(self, session):
-        if session.has_key('user_data'):
+        if 'user_data' in session:
             self.correctly_answered = getattr(session['user_data'], 'correctly_answered', set())
             self.dismissed_training_msg = getattr(session['user_data'], 'dismissed_training_msg', False)
             self.attempts = getattr(session['user_data'], 'attempts', defaultdict(int))

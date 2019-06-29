@@ -2,8 +2,8 @@ import datetime
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from models import Question
-from test_helpers import create_questions
+from .models import Question
+from .test_helpers import create_questions
 
 class TrainingIntegrationTest(TestCase):
     def test_when_viewing_an_unpublished_question__gets_404(self):

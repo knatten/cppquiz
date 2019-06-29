@@ -1,6 +1,6 @@
 from django.http import JsonResponse, Http404
 
-from models import Quiz
+from .models import Quiz
 
 def quiz(request):
     quiz_key = request.GET.get('key')

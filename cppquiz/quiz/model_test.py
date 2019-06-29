@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from models import Question
+from .models import Question
 
 class QuestionTest(TestCase):
     def test_is_not_allowed_to_save_published_questions_without_difficulty(self):

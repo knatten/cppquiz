@@ -1,6 +1,6 @@
 from django.conf.urls import *
 
-import api
+from . import api
 
 urlpatterns = [
     url(r'^quiz', api.quiz, name='quiz'),

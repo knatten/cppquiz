@@ -18,9 +18,9 @@ def format_paragraph(section_name, paragraph_number, full_text):
         return "<em>" + full_text + "</em>"
 
 def standard_ref(text):
-    possible_named_reference = u'(\[(\S+(\.\S+)*)\])?'
-    numbered_reference = u'§\d+(\.\d+)*'
-    possible_pilcrow_reference = u'(¶(\d+(\.\d+)*))*'
+    possible_named_reference = '(\[(\S+(\.\S+)*)\])?'
+    numbered_reference = '§\d+(\.\d+)*'
+    possible_pilcrow_reference = '(¶(\d+(\.\d+)*))*'
     regex = re.compile('(' + possible_named_reference + '\(?' + numbered_reference + '\)?' + possible_pilcrow_reference + ')')
     matched = regex.findall(text)
     for elem in matched:

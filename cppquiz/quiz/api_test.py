@@ -3,11 +3,11 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.http import Http404
 
-from fixed_quiz import create_quiz
-from models import Quiz, Question
-from test_helpers import *
+from .fixed_quiz import create_quiz
+from .models import Quiz, Question
+from .test_helpers import *
 
-import api
+from . import api
 
 class ApiTest(TestCase):
     def set_up(self, nof_questions=10):

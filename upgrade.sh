@@ -2,8 +2,8 @@
 cd "$(dirname "$0")"
 
 echo "## Installing from requirements.txt"
-pip install -r requirements.txt --upgrade -t ../lib/python2.7
+pip3.6 install -r requirements.txt --upgrade -t ../lib/python3.6
 echo "## Version is now"
-python ../lib/python2.7/django/bin/django-admin.py --version
+python3.6 ../lib/python3.6/django/bin/django-admin.py --version
 echo "## Restarting apache"
 ../apache2/bin/restart

@@ -1,4 +1,4 @@
-import settings
+from . import settings
 
 settings.DEBUG = True
 settings.ALLOWED_HOSTS += ['127.0.0.1']

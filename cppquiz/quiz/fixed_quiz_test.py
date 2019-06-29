@@ -2,9 +2,9 @@ import string
 
 from django.test import TestCase
 
-from models import Question, Quiz, QuestionInQuiz
-import fixed_quiz
-from test_helpers import *
+from .models import Question, Quiz, QuestionInQuiz
+from . import fixed_quiz
+from .test_helpers import *
 
 class get_unique_quiz_key_Test(TestCase):
     def test_returns_random_string(self):
@@ -65,4 +65,4 @@ class create_quiz_Test(TestCase):
 
     def assertLooksKindOfRandom(self, question_ids):
         #Only works if there are more questions in the db than we are asked to use in the quiz
-        self.assertNotEqual(range(1, len(question_ids) + 1), question_ids)
+        self.assertNotEqual(list(range(1, len(question_ids) + 1)), question_ids)
