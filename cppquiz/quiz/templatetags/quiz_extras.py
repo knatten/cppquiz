@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-import re
+import base64
+import json
 import markdown
+import re
+import urllib.parse
 
 from django import template
 from django.utils.safestring import mark_safe
+from django.conf import settings
 
 register = template.Library()
 
@@ -39,3 +43,34 @@ def to_html(text, autoescape=None):
         standard_ref(
             custom_linebreaks(
                 markdown.markdown(text))))
+
+@register.filter()
+def cpp_insights_link(question):
+    std = settings.CPP_STD.replace("C++","cpp")
+    return('https://cppinsights.io/lnk?code=%s&insightsOptions=%s&rev=1.0' %(base64.b64encode(question.question.encode()).decode('utf-8'), std))
+
+@register.filter()
+def compiler_explorer_link(question):
+    editor = {
+        "type": "component",
+        "componentName": "codeEditor",
+        "componentState": {
+            "id": 1,
+            "source": question.question,
+            "options": {"compileOnChange": True, "colouriseAsm": True},
+        },
+    }
+
+    compiler = {
+        "type": "component",
+        "componentName": "compiler",
+        "componentState": {"source": 1, "compiler": "g92"},
+    }
+
+    content = [editor, compiler]
+    obj = {"version": 4, "content": [{"type": "row", "content": content}]}
+
+    payload = json.dumps(obj)
+    ceFragment = urllib.parse.quote(payload)
+    url = "https://godbolt.org/#" + ceFragment
+    return url
