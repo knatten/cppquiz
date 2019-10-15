@@ -13,8 +13,13 @@ cat "$TEMPLATE" | sed -e "s/\(<\!-- version --> v\)[0-9][0-9]*\.[0-9][0-9]*/\1$V
 mv "$TEMPLATE.new" "$TEMPLATE" || exit 1
 
 echo "Committing"
+git checkout -b "bump-$VERSION"
 git add "$TEMPLATE" || exit 1
 git commit -v -m"Bumped version to $VERSION" || exit 1
 
-echo "Tagging commit"
-git tag "v$VERSION"
+echo
+echo "--------------------------------------"
+echo "Now make a PR, merge it, and do"
+echo "git tag v$VERSION && git push origin v$VERSION"
+echo "--------------------------------------"
+echo
