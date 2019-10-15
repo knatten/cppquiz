@@ -64,7 +64,11 @@ def compiler_explorer_link(question):
     compiler = {
         "type": "component",
         "componentName": "compiler",
-        "componentState": {"source": 1, "compiler": "g92"},
+        "componentState": {
+            "source": 1,
+            "compiler": "g92",
+            "options": f"-std={settings.CPP_STD.lower()}",
+        },
     }
 
     content = [editor, compiler]
