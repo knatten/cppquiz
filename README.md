@@ -31,8 +31,8 @@ http://creativecommons.org/licenses/by-sa/4.0/
 The system tests are currently not maintained. If you want to have a go, you need at least `pip install lettuce` and `pip install splinter`. Then try to get `./run_lettuce` to work.
 
 ## Deployment
-- `pip install fabric`
-- Bump the version in `templates.base.html` (this should be scripted)
-- `fab beta`
+- If applicable: `./bump_version.sh <version>` (e.g `./bump_version 1.11`)
+- The above script prompts you to make a PR and tag the release, do this.
+- `./deploy.sh beta`
 - Check `http://beta.cppquiz.org/`
-- `fab production`
+- `./deploy.sh prod`
