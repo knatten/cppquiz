@@ -65,14 +65,29 @@ def compiler_explorer_link(question):
         "type": "component",
         "componentName": "compiler",
         "componentState": {
+            "id": 1,
             "source": 1,
             "compiler": "g92",
+            "filters": {"b": 1, "execute": 1, "intel": 1, "commentOnly": 1, "directives": 1},
             "options": f"-std={settings.CPP_STD.lower()}",
         },
     }
 
-    content = [editor, compiler]
-    obj = {"version": 4, "content": [{"type": "row", "content": content}]}
+    output = {
+        "type": "component",
+        "componentName": "output",
+        "componentState": {"compiler": 1, "source": 1},
+    }
+
+    obj = {
+        "version": 4,
+        "content": [
+            {
+                "type": "row",
+                "content": [editor, {"type": "column", "content": [compiler, output]}],
+            }
+        ],
+    }
 
     payload = json.dumps(obj)
     ceFragment = urllib.parse.quote(payload)
