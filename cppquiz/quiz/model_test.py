@@ -16,6 +16,12 @@ class QuestionTest(TestCase):
             q.save()
         self.assertIn('Cannot publish a question without a hint', str(cm.exception))
 
+    def test_is_not_allowed_to_save_reserved_questions(self):
+        q = Question(state='PUB', hint = 'hint', difficulty=1, reserved=True)
+        with self.assertRaises(ValidationError) as cm:
+            q.save()
+        self.assertIn('Cannot publish a reserved question', str(cm.exception))
+
     def test_is_allowed_to_save_unpublished_questions_without_hint_or_difficulty(self):
         q = Question(question='foo')
         q.save()

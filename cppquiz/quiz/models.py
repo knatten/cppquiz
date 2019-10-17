@@ -43,6 +43,8 @@ class Question(models.Model):
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
     last_viewed = models.DateTimeField(default=datetime.datetime.min)
     retraction_message = models.TextField(default='', blank=True, help_text='Use markdown')
+    reserved = models.BooleanField(default=False, help_text='This question is reserved for an event, do not publish yet')
+    reservation_message = models.CharField(blank=True, max_length=100, help_text='Which event the question is reserved for')
 
     def __str__(self):
         return str(self.pk)
@@ -52,6 +54,8 @@ class Question(models.Model):
             raise ValidationError('Cannot publish a question without a hint')
         if self.state == 'PUB' and self.difficulty == 0:
             raise ValidationError('Cannot publish a question without a difficulty setting')
+        if self.state == 'PUB' and self.reserved:
+            raise ValidationError('Cannot publish a reserved question')
 
     def save(self, *args, **kwargs):
         self.full_clean()
