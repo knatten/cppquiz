@@ -1,4 +1,4 @@
-Django==1.11.23
+Django==1.11.27
 Markdown==3.1.1
 mock==3.0.5
 pytz==2019.1
