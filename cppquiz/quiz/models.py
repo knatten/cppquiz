@@ -66,7 +66,7 @@ class Question(models.Model):
         self.save()
 
 class UsersAnswer(models.Model):
-    question = models.ForeignKey('Question')
+    question = models.ForeignKey('Question', on_delete=models.PROTECT)
     result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
     ip = models.CharField(max_length=45, default='', blank=True)
@@ -86,5 +86,5 @@ class Quiz(models.Model):
         return ','.join([str(q) for q in self.questions.all()])
 
 class QuestionInQuiz(models.Model):
-    question = models.ForeignKey(Question)
-    quiz = models.ForeignKey(Quiz)
+    question = models.ForeignKey(Question, on_delete=models.PROTECT)
+    quiz = models.ForeignKey(Quiz, on_delete=models.PROTECT)
