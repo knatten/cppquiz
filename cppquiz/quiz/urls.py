@@ -3,6 +3,7 @@ from django.views.generic.base import TemplateView
 
 from . import views
 
+app_name='quiz'
 urlpatterns = [
     url(r'^quiz/question/(?P<question_id>\d+)', views.question, name='question'),
     url(r'^quiz/giveup/(?P<question_id>\d+)', views.giveup, name='giveup'),
