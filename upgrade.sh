@@ -14,5 +14,7 @@ echo "## Installing from requirements.txt"
 $PYTHON -m pip install -r requirements.txt --upgrade -t ../lib/$PYTHON || exit $?
 echo "## Version is now"
 $PYTHON ../lib/$PYTHON/django/bin/django-admin.py --version || exit $?
+echo "## Applying migrations"
+$PYTHON manage.py migrate
 echo "## Restarting apache"
 ../apache2/bin/restart || exit $?
