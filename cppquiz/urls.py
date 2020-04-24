@@ -6,8 +6,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^api/v1/quiz/', include('cppquiz.quiz.apiurls')),
-    url(r'', include('cppquiz.quiz.urls', namespace='quiz')),
+    url(r'', include('cppquiz.quiz.urls')),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt')),
 ]
