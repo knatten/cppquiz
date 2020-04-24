@@ -1,6 +1,6 @@
 import datetime
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from .models import Question
 from .test_helpers import create_questions
