@@ -10,6 +10,7 @@ from .session_test import *
 from .templatetags.quiz_extras_test import *
 from .model_test import *
 from .api_test import ApiTest
+from .test_auto_publish import *
 
 def suite():
     return unittest.TestSuite([
@@ -25,5 +26,6 @@ def suite():
         unittest.TestLoader().loadTestsFromTestCase(standard_ref_Test),
         unittest.TestLoader().loadTestsFromTestCase(QuestionTest),
         unittest.TestLoader().loadTestsFromTestCase(ApiTest),
+        unittest.TestLoader().loadTestsFromTestCase(AutoPublishTest),
         ])
 
