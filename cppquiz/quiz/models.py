@@ -26,6 +26,7 @@ class Question(models.Model):
         ('NEW', 'New'),
         ('WAI', 'Waiting'),
         ('ACC', 'Accepted'),
+        ('SCH', 'Scheduled'),
         ('REF', 'Refused'),
         ('PUB', 'Published'),
         ('RET', 'Retracted'),
@@ -36,7 +37,8 @@ class Question(models.Model):
     explanation = models.TextField(default='', blank=True, help_text='Use markdown, and refer to the standard like this: [section.subsection]\xc2\xa7x.y\xc2\xb6z.')
     hint = models.TextField(default='No hint', blank=True, help_text='Use markdown, and refer to the standard like this: [section.subsection]\xc2\xa7x.y\xc2\xb6z.')
     comment = models.TextField(default='', blank=True, help_text='Comments for admins and contributors, not displayed on the site')
-    date_time = models.DateTimeField(auto_now_add=True)
+    date_time = models.DateTimeField(auto_now_add=True, help_text='Time of creation')
+    publish_time = models.DateTimeField(null=True, blank=True, help_text='Time of publishing (will be published then if state is "Scheduled")')
     state = models.CharField(max_length=3, default='NEW', choices=STATE_CHOICES)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
@@ -45,17 +47,19 @@ class Question(models.Model):
     retraction_message = models.TextField(default='', blank=True, help_text='Use markdown')
     reserved = models.BooleanField(default=False, help_text='This question is reserved for an event, do not publish yet')
     reservation_message = models.CharField(blank=True, max_length=100, help_text='Which event the question is reserved for')
+    tweet_text = models.CharField(blank=True, max_length=280, help_text='What to tweet when question gets posted on Twitter')
 
     def __str__(self):
         return str(self.pk)
 
     def clean(self):
-        if self.state == 'PUB' and self.hint == '':
-            raise ValidationError('Cannot publish a question without a hint')
-        if self.state == 'PUB' and self.difficulty == 0:
-            raise ValidationError('Cannot publish a question without a difficulty setting')
-        if self.state == 'PUB' and self.reserved:
-            raise ValidationError('Cannot publish a reserved question')
+        verbs = {'SCH':'schedule', 'PUB':'publish'}
+        if self.state in ('PUB', 'SCH') and self.hint == '':
+            raise ValidationError(f'Cannot {verbs[self.state]} a question without a hint')
+        if self.state in ('PUB', 'SCH') and self.difficulty == 0:
+            raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
+        if self.state in ('PUB', 'SCH') and self.reserved:
+            raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
 
     def save(self, *args, **kwargs):
         self.full_clean()
