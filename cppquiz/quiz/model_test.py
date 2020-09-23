@@ -45,3 +45,9 @@ class QuestionTest(TestCase):
         self.assertEqual(10, len(q.preview_key))
         q2 = Question.objects.create()
         self.assertNotEqual(q.preview_key, q2.preview_key)
+
+    def test_requires_url_in_tweet_text(self):
+        q = Question(state="SCH", hint = 'hint', tweet_text="hi", difficulty=1)
+        with self.assertRaises(ValidationError) as cm:
+            q.save()
+        self.assertIn('Tweets must contain a url!', str(cm.exception))
