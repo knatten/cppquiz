@@ -1,5 +1,5 @@
-Django==2.2.13
-Markdown==3.1.1
-mock==3.0.5
+Django==2.2.17
+Markdown==3.3.3
+mock==4.0.2
 parameterized==0.7.4
 tweepy==3.9.0
