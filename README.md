@@ -14,7 +14,7 @@ http://creativecommons.org/licenses/by-sa/4.0/
 ## Setting up the environment
 - Clone this repository
 - (We recommend using Virtualenv)
-- `pip install -r requirements.txt`
+- `pip install -r requirements.frozen.txt`
 - `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
 - `python manage.py migrate`
 - `python manage.py createsuperuser`
