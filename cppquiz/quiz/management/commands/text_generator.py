@@ -74,7 +74,7 @@ The fields you need to care about are `answer` and `result`:
 main_readme = """
 ## Porting CppQuiz.org questions to C++17
 
-CppQuiz.org is an open source C++ quiz site. If you're unfamiliar with it, you can read more in [its "About" section](http://cppquiz.org/quiz/about/).
+CppQuiz.org is an open source C++ quiz site. If you're unfamiliar with it, you can read more in [its "About" section](https://cppquiz.org/quiz/about/).
 
 All the CppQuiz questions are currently targetting C++11. We need to update them for C++17. Most questions will still have the same answers, we just need to update the explanations and references to the standard. A few questions will also have different answers.
 

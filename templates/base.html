@@ -3,8 +3,8 @@
 <head>
 <title>CppQuiz.org {{title}}</title>
 <script src="{{STATIC_URL}}highlight.pack.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}highlight.css">
 <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}quiz.css?v=5">
 <link rel="shortcut icon" href="{{STATIC_URL}}favicon.png">
@@ -62,7 +62,7 @@ window.cookieconsent.initialise({
   },
   "theme": "edgeless",
   "content": {
-    "href": "http://cppquiz.org/quiz/about#cookies"
+    "href": "https://cppquiz.org/quiz/about#cookies"
   }
 })});
 </script>
@@ -72,7 +72,7 @@ window.cookieconsent.initialise({
 <div id="content">
 {%if request.get_host == "beta.cppquiz.org"%}
 <p class="beta_warning">
-<strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="http://cppquiz.org">the official site</a> instead.
+<strong>NOTE:</strong> This is the development site. Unless you are here specifically to test a certain feature, you probably want to visit <a href="https://cppquiz.org">the official site</a> instead.
 </p>
 {%endif%}
 {%if TOP_WARNING|safe %}

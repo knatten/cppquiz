@@ -1,4 +1,4 @@
-This is the source code (but not the content) for http://cppquiz.org
+This is the source code (but not the content) for https://cppquiz.org
 
 Both this code and the contents of the site are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License:
 http://creativecommons.org/licenses/by-sa/4.0/
@@ -34,5 +34,5 @@ The system tests are currently not maintained. If you want to have a go, you nee
 - If applicable: `./bump_version.sh <version>` (e.g `./bump_version 1.11`)
 - The above script prompts you to make a PR and tag the release, do this.
 - `./deploy.sh beta`
-- Check `http://beta.cppquiz.org/`
+- Check `https://beta.cppquiz.org/`
 - `./deploy.sh prod`

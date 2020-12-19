@@ -3,7 +3,7 @@
 {%load quiz_extras%}
 {%block content%}
 <p id="stats">
-You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
+You are taking quiz <a href="https://{{request.get_host}}{{request.path}}">{{request.get_host}}{{request.path}}</a>.<br>
 </p>
 
 
@@ -20,7 +20,7 @@ You are taking quiz <a href="http://{{request.get_host}}{{request.path}}">{{requ
 <p>You finished with {{quiz_in_progress.score|floatformat:2}} out of {{quiz_in_progress.get_total_nof_questions|floatformat:1}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>possible</abbr> points.</p>
 
 <p>
-Now <a href="https://twitter.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz http://{{request.get_host}}{{request.get_full_path}} ! Can you match that?">boast about it on Twitter</a>!
+Now <a href="https://twitter.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz https://{{request.get_host}}{{request.get_full_path}} ! Can you match that?">boast about it on Twitter</a>!
 <br>
 (This link takes you to Twitter.com, we would never post on your behalf).
 </p>
