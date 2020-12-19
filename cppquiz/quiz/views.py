@@ -60,7 +60,7 @@ def create(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             form.save()
-            mail_admins('Someone made a question!', 'http://' + request.get_host() + '/admin/quiz/question/?state=NEW')
+            mail_admins('Someone made a question!', 'https://' + request.get_host() + '/admin/quiz/question/?state=NEW')
             return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()

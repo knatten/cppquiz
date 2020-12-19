@@ -15,7 +15,7 @@ class FixedQuizIntegrationTest(TestCase):
         redirect = response.get('location')
         self.assertEqual(response.status_code, 302)
 
-        redirect_relative = re.sub('http://\w*', '', redirect)
+        redirect_relative = re.sub('https://\w*', '', redirect)
         response = self.client.get(redirect_relative)
         self.assertContains(response, 'You are taking quiz')
         self.assertRegex(str(response.content), 'You are taking quiz.*%s' % redirect_relative)
