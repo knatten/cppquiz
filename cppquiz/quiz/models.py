@@ -1,6 +1,7 @@
  # -*- coding: utf-8 -*-
 import datetime
 import random
+import re
 import string
 
 from django.core.exceptions import ValidationError
@@ -60,7 +61,7 @@ class Question(models.Model):
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
-        if self.tweet_text and not "http://" in self.tweet_text:
+        if self.tweet_text and not re.match("https?://",self.tweet_text):
             raise ValidationError('Tweets must contain a url!')
 
     def save(self, *args, **kwargs):
