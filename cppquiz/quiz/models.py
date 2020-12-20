@@ -6,6 +6,7 @@ import string
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 def generate_preview_key():
     return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
@@ -44,7 +45,7 @@ class Question(models.Model):
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
-    last_viewed = models.DateTimeField(default=datetime.datetime.min)
+    last_viewed = models.DateTimeField(null=True, blank=True)
     retraction_message = models.TextField(default='', blank=True, help_text='Use markdown')
     reserved = models.BooleanField(default=False, help_text='This question is reserved for an event, do not publish yet')
     reservation_message = models.CharField(blank=True, max_length=100, help_text='Which event the question is reserved for')
@@ -69,7 +70,7 @@ class Question(models.Model):
         super(Question, self).save(*args, **kwargs)
 
     def mark_viewed(self):
-        self.last_viewed = datetime.datetime.now()
+        self.last_viewed = timezone.now()
         self.save()
 
 class UsersAnswer(models.Model):

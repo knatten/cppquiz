@@ -3,6 +3,7 @@ import re
 
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import Quiz, Question, UsersAnswer
 from .test_helpers import *
@@ -104,7 +105,7 @@ class FixedQuizIntegrationTest(TestCase):
         key = fixed_quiz.create_quiz()
         response = self.client.get(reverse('quiz:quiz', args=(key,)))
         pk = get_question_pk(str(response.content))
-        self.assertLess((datetime.datetime.now() - Question.objects.get(pk=pk).last_viewed).total_seconds(), 10)
+        self.assertLess((timezone.now() - Question.objects.get(pk=pk).last_viewed).total_seconds(), 10)
 
     def assert_result_string_with(self, response, points):
         match = re.search('You finished with (\d+.\d+) out of (\d+.\d+) .*possible.*points.', str(response.content))

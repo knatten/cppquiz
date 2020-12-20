@@ -1,6 +1,7 @@
 import datetime
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import Question
 from .test_helpers import create_questions
@@ -75,10 +76,10 @@ class TrainingIntegrationTest(TestCase):
 
     def test_when_viewing_a_question__it_gets_timestamped(self):
         question = self.create_question(True)
-        self.assertGreater((datetime.datetime.now() - question.last_viewed).total_seconds(), 10)
+        self.assertIsNone(question.last_viewed)
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertEqual(200, response.status_code)
-        self.assertLess((datetime.datetime.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
+        self.assertLess((timezone.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
 
     def create_question(self, published, preview_key=''):
         return Question.objects.create(state = 'PUB' if published else 'NEW', question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
