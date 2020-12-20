@@ -4,6 +4,7 @@
 
 import datetime
 from django.db import migrations, models
+from django.utils import timezone
 
 
 class Migration(migrations.Migration):
@@ -16,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='question',
             name='last_viewed',
-            field=models.DateTimeField(default=datetime.datetime(1, 1, 1, 0, 0)),
+            field=models.DateTimeField(default=timezone.now),
         ),
     ]

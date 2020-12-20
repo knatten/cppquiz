@@ -6,6 +6,7 @@ import string
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 def generate_preview_key():
     return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
@@ -69,7 +70,7 @@ class Question(models.Model):
         super(Question, self).save(*args, **kwargs)
 
     def mark_viewed(self):
-        self.last_viewed = datetime.datetime.now()
+        self.last_viewed = timezone.now()
         self.save()
 
 class UsersAnswer(models.Model):

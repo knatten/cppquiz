@@ -5,6 +5,7 @@ from pathlib import Path
 
 import tweepy
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from cppquiz.quiz.models import Question
 
@@ -16,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         skip_tweet = options["skip_tweet"]
 
-        for q in Question.objects.filter(state='SCH', publish_time__lte=datetime.datetime.now()):
+        for q in Question.objects.filter(state='SCH', publish_time__lte=timezone.now()):
             print(f"Publishing question {q}")
             q.state = 'PUB'
             q.save()
