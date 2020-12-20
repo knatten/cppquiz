@@ -75,7 +75,7 @@ class TrainingIntegrationTest(TestCase):
 
     def test_when_viewing_a_question__it_gets_timestamped(self):
         question = self.create_question(True)
-        self.assertGreater((datetime.datetime.now() - question.last_viewed).total_seconds(), 10)
+        self.assertIsNone(question.last_viewed)
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertEqual(200, response.status_code)
         self.assertLess((datetime.datetime.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
