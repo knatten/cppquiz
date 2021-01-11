@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Q
+from django.views.decorators.cache import never_cache
 
 from . import fixed_quiz
 from .models import *
@@ -17,9 +18,12 @@ from .game_data import *
 from .quiz_in_progress import *
 from . import system_info
 
+@never_cache
 def index(request):
     return random_question(request)
 
+
+@never_cache
 def random_question(request):
     try:
         return HttpResponseRedirect(
