@@ -9,6 +9,10 @@ strategy:
       PYTHON_VERSION: '3.6'
     Python37:
       PYTHON_VERSION: '3.7'
+    Python38:
+      PYTHON_VERSION: '3.8'
+    Python39:
+      PYTHON_VERSION: '3.9'
   maxParallel: 3
 
 steps:
