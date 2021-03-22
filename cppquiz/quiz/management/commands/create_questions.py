@@ -16,7 +16,7 @@ class Command(BaseCommand):
             q.answer = str(q.pk)
             q.hint = "It's " + str(q.pk)
             q.comment = "I'm pretty sure it's " + str(q.pk)
-            q.explanation = "Because " + str(q.pk) + ", see [over.best.ics]§16.3.3.1¶6 in the standard."
+            q.explanation = "Because " + str(q.pk) + ", see §[over.best.ics]¶6 in the standard."
             q.save()
 
 question = """#include <iostream>
