@@ -12,7 +12,7 @@ def _assert_no_bare_section_numbers(text):
 
 def remove_section_numbers(text):
     _assert_no_bare_section_numbers(text)
-    return re.sub(r"(\[.+\])§\d+(\.\d+)*", "§\g<1>", text)
+    return re.sub(r"(\[[\w\.]+\])§\d+(\.\d+)*", "§\g<1>", text)
 
 class Command(BaseCommand):
     version = 1

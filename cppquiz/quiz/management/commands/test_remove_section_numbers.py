@@ -13,6 +13,9 @@ class TestRemoveSectionNumbers(unittest.TestCase):
         self.assertEqual("foo §[expr.cond] bar", remove_section_numbers("foo [expr.cond]§1.2.3 bar"))
         self.assertEqual("foo §[expr.cond]¶wat bar", remove_section_numbers("foo [expr.cond]§1.2.3¶wat bar"))
 
+    def test_doesnt_replace_too_much(self):
+        self.assertEqual("[1] §[conv.ptr]¶1", remove_section_numbers("[1] [conv.ptr]§7.11¶1"))
+
     def test_bare_section_numbers_raises(self):
         with self.assertRaises(ValueError) as _:
             remove_section_numbers("foo §8 bar")
