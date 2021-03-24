@@ -19,8 +19,8 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
       - name: Install dependencies
-        run: python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.frozen.txt && pip install unittest-xml-reporting
+        run: python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.frozen.txt
       - name: Create local settings
         run: cat cppquiz/local_settings_example.py | sed 's_/path/to/your/code/cppquiz_'"$PWD"'_'> cppquiz/local_settings.py
       - name: Test
-        run: python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+        run: python manage.py test --no-input --verbosity 2
