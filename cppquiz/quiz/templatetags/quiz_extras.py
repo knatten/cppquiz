@@ -21,7 +21,7 @@ def format_reference(match):
     return "<em><a href=\"" + full_link + "\">" + full_reference + "</a></em>"
 
 def standard_ref(text):
-    section_name = u'(\[(?P<section_name>\w+(\.\w+)*)\])?'
+    section_name = u'(\[(?P<section_name>\w+(\.\w+)*)\])'
     possible_paragraph = u'(¶(?P<paragraph>\d+(\.\d+)*))*'
     regex = re.compile('§(' + section_name + possible_paragraph + ')')
     return re.sub(regex, format_reference, text)
