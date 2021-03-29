@@ -8,6 +8,7 @@ class QuestionTest(TestCase):
     @parameterized.expand([
         ('PUB','publish'),
         ('SCH','schedule'),
+        ('ACC','accept'),
     ])
     def test_limits_state_of_questions_without_difficulty_setting(self, state, verb):
         q = Question(state=state, hint = 'hint', difficulty=0)
@@ -18,6 +19,7 @@ class QuestionTest(TestCase):
     @parameterized.expand([
         ('PUB','publish'),
         ('SCH','schedule'),
+        ('ACC','accept'),
     ])
     def test_limits_state_of_questions_without_hint(self, state, verb):
         q = Question(state=state, hint = '', difficulty=1)

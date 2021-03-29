@@ -55,10 +55,10 @@ class Question(models.Model):
         return str(self.pk)
 
     def clean(self):
-        verbs = {'SCH':'schedule', 'PUB':'publish'}
-        if self.state in ('PUB', 'SCH') and self.hint == '':
+        verbs = {'SCH':'schedule', 'PUB':'publish', 'ACC':'accept'}
+        if self.state in ('PUB', 'SCH', 'ACC') and self.hint == '':
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a hint')
-        if self.state in ('PUB', 'SCH') and self.difficulty == 0:
+        if self.state in ('PUB', 'SCH', 'ACC') and self.difficulty == 0:
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
