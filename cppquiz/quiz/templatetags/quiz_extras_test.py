@@ -15,6 +15,9 @@ class standard_ref_Test(unittest.TestCase):
         self.assertEqual(
             '<em><a href="https://timsong-cpp.github.io/cppwp/n4659/foo.bar">§[foo.bar]</a></em>',
             standard_ref('§[foo.bar]'))
+        self.assertEqual(
+            '<em><a href="https://timsong-cpp.github.io/cppwp/n4659/foo::bar">§[foo::bar]</a></em>',
+            standard_ref('§[foo::bar]'))
 
     def test_given_section_and_paragraph(self):
         self.assertEqual(
