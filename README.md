@@ -31,8 +31,5 @@ http://creativecommons.org/licenses/by-sa/4.0/
 The system tests are currently not maintained. If you want to have a go, you need at least `pip install lettuce` and `pip install splinter`. Then try to get `./run_lettuce` to work.
 
 ## Deployment
-- If applicable: `./bump_version.sh <version>` (e.g `./bump_version 1.11`)
-- The above script prompts you to make a PR and tag the release, do this.
-- `./deploy.sh beta`
-- Check `https://beta.cppquiz.org/`
-- `./deploy.sh prod`
+- Check out the branch you want to deploy
+- Run ./deploy.sh
