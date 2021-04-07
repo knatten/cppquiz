@@ -23,8 +23,10 @@ After {{quiz_in_progress.nof_answered_questions}} of {{quiz_in_progress.get_tota
 
 {%if quiz_in_progress.get_previous_result == 'incorrect'%}
 {%if not hint %}
-<h2 class="incorrect">Incorrect!</h2>
-<div class="incorrect"><p> Try again: </p></div>
+<div id="incorrect">
+<h2>Incorrect!</h2>
+<p> Try again: </p>
+</div>
 {%endif%}
 {%endif%}
 

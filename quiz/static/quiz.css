@@ -178,14 +178,6 @@ h4.quiz_mode
     font-size:.5em;
     font-weight:normal;
 }
-.correct code.hljs
-{
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color:#cfc;
-}
 .disabled, .disabled a
 {
     color:#999;
