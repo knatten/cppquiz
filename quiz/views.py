@@ -30,6 +30,7 @@ def random_question(request):
     except NoQuestionsExist:
         return HttpResponseRedirect("/quiz/no_questions")
 
+@never_cache
 def clear(request):
     user_data = UserData(request.session)
     request.session.clear()
@@ -110,12 +111,14 @@ def giveup(request, question_id):
     d['question'] = get_object_or_404(Question, id=question_id)
     return render(request, 'quiz/giveup.html', d)
 
+@never_cache
 def start(request):
     clear_quiz_in_progress(request.session)
     key = fixed_quiz.create_quiz()
     return HttpResponseRedirect('/q/%s' % key)
 
 
+@never_cache
 def quiz(request, quiz_key):
     d = {}
     try:
