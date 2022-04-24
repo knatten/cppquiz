@@ -1,6 +1,6 @@
 certifi==2021.10.8
 charset-normalizer==2.0.12
-Django==2.2.27
+Django==2.2.28
 idna==3.3
 importlib-metadata==4.8.3
 Markdown==3.3.6
