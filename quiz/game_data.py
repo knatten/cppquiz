@@ -12,7 +12,7 @@ class UserData:
             self.attempts = defaultdict(int)
 
     def get_correctly_answered_questions(self):
-        return list(self.correctly_answered)
+        return self.correctly_answered
 
     def register_correct_answer(self, question_id):
         self.correctly_answered.add(question_id)
