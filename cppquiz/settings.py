@@ -84,14 +84,14 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '9@&ll@=k-+)s_&@rk334fksoy$clt#!2_@3w%mgrrv2pbh_+b^'
 
 MIDDLEWARE = [
-     'django.middleware.security.SecurityMiddleware',
-     'django.contrib.sessions.middleware.SessionMiddleware',
-     'django.middleware.common.CommonMiddleware',
-     'django.middleware.csrf.CsrfViewMiddleware',
-     'django.contrib.auth.middleware.AuthenticationMiddleware',
-     'django.contrib.messages.middleware.MessageMiddleware',
-     'django.middleware.clickjacking.XFrameOptionsMiddleware',
- ]
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'cppquiz.urls'
 
@@ -146,8 +146,8 @@ LOGGING = {
     },
     'formatters': {
         'simple_stamped': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%Y-%b-%d %H:%M:%S",
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%Y-%b-%d %H:%M:%S",
         },
     },
     'handlers': {
@@ -156,7 +156,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
         },
-        'file' : {
+        'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': here('quiz.log'),
@@ -178,8 +178,8 @@ LOGGING = {
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
-TOP_WARNING=''
+TOP_WARNING = ''
 
-CPP_STD='C++17'
+CPP_STD = 'C++17'
 
 from . import local_settings

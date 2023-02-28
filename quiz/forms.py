@@ -16,9 +16,9 @@ class QuestionForm(ModelForm):
         model = Question
         fields = ('question', 'result', 'answer', 'explanation', 'hint', 'comment', 'difficulty', 'author_email', 'spam_protection')
         widgets = {
-            'question': forms.Textarea(attrs={'rows':20}),
-            'hint': forms.Textarea(attrs={'rows':5}),
-            'comment': forms.Textarea(attrs={'rows':5})
+            'question': forms.Textarea(attrs={'rows': 20}),
+            'hint': forms.Textarea(attrs={'rows': 5}),
+            'comment': forms.Textarea(attrs={'rows': 5})
         }
 
     def clean_question(self):

@@ -33,7 +33,7 @@ class Command(BaseCommand):
             secrets_file = Path.home() / ".cppquiz-secrets.json"
             with secrets_file.open() as f:
                 secrets = json.load(f)
-            auth = tweepy.OAuthHandler(secrets["consumer_key"],secrets["consumer_secret"])
+            auth = tweepy.OAuthHandler(secrets["consumer_key"], secrets["consumer_secret"])
             auth.set_access_token(secrets["key"], secrets["secret"])
             api = tweepy.API(auth)
             api.update_status(content)

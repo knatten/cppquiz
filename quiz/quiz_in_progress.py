@@ -14,7 +14,7 @@ class QuestionStats:
         score = self.skipped == False
         if self.used_hint:
             score -= .5
-        score *=  pow(.5, self.attempts)
+        score *= pow(.5, self.attempts)
         return score
 
 class QuizInProgress:
@@ -90,7 +90,7 @@ class QuizInProgress:
     def save(self):
         self.session.modified = True
         self.session['quiz_in_progress'] = self
-        self.session.set_expiry(60*60*24*365*10) #TODO akn DRY
+        self.session.set_expiry(60 * 60 * 24 * 365 * 10)  # TODO akn DRY
 
     def _reset_question_state(self):
         self.previous_explanation = None

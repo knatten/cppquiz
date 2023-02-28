@@ -41,4 +41,3 @@ class Command(BaseCommand):
                     return
                 else:
                     print("**** Not committing diff!")
-

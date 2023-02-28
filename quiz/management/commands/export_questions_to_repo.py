@@ -10,7 +10,6 @@ from quiz.management.commands import text_generator
 
 class Command(BaseCommand):
 
-
     def add_arguments(self, parser):
         parser.add_argument('repo_root', nargs=1)
 
@@ -47,10 +46,10 @@ def write_questions(repo_root, questions_root):
         print("Exporting question " + str(q.id))
         meta_data = {
             "id": q.id,
-            "result" : q.result,
-            "answer" : q.answer,
-            "state" : q.state,
-            "difficulty" : q.difficulty,
+            "result": q.result,
+            "answer": q.answer,
+            "state": q.state,
+            "difficulty": q.difficulty,
         }
         question_root = os.path.join(questions_root, str(q.id))
         os.mkdir(question_root)

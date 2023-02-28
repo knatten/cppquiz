@@ -24,7 +24,7 @@ class FixedQuizIntegrationTest(TestCase):
         first_question_in_quiz = Quiz.objects.all()[0].get_ordered_questions()[0].pk
         self.assertContains(response, 'Question #%d' % first_question_in_quiz)
 
-        self.assert_status_string_with(response, 0,0)
+        self.assert_status_string_with(response, 0, 0)
 
     def test_correctly_answering_a_question_which_is_not_the_last__congratulates_you_and_takes_you_to_the_next_question(self):
         create_questions(fixed_quiz.nof_questions_in_quiz)
@@ -35,7 +35,7 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, 'Correct!')
         explanation = Question.objects.get(pk=pk).explanation
         self.assertContains(response, explanation)
-        self.assert_status_string_with(response, 1,1)
+        self.assert_status_string_with(response, 1, 1)
         self.assertEqual(1, UsersAnswer.objects.count())
 
     def test_incorrectly_answering_a_question__redisplays_it_with_a_message_and_an_option_to_skip_it(self):
@@ -64,7 +64,7 @@ class FixedQuizIntegrationTest(TestCase):
         self.assertContains(response, '>a hint<')
         self.assertContains(response, 'Hint', count=0)
 
-        response = self.client.get(reverse('quiz:quiz', args=(key,)), {'hint':'1'})
+        response = self.client.get(reverse('quiz:quiz', args=(key,)), {'hint': '1'})
         self.assertContains(response, '>a hint<', count=0)
         self.assertContains(response, 'Hint')
         response = self.answer_correctly(key, quiz.get_ordered_questions()[0].pk)
@@ -123,16 +123,16 @@ class FixedQuizIntegrationTest(TestCase):
         question = Question.objects.get(pk=question_pk)
         return self.client.get(
             reverse('quiz:quiz', args=(key,)),
-            {'result':question.result, 'answer':question.answer, 'did_answer':'Answer'},
+            {'result': question.result, 'answer': question.answer, 'did_answer': 'Answer'},
             follow=True)
 
     def answer_incorrectly(self, key):
         return self.client.get(
             reverse('quiz:quiz', args=(key,)),
-            {'result':'NONSENSE', 'answer':'WROOOONG', 'did_answer':'Answer'},
+            {'result': 'NONSENSE', 'answer': 'WROOOONG', 'did_answer': 'Answer'},
             follow=True)
 
     def skip(self, key):
         return self.client.get(
             reverse('quiz:quiz', args=(key,)),
-            {'skip':1})
+            {'skip': 1})

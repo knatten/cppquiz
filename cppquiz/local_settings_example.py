@@ -8,7 +8,7 @@ settings.ADMINS = (
 
 settings.DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': '/path/to/your/code/cppquiz/db.sqlite3',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -20,7 +20,7 @@ settings.DATABASES = {
 settings.TEMPLATES[0]['DIRS'].append('/path/to/your/code/cppquiz/templates')
 settings.TEMPLATES[0]['OPTIONS']['debug'] = True
 
-settings.STATIC_ROOT=''
-settings.STATIC_URL='/static/'
+settings.STATIC_ROOT = ''
+settings.STATIC_URL = '/static/'
 
 settings.EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

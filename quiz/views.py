@@ -52,12 +52,12 @@ def categorize(request):
     else:
         changed = int(request.GET.get('changed', 0))
         questions = Question.objects.filter(state='PUB').order_by('difficulty')\
-                    .annotate(num_answers=Count('usersanswer'))
+            .annotate(num_answers=Count('usersanswer'))
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
             q.percentage_correct = num_correct * 100.0 / q.num_answers if q.num_answers > 0 else 0
-        return render(request, 'quiz/categorize.html' ,
-            {'questions': questions, 'changed':changed})
+        return render(request, 'quiz/categorize.html',
+                      {'questions': questions, 'changed': changed})
 
 def create(request):
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def create(request):
     else:
         form = QuestionForm()
     return render(request, 'quiz/create.html',
-        {'form':form, 'title':'Create question'})
+                  {'form': form, 'title': 'Create question'})
 
 def preview_with_key(request, question_id):
     key = request.GET.get('preview_key')
@@ -148,9 +148,9 @@ def quiz(request, quiz_key):
 
 def suggest_quiz_similar_to(key, request):
     suggestions = reversed(sorted(
-            [(difflib.SequenceMatcher(None, q.key, key).ratio(), q.key)
-                for q in Quiz.objects.all()]
-                    )[-5:])
+        [(difflib.SequenceMatcher(None, q.key, key).ratio(), q.key)
+         for q in Quiz.objects.all()]
+    )[-5:])
     d = {
         'key': key,
         'suggestions': suggestions,
@@ -163,7 +163,7 @@ def dismiss_training_msg(request):
     save_user_data(user_data, request.session)
     return HttpResponse('')
 
-#TODO what if there are no questions
+# TODO what if there are no questions
 def get_unanswered_question(user_data):
     available_questions = [q.id for q in Question.objects.filter(state='PUB')]
     if len(available_questions) == 0:

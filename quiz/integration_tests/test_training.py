@@ -45,7 +45,7 @@ class TrainingIntegrationTest(TestCase):
     def test_when_viewing_a_correctly_answered_question__is_not_told_about_giving_up(self):
         question = self.create_question(True)
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
-            {'did_answer': 'answer', 'result':question.result, 'answer':question.answer})
+                                   {'did_answer': 'answer', 'result': question.result, 'answer': question.answer})
         self.assertContains(response, 'Correct')
         self.assertNotContains(response, 'more attempts first')
 
@@ -82,8 +82,8 @@ class TrainingIntegrationTest(TestCase):
         self.assertLess((timezone.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
 
     def create_question(self, published, preview_key=''):
-        return Question.objects.create(state = 'PUB' if published else 'NEW', question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
+        return Question.objects.create(state='PUB' if published else 'NEW', question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
 
     def answer_question_incorrectly(self, question):
         return self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
-            {'did_answer': 'answer', 'result':question.result, 'answer':'wrong'})
+                               {'did_answer': 'answer', 'result': question.result, 'answer': 'wrong'})

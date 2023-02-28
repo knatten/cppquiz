@@ -13,10 +13,10 @@ class Command(BaseCommand):
             questions.append({
                 "id": q.id,
                 "question": q.question,
-                "result" : q.result,
-                "answer" : q.answer,
-                "explanation" : q.explanation,
-                "hint" : q.hint,
-                "difficulty" : q.difficulty,
+                "result": q.result,
+                "answer": q.answer,
+                "explanation": q.explanation,
+                "hint": q.hint,
+                "difficulty": q.difficulty,
             })
         print(json.dumps({'version': Command.version, 'cpp_standard': settings.CPP_STD, 'questions': questions}))

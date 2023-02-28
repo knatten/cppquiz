@@ -15,7 +15,7 @@ def i_should_see_the_contribute_form(step):
 @step('I fill in "(.*)" as the question and "(.*)" as the explanation')
 def i_fill_in_the_question_and_explanation(step, question, explanation):
     world.browser.fill('question', question)
-    world.browser.fill('explanation',explanation)
+    world.browser.fill('explanation', explanation)
     world.browser.find_by_name('to_moderation').click()
 
 @step('The administrators should get an email about a new question')

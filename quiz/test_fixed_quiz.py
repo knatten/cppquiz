@@ -16,7 +16,7 @@ class get_unique_quiz_key_Test(TestCase):
         number_of_possible_keys = len(string.ascii_uppercase + string.digits)
         keys = []
         for i in range(1, number_of_possible_keys):
-            key  = fixed_quiz.get_unique_quiz_key(1)
+            key = fixed_quiz.get_unique_quiz_key(1)
             Quiz.objects.create(key=key)
             self.assertNotIn(key, keys)
             keys.append(key)
@@ -64,5 +64,5 @@ class create_quiz_Test(TestCase):
             fixed_quiz.create_quiz(1)
 
     def assertLooksKindOfRandom(self, question_ids):
-        #Only works if there are more questions in the db than we are asked to use in the quiz
+        # Only works if there are more questions in the db than we are asked to use in the quiz
         self.assertNotEqual(list(range(1, len(question_ids) + 1)), question_ids)

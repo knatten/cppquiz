@@ -27,4 +27,4 @@ class ApiTest(TestCase):
 
     def test_asking_for_nonexisting_quiz_raises_404(self):
         request = RequestFactory().get('_/?key=this_key_should_not_exist')
-        self.assertRaises(Http404, lambda:api.quiz(request))
+        self.assertRaises(Http404, lambda: api.quiz(request))

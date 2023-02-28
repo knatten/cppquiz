@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import datetime
 import random
 import re
@@ -55,14 +55,14 @@ class Question(models.Model):
         return str(self.pk)
 
     def clean(self):
-        verbs = {'SCH':'schedule', 'PUB':'publish', 'ACC':'accept'}
+        verbs = {'SCH': 'schedule', 'PUB': 'publish', 'ACC': 'accept'}
         if self.state in ('PUB', 'SCH', 'ACC') and self.hint == '':
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a hint')
         if self.state in ('PUB', 'SCH', 'ACC') and self.difficulty == 0:
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
-        if self.tweet_text and not re.search("https?://",self.tweet_text):
+        if self.tweet_text and not re.search("https?://", self.tweet_text):
             raise ValidationError('Tweets must contain a url!')
 
     def save(self, *args, **kwargs):
@@ -87,7 +87,7 @@ class Quiz(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
 
     def get_ordered_questions(self):
-        #Order pseudo-randomly but not in order of primary key
+        # Order pseudo-randomly but not in order of primary key
         return self.questions.all().order_by('hint', 'id')
 
     def question_ids(self):

@@ -28,10 +28,10 @@ def standard_ref(text):
 
 def custom_linebreaks(text):
     return (text
-        .replace("\n", "<br />")
-        .replace("</p><br />", "</p>")
-        .replace("<br /><p>", "<p>")
-        .replace("</pre><br />", "</pre>"))
+            .replace("\n", "<br />")
+            .replace("</p><br />", "</p>")
+            .replace("<br /><p>", "<p>")
+            .replace("</pre><br />", "</pre>"))
 
 @register.filter(needs_autoescape=True)
 def to_html(text, autoescape=None):
@@ -42,8 +42,8 @@ def to_html(text, autoescape=None):
 
 @register.filter()
 def cpp_insights_link(question):
-    std = settings.CPP_STD.replace("C++","cpp")
-    return('https://cppinsights.io/lnk?code=%s&insightsOptions=%s&rev=1.0' %(base64.b64encode(question.question.encode()).decode('utf-8'), std))
+    std = settings.CPP_STD.replace("C++", "cpp")
+    return ('https://cppinsights.io/lnk?code=%s&insightsOptions=%s&rev=1.0' % (base64.b64encode(question.question.encode()).decode('utf-8'), std))
 
 @register.filter()
 def compiler_explorer_link(question):

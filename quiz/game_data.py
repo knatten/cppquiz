@@ -32,4 +32,4 @@ class UserData:
 def save_user_data(user_data, session):
     session.modified = True
     session['user_data'] = user_data
-    session.set_expiry(60*60*24*365*10)
+    session.set_expiry(60 * 60 * 24 * 365 * 10)
