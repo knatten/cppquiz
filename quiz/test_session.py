@@ -8,28 +8,28 @@ class UserDataTest(unittest.TestCase):
     def test_given_new_session__has_no_correct_answers(self):
         session = {}
         s = UserData(session)
-        self.assertEqual([], s.get_correctly_answered_questions())
+        self.assertSetEqual(set(), s.get_correctly_answered_questions())
 
     def test_given_new_session__after_a_correct_answer_is_registered__it_is_listed_as_answered(self):
         session = {}
         s = UserData(session)
         s.register_correct_answer(23)
-        self.assertEqual([23], s.get_correctly_answered_questions())
+        self.assertSetEqual({23}, s.get_correctly_answered_questions())
         s.register_correct_answer(4)
-        self.assertEqual([4, 23], s.get_correctly_answered_questions())
+        self.assertSetEqual({4, 23}, s.get_correctly_answered_questions())
 
     def test_given_existing_session__correct_answers_are_still_there(self):
         old_data = UserData({})
         old_data.register_correct_answer(16)
         session = {'user_data' : old_data}
         new_data = UserData(session)
-        self.assertEqual([16], new_data.get_correctly_answered_questions())
+        self.assertSetEqual({16}, new_data.get_correctly_answered_questions())
 
     def test_clear_correct_answers(self):
         s = UserData({})
         s.register_correct_answer(23)
         s.clear_correct_answers()
-        self.assertEqual([], s.get_correctly_answered_questions())
+        self.assertSetEqual(set(), s.get_correctly_answered_questions())
 
         
 
