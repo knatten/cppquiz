@@ -6,3 +6,4 @@ Session.vim
 .ropeproject
 quiz.log
 db_backup*gz
+.idea
