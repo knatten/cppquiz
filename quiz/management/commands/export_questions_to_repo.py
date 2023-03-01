@@ -8,8 +8,8 @@ from cppquiz import settings
 from django.db.models import Q
 from quiz.management.commands import text_generator
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('repo_root', nargs=1)
@@ -39,6 +39,7 @@ def write_general_files(repo_root, dot_github):
     with open(os.path.join(dot_github, 'pull_request_template.md'), 'w') as f:
         f.write(text_generator.pull_request_template)
 
+
 def write_questions(repo_root, questions_root):
     print("Exporting questions")
     if not os.path.isdir(questions_root):
@@ -47,10 +48,10 @@ def write_questions(repo_root, questions_root):
         print("Exporting question " + str(q.id))
         meta_data = {
             "id": q.id,
-            "result" : q.result,
-            "answer" : q.answer,
-            "state" : q.state,
-            "difficulty" : q.difficulty,
+            "result": q.result,
+            "answer": q.answer,
+            "state": q.state,
+            "difficulty": q.difficulty,
         }
         question_root = os.path.join(questions_root, str(q.id))
         os.mkdir(question_root)

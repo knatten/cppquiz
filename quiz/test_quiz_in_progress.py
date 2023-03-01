@@ -8,6 +8,7 @@ from quiz.fixed_quiz import create_quiz
 from quiz.quiz_in_progress import QuizInProgress
 from quiz.test_helpers import *
 
+
 class QuizInProgressTest(TestCase):
     def set_up(self, nof_questions=10):
         create_questions(nof_questions)
@@ -91,10 +92,10 @@ class QuizInProgressTest(TestCase):
 
     def test_when_three_attempts_are_made__score_is_divided_by_eight(self):
         self.set_up()
-        for i in range(0,3):
+        for i in range(0, 3):
             self.answer_current_question_incorrectly()
         self.answer_current_question_correctly()
-        self.assertEqual(1.0/8, self.in_progress.score())
+        self.assertEqual(1.0 / 8, self.in_progress.score())
 
     def test_when_hint_is_used__score_is_reduced_by_half_a_point(self):
         self.set_up()
@@ -119,7 +120,7 @@ class QuizInProgressTest(TestCase):
 
     def test_when_we_somehow_get_index_error__get_current_question_provides_good_info(self):
         self.set_up(2)
-        for i in range(0,2):
+        for i in range(0, 2):
             self.answer_current_question_correctly()
         try:
             self.in_progress.get_current_question()
@@ -129,10 +130,10 @@ class QuizInProgressTest(TestCase):
 
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
-        request = RequestFactory().get('', data={'result' : question.result, 'answer' : question.answer})
+        request = RequestFactory().get('', data={'result': question.result, 'answer': question.answer})
         self.in_progress.answer(request)
 
     def answer_current_question_incorrectly(self):
         question = self.in_progress.get_current_question()
-        request = RequestFactory().post('', data={'result' : question.result, 'answer' : 'WRONG ANSWER'})
+        request = RequestFactory().post('', data={'result': question.result, 'answer': 'WRONG ANSWER'})
         self.in_progress.answer(request)

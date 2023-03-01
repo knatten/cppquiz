@@ -3,10 +3,12 @@ from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from quiz.models import Question
 
+
 def cannot_be_empty(field):
     if len(field) == 0:
         raise ValidationError('This field can not be empty.')
     return field
+
 
 class QuestionForm(ModelForm):
 
@@ -14,11 +16,12 @@ class QuestionForm(ModelForm):
 
     class Meta:
         model = Question
-        fields = ('question', 'result', 'answer', 'explanation', 'hint', 'comment', 'difficulty', 'author_email', 'spam_protection')
+        fields = ('question', 'result', 'answer', 'explanation', 'hint',
+                  'comment', 'difficulty', 'author_email', 'spam_protection')
         widgets = {
-            'question': forms.Textarea(attrs={'rows':20}),
-            'hint': forms.Textarea(attrs={'rows':5}),
-            'comment': forms.Textarea(attrs={'rows':5})
+            'question': forms.Textarea(attrs={'rows': 20}),
+            'hint': forms.Textarea(attrs={'rows': 5}),
+            'comment': forms.Textarea(attrs={'rows': 5})
         }
 
     def clean_question(self):

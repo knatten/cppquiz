@@ -4,11 +4,13 @@ import unittest
 from quiz.game_data import *
 from quiz.answer import *
 
+
 def fake_answer(question_id):
     answer = mock.Mock()
     answer.question = answer.answer()
     answer.question.pk = str(question_id)
     return answer
+
 
 class GameDataTest(unittest.TestCase):
     def test_when_no_attempts_given__says_no_attempts_given(self):

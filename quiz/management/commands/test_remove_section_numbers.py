@@ -2,6 +2,7 @@ import unittest
 
 from quiz.management.commands.remove_section_numbers import remove_section_numbers
 
+
 class TestRemoveSectionNumbers(unittest.TestCase):
     def test_no_section_numbers_is_unchanged(self):
         self.assertEqual("foo\nbar", remove_section_numbers("foo\nbar"))

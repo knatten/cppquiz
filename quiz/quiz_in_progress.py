@@ -4,6 +4,7 @@ from quiz.answer import Answer
 from quiz.models import Quiz
 from quiz import util
 
+
 class QuestionStats:
     def __init__(self, skipped=False, attempts=0, used_hint=False):
         self.skipped = skipped
@@ -14,8 +15,9 @@ class QuestionStats:
         score = self.skipped == False
         if self.used_hint:
             score -= .5
-        score *=  pow(.5, self.attempts)
+        score *= pow(.5, self.attempts)
         return score
+
 
 class QuizInProgress:
     def __init__(self, session, quiz):
@@ -52,7 +54,8 @@ class QuizInProgress:
 
     def is_finished(self, request):
         debug_string = "IP:%s, quiz:%s, is finished? (%d/%d/%d)" % \
-            (util.get_client_ip(request), self.quiz.key, self.nof_answered_questions(), len(self.answers), self.quiz.questions.count())
+            (util.get_client_ip(request), self.quiz.key, self.nof_answered_questions(),
+             len(self.answers), self.quiz.questions.count())
         logging.getLogger('quiz').debug(debug_string)
         return self.quiz.questions.count() == self.nof_answered_questions()
 
@@ -61,7 +64,8 @@ class QuizInProgress:
 
     def answer(self, request):
         debug_string = "IP:%s, quiz:%s, result:%s, answer:%s, answers:%d" %\
-            (util.get_client_ip(request), self.quiz.key, request.GET.get('result', ''), request.GET.get('answer', ''), len(self.answers))
+            (util.get_client_ip(request), self.quiz.key, request.GET.get(
+                'result', ''), request.GET.get('answer', ''), len(self.answers))
         logging.getLogger('quiz').debug(debug_string)
         answer = Answer(self.get_current_question(), request)
         answer.register_given_answer()
@@ -74,7 +78,8 @@ class QuizInProgress:
             self.previous_result = 'incorrect'
             self.attempts += 1
         debug_string = "IP:%s, quiz:%s, question:#%d (%d/%d), given_result:%s, given_answer:%s, correct:%s" % \
-            (answer.ip, self.quiz.key, answer.question.pk, len(self.answers), self.quiz.questions.count(), answer.given_result, answer.given_answer, answer.correct)
+            (answer.ip, self.quiz.key, answer.question.pk, len(self.answers),
+             self.quiz.questions.count(), answer.given_result, answer.given_answer, answer.correct)
         logging.getLogger('quiz').debug(debug_string)
         return
 
@@ -90,7 +95,7 @@ class QuizInProgress:
     def save(self):
         self.session.modified = True
         self.session['quiz_in_progress'] = self
-        self.session.set_expiry(60*60*24*365*10) #TODO akn DRY
+        self.session.set_expiry(60 * 60 * 24 * 365 * 10)  # TODO akn DRY
 
     def _reset_question_state(self):
         self.previous_explanation = None

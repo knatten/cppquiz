@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 class UserData:
     def __init__(self, session):
         if 'user_data' in session:
@@ -29,7 +30,8 @@ class UserData:
     def attempts_given_for(self, question_id):
         return self.attempts[int(question_id)]
 
+
 def save_user_data(user_data, session):
     session.modified = True
     session['user_data'] = user_data
-    session.set_expiry(60*60*24*365*10)
+    session.set_expiry(60 * 60 * 24 * 365 * 10)

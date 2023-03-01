@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from quiz.models import Question
 
+
 class AutoPublishTest(TestCase):
 
     def test_publishes_scheduled_question_from_the_past(self):

@@ -4,3 +4,4 @@ mock>=4.0.2,<5.0
 parameterized==0.7.4
 tweepy>=3.9.0,<4.0
 requests>=2.27,<2.28 # transitive dependecy
+autopep8>=2.0.1

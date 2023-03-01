@@ -5,14 +5,17 @@ import re
 from django.core.management.base import BaseCommand, CommandError
 from quiz.models import *
 
+
 def _assert_no_bare_section_numbers(text):
     match = re.search("(?<!(\]))§\d", text)
     if match:
         raise ValueError(f"Text contains a bare section number '{match.group(0)}'!")
 
+
 def remove_section_numbers(text):
     _assert_no_bare_section_numbers(text)
     return re.sub(r"(\[[\w\.]+\])§\d+(\.\d+)*", "§\g<1>", text)
+
 
 class Command(BaseCommand):
     version = 1
@@ -41,4 +44,3 @@ class Command(BaseCommand):
                     return
                 else:
                     print("**** Not committing diff!")
-

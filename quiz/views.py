@@ -17,6 +17,7 @@ from quiz.answer import Answer
 from quiz.game_data import *
 from quiz.quiz_in_progress import *
 
+
 @never_cache
 def index(request):
     return random_question(request)
@@ -30,6 +31,7 @@ def random_question(request):
     except NoQuestionsExist:
         return HttpResponseRedirect("/quiz/no_questions")
 
+
 @never_cache
 def clear(request):
     user_data = UserData(request.session)
@@ -37,6 +39,7 @@ def clear(request):
     user_data.clear_correct_answers()
     save_user_data(user_data, request.session)
     return random_question(request)
+
 
 @staff_member_required
 def categorize(request):
@@ -52,12 +55,13 @@ def categorize(request):
     else:
         changed = int(request.GET.get('changed', 0))
         questions = Question.objects.filter(state='PUB').order_by('difficulty')\
-                    .annotate(num_answers=Count('usersanswer'))
+            .annotate(num_answers=Count('usersanswer'))
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
             q.percentage_correct = num_correct * 100.0 / q.num_answers if q.num_answers > 0 else 0
-        return render(request, 'quiz/categorize.html' ,
-            {'questions': questions, 'changed':changed})
+        return render(request, 'quiz/categorize.html',
+                      {'questions': questions, 'changed': changed})
+
 
 def create(request):
     if request.method == 'POST':
@@ -69,13 +73,15 @@ def create(request):
     else:
         form = QuestionForm()
     return render(request, 'quiz/create.html',
-        {'form':form, 'title':'Create question'})
+                  {'form': form, 'title': 'Create question'})
+
 
 def preview_with_key(request, question_id):
     key = request.GET.get('preview_key')
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id, preview_key=key)
     return render(request, 'quiz/preview.html', d)
+
 
 def question(request, question_id):
     if request.GET.get('preview_key'):
@@ -103,6 +109,7 @@ def question(request, question_id):
     save_user_data(user_data, request.session)
     return render(request, 'quiz/index.html', d)
 
+
 def giveup(request, question_id):
     user_data = UserData(request.session)
     if user_data.attempts_given_for(question_id) < 3:
@@ -110,6 +117,7 @@ def giveup(request, question_id):
     d = {}
     d['question'] = get_object_or_404(Question, id=question_id)
     return render(request, 'quiz/giveup.html', d)
+
 
 @never_cache
 def start(request):
@@ -137,7 +145,8 @@ def quiz(request, quiz_key):
         quiz_in_progress.use_hint()
         d['hint'] = True
     if quiz_in_progress.is_finished(request):
-        debug_string = "IP:%s, quiz:%s was served the finished-screen " % (util.get_client_ip(request), quiz_in_progress.quiz.key)
+        debug_string = "IP:%s, quiz:%s was served the finished-screen " % (
+            util.get_client_ip(request), quiz_in_progress.quiz.key)
         logging.getLogger('quiz').debug(debug_string)
         return render(request, 'quiz/finished.html', d)
     d['question'] = quiz_in_progress.get_current_question()
@@ -146,16 +155,18 @@ def quiz(request, quiz_key):
     quiz_in_progress.save()
     return render(request, 'quiz/quiz.html', d)
 
+
 def suggest_quiz_similar_to(key, request):
     suggestions = reversed(sorted(
-            [(difflib.SequenceMatcher(None, q.key, key).ratio(), q.key)
-                for q in Quiz.objects.all()]
-                    )[-5:])
+        [(difflib.SequenceMatcher(None, q.key, key).ratio(), q.key)
+         for q in Quiz.objects.all()]
+    )[-5:])
     d = {
         'key': key,
         'suggestions': suggestions,
     }
     return render(request, 'quiz/suggest.html', d)
+
 
 def dismiss_training_msg(request):
     user_data = UserData(request.session)
@@ -163,8 +174,9 @@ def dismiss_training_msg(request):
     save_user_data(user_data, request.session)
     return HttpResponse('')
 
-#TODO what if there are no questions
+
 def get_unanswered_question(user_data):
+    # TODO what if there are no questions
     available_questions = [q.id for q in Question.objects.filter(state='PUB')]
     if len(available_questions) == 0:
         raise NoQuestionsExist
@@ -176,8 +188,10 @@ def get_unanswered_question(user_data):
     else:
         return random.choice(available_questions)
 
+
 def raise_exception(request):
     raise Exception("Test exception raised")
+
 
 class NoQuestionsExist(Exception):
     pass
