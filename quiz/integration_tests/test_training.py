@@ -6,6 +6,7 @@ from django.utils import timezone
 from quiz.models import Question
 from quiz.test_helpers import create_questions
 
+
 class TrainingIntegrationTest(TestCase):
     def test_when_viewing_an_unpublished_question__gets_404(self):
         question = self.create_question(False)
@@ -24,7 +25,7 @@ class TrainingIntegrationTest(TestCase):
 
     def test_when_viewing_a_published_question_with_a_preview_key__gets_it(self):
         question = self.create_question(True, 'abc123')
-        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))#, 'preview_key': key}))
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}), {'preview_key': 'abc123'})
         self.assertContains(response, 'fluppa')
 
     def test_when_viewing_an_unpublished_question_with_a_wrong_preview_key__gets_404(self):
