@@ -7,6 +7,19 @@ on:
     - cron:  '0 0 * * 1'
 
 jobs:
+  formatting:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Setup
+        run: ./ci/setup.sh
+      - name: Check formatting
+        run: ./ci/format.sh
   test:
     runs-on: ubuntu-20.04
     strategy:
@@ -19,8 +32,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip setuptools wheel && pip install -r requirements.frozen.txt
+      - name: Setup
+        run: ./ci/setup.sh
       - name: Create local settings
         run: cat cppquiz/local_settings_example.py | sed 's_/path/to/your/code/cppquiz_'"$PWD"'_'> cppquiz/local_settings.py
       - name: Test
