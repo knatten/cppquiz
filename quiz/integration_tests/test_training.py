@@ -20,12 +20,14 @@ class TrainingIntegrationTest(TestCase):
 
     def test_when_viewing_an_unpublished_question_with_a_preview_key__gets_it(self):
         question = self.create_question(False, 'abc123')
-        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}), {'preview_key': 'abc123'})
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
+                                   {'preview_key': 'abc123'})
         self.assertContains(response, 'fluppa')
 
     def test_when_viewing_a_published_question_with_a_preview_key__gets_it(self):
         question = self.create_question(True, 'abc123')
-        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}), {'preview_key': 'abc123'})
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
+                                   {'preview_key': 'abc123'})
         self.assertContains(response, 'fluppa')
 
     def test_when_viewing_an_unpublished_question_with_a_wrong_preview_key__gets_404(self):
@@ -46,7 +48,7 @@ class TrainingIntegrationTest(TestCase):
     def test_when_viewing_a_correctly_answered_question__is_not_told_about_giving_up(self):
         question = self.create_question(True)
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
-            {'did_answer': 'answer', 'result':question.result, 'answer':question.answer})
+                                   {'did_answer': 'answer', 'result': question.result, 'answer': question.answer})
         self.assertContains(response, 'Correct')
         self.assertNotContains(response, 'more attempts first')
 
@@ -83,8 +85,9 @@ class TrainingIntegrationTest(TestCase):
         self.assertLess((timezone.now() - Question.objects.get(pk=question.pk).last_viewed).total_seconds(), 10)
 
     def create_question(self, published, preview_key=''):
-        return Question.objects.create(state = 'PUB' if published else 'NEW', question='fluppa', answer='buppa', result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
+        return Question.objects.create(state='PUB' if published else 'NEW', question='fluppa', answer='buppa',
+                                       result='OK', hint='jotta', difficulty=1, preview_key=preview_key)
 
     def answer_question_incorrectly(self, question):
         return self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}),
-            {'did_answer': 'answer', 'result':question.result, 'answer':'wrong'})
+                               {'did_answer': 'answer', 'result': question.result, 'answer': 'wrong'})

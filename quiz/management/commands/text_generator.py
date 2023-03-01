@@ -4,6 +4,7 @@ def get_readme(question):
         .replace('{{QUESTION_PATH}}', '')\
         .replace('{{ROOT_PATH}}', '/')
 
+
 def get_issue(question):
     question_path = '../blob/master/questions/' + str(question.id) + '/'
     return get_template_with_answer(question)\
@@ -12,8 +13,10 @@ def get_issue(question):
         .replace('{{ROOT_PATH}}', '../blob/master/')\
         .replace('this question', '[this question](' + question_path + ')')
 
+
 def get_template_with_answer(question):
     return template.replace('{{ANSWER}}', get_result_display(question))
+
 
 def get_result_display(question):
     result_display = question.get_result_display().replace('is undefined', 'has undefined behavior')

@@ -7,14 +7,14 @@ from quiz.models import Question
 from cppquiz import settings
 from django.db.models import Q
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('repo_root', nargs=1)
 
     def get_question_ids(self, questions_root):
-        return [d for d in os.listdir(questions_root) if os.path.isdir(os.path.join(questions_root,d))]
+        return [d for d in os.listdir(questions_root) if os.path.isdir(os.path.join(questions_root, d))]
 
     def handle(self, *args, **options):
         questions_root = os.path.join(options['repo_root'][0], 'questions')
@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
     def update_question(self, questions_root, question_id):
         question_root = os.path.join(questions_root, question_id)
-        print("Updating question '" + question_id + "' from '" + question_root + "'" )
+        print("Updating question '" + question_id + "' from '" + question_root + "'")
         question = Question.objects.get(pk=question_id)
         self.set_meta_data(question, os.path.join(question_root, 'meta_data.json'))
         self.set_question(question, os.path.join(question_root, 'question.cpp'))

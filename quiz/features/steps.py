@@ -1,9 +1,11 @@
 from lettuce import step, world
 from lettuce.django import django_url
 
+
 @step('I visit (.+)')
 def visit(step, url):
     world.browser.visit(django_url(url))
+
 
 @step('There is an error "(.+)" in (.+)')
 def there_is_an_error(step, error_msg, error_id):

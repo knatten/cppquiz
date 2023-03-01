@@ -1,9 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
 from quiz.models import *
 
+
 class Command(BaseCommand):
-#    args = '<poll_id poll_id ...>'
-#    help = 'Closes the specified poll for voting'
+    # args = '<poll_id poll_id ...>'
+    # help = 'Closes the specified poll for voting'
     max_line_length = 60
 
     def handle(self, *args, **options):

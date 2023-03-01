@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import datetime
 import random
 import re
@@ -8,8 +8,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
+
 def generate_preview_key():
     return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
+
 
 class Question(models.Model):
     RESULT_CHOICES = (
@@ -36,33 +38,40 @@ class Question(models.Model):
     question = models.TextField(default='', blank=True)
     result = models.CharField(max_length=2, default='OK', choices=RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
-    explanation = models.TextField(default='', blank=True, help_text='Use markdown, and refer to the standard like this: "§[section.subsection]¶x.y".')
-    hint = models.TextField(default='No hint', blank=True, help_text='Use markdown, and refer to the standard like this: "§[section.subsection]¶x.y".')
-    comment = models.TextField(default='', blank=True, help_text='Comments for admins and contributors, not displayed on the site')
+    explanation = models.TextField(default='', blank=True,
+                                   help_text='Use markdown, and refer to the standard like this: "§[section.subsection]¶x.y".')
+    hint = models.TextField(default='No hint', blank=True,
+                            help_text='Use markdown, and refer to the standard like this: "§[section.subsection]¶x.y".')
+    comment = models.TextField(default='', blank=True,
+                               help_text='Comments for admins and contributors, not displayed on the site')
     date_time = models.DateTimeField(auto_now_add=True, help_text='Time of creation')
-    publish_time = models.DateTimeField(null=True, blank=True, help_text='Time of publishing (will be published then if state is "Scheduled")')
+    publish_time = models.DateTimeField(null=True, blank=True,
+                                        help_text='Time of publishing (will be published then if state is "Scheduled")')
     state = models.CharField(max_length=3, default='NEW', choices=STATE_CHOICES)
     author_email = models.EmailField(max_length=254, blank=True, default='')
     difficulty = models.IntegerField(default=0, choices=DIFFICULTY_CHOICES)
     preview_key = models.CharField(blank=True, max_length=10, default=generate_preview_key)
     last_viewed = models.DateTimeField(null=True, blank=True)
     retraction_message = models.TextField(default='', blank=True, help_text='Use markdown')
-    reserved = models.BooleanField(default=False, help_text='This question is reserved for an event, do not publish yet')
-    reservation_message = models.CharField(blank=True, max_length=100, help_text='Which event the question is reserved for')
-    tweet_text = models.CharField(blank=True, max_length=280, help_text='What to tweet when question gets posted on Twitter')
+    reserved = models.BooleanField(default=False,
+                                   help_text='This question is reserved for an event, do not publish yet')
+    reservation_message = models.CharField(blank=True, max_length=100,
+                                           help_text='Which event the question is reserved for')
+    tweet_text = models.CharField(blank=True, max_length=280,
+                                  help_text='What to tweet when question gets posted on Twitter')
 
     def __str__(self):
         return str(self.pk)
 
     def clean(self):
-        verbs = {'SCH':'schedule', 'PUB':'publish', 'ACC':'accept'}
+        verbs = {'SCH': 'schedule', 'PUB': 'publish', 'ACC': 'accept'}
         if self.state in ('PUB', 'SCH', 'ACC') and self.hint == '':
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a hint')
         if self.state in ('PUB', 'SCH', 'ACC') and self.difficulty == 0:
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
-        if self.tweet_text and not re.search("https?://",self.tweet_text):
+        if self.tweet_text and not re.search("https?://", self.tweet_text):
             raise ValidationError('Tweets must contain a url!')
 
     def save(self, *args, **kwargs):
@@ -73,6 +82,7 @@ class Question(models.Model):
         self.last_viewed = timezone.now()
         self.save()
 
+
 class UsersAnswer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.PROTECT)
     result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)
@@ -81,17 +91,19 @@ class UsersAnswer(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
     correct = models.BooleanField(default=False)
 
+
 class Quiz(models.Model):
     questions = models.ManyToManyField(Question, through='QuestionInQuiz')
     key = models.CharField(max_length=10, default='')
     date_time = models.DateTimeField(auto_now_add=True)
 
     def get_ordered_questions(self):
-        #Order pseudo-randomly but not in order of primary key
+        # Order pseudo-randomly but not in order of primary key
         return self.questions.all().order_by('hint', 'id')
 
     def question_ids(self):
         return ','.join([str(q) for q in self.questions.all()])
+
 
 class QuestionInQuiz(models.Model):
     question = models.ForeignKey(Question, on_delete=models.PROTECT)

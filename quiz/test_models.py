@@ -4,35 +4,36 @@ from parameterized import parameterized
 
 from quiz.models import Question
 
+
 class QuestionTest(TestCase):
     @parameterized.expand([
-        ('PUB','publish'),
-        ('SCH','schedule'),
-        ('ACC','accept'),
+        ('PUB', 'publish'),
+        ('SCH', 'schedule'),
+        ('ACC', 'accept'),
     ])
     def test_limits_state_of_questions_without_difficulty_setting(self, state, verb):
-        q = Question(state=state, hint = 'hint', difficulty=0)
+        q = Question(state=state, hint='hint', difficulty=0)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn(f'Cannot {verb} a question without a difficulty setting', str(cm.exception))
 
     @parameterized.expand([
-        ('PUB','publish'),
-        ('SCH','schedule'),
-        ('ACC','accept'),
+        ('PUB', 'publish'),
+        ('SCH', 'schedule'),
+        ('ACC', 'accept'),
     ])
     def test_limits_state_of_questions_without_hint(self, state, verb):
-        q = Question(state=state, hint = '', difficulty=1)
+        q = Question(state=state, hint='', difficulty=1)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn(f'Cannot {verb} a question without a hint', str(cm.exception))
 
     @parameterized.expand([
-        ('PUB','publish'),
-        ('SCH','schedule'),
+        ('PUB', 'publish'),
+        ('SCH', 'schedule'),
     ])
     def test_limits_state_of_reserved_questions(self, state, verb):
-        q = Question(state=state, hint = 'hint', difficulty=1, reserved=True)
+        q = Question(state=state, hint='hint', difficulty=1, reserved=True)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn(f'Cannot {verb} a reserved question', str(cm.exception))
@@ -49,9 +50,9 @@ class QuestionTest(TestCase):
         self.assertNotEqual(q.preview_key, q2.preview_key)
 
     def test_requires_url_in_tweet_text(self):
-        q = Question(state="SCH", hint = 'hint', tweet_text="hi", difficulty=1)
+        q = Question(state="SCH", hint='hint', tweet_text="hi", difficulty=1)
         with self.assertRaises(ValidationError) as cm:
             q.save()
         self.assertIn('Tweets must contain a url!', str(cm.exception))
-        Question(state="SCH", hint = 'hint', tweet_text="See http://example.com", difficulty=1).save()
-        Question(state="SCH", hint = 'hint', tweet_text="See https://example.com", difficulty=1).save()
+        Question(state="SCH", hint='hint', tweet_text="See http://example.com", difficulty=1).save()
+        Question(state="SCH", hint='hint', tweet_text="See https://example.com", difficulty=1).save()

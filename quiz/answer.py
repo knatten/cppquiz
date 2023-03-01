@@ -1,6 +1,7 @@
 from quiz.models import UsersAnswer
 from quiz.util import get_client_ip
 
+
 class Answer:
     def __init__(self, question, request):
         self.question = question
