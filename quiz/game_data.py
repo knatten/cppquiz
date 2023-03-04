@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+from quiz.models import *
+
 
 class UserData:
     def __init__(self, session):
@@ -13,7 +15,7 @@ class UserData:
             self.attempts = defaultdict(int)
 
     def get_correctly_answered_questions(self):
-        return self.correctly_answered
+        return set(Question.objects.filter(pk__in=self.correctly_answered, state='PUB').values_list('pk', flat=True))
 
     def register_correct_answer(self, question_id):
         self.correctly_answered.add(question_id)
