@@ -38,3 +38,19 @@ jobs:
         run: cat cppquiz/local_settings_example.py | sed 's_/path/to/your/code/cppquiz_'"$PWD"'_'> cppquiz/local_settings.py
       - name: Test
         run: python manage.py test --no-input --verbosity 2
+  required-checks:
+    name: Required checks
+    if: ${{ always() }}
+    runs-on: ubuntu-22.04
+    needs:
+      - test
+      - formatting
+    steps:
+      - run: |
+          if [[ "${{ needs.test.result }}" != "success" ]]; then
+            exit 1
+          fi
+          if [[ "${{ needs.formatting.result }}" != "success" ]]; then
+            exit 1
+          fi
+          exit 0
