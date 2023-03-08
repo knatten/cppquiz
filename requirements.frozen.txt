@@ -2,7 +2,7 @@ asgiref==3.6.0
 autopep8==2.0.1
 certifi==2022.12.7
 charset-normalizer==2.0.12
-Django==3.2
+Django==4.1
 idna==3.4
 Markdown==3.3.7
 mock==4.0.3
