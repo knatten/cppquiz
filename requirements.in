@@ -1,0 +1,7 @@
+Django>=4.1,<5
+Markdown
+mock
+parameterized
+tweepy
+autopep8
+pip-tools

@@ -14,7 +14,7 @@ http://creativecommons.org/licenses/by-sa/4.0/
 ## Setting up the environment
 - Clone this repository
 - (We recommend using Virtualenv)
-- `pip install -r requirements.frozen.txt`
+- `pip install -r requirements.txt`
 - `cp cppquiz/local_settings_example.py cppquiz/local_settings.py`, then edit at least `/path/to/your/code`
 - `python manage.py migrate`
 - `python manage.py createsuperuser`
@@ -32,6 +32,10 @@ The system tests are currently not maintained. If you want to have a go, you nee
 
 ## Formatting
 All code is formatted with `autopep8` and checked in CI. To format your code, run `./ci/format.sh --fix`
+
+## Adding / upgrading dependencies
+- Add any new dependencies to `requirements.in`
+- Run `pip-compile --upgrade requirements.in`
 
 ## Deployment
 - Check out the branch you want to deploy

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 python -m pip install --upgrade pip || exit $?
-pip install -r requirements.frozen.txt || exit $?
+pip install -r requirements.txt || exit $?
