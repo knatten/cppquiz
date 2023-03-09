@@ -14,7 +14,7 @@ echo -n "Django version: "
 python -c "import django; print(django.__version__)" || exit $?
 
 header "Upgrading pip packages"
-pip install -r requirements.frozen.txt || exit $?
+pip install -r requirements.txt || exit $?
 echo "Django version is now: "
 python -c "import django; print(django.__version__)" || exit $?
 
