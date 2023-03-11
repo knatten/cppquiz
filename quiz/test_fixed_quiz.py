@@ -48,11 +48,7 @@ class create_quiz_Test(TestCase):
         self.assertNotEqual(sorted(pks), pks)
 
     def test_creating_a_quiz__only_uses_published_questions(self):
-        create_questions(4)
-        q0 = Question.objects.all()[0]
-        q1 = Question.objects.all()[1]
-        q2 = Question.objects.all()[2]
-        q3 = Question.objects.all()[3]
+        [q0, q1, q2, q3] = create_questions(4)
         q0.state = 'NEW'
         q1.state = 'RET'
         q2.state = 'REF'

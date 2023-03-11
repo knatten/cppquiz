@@ -16,6 +16,7 @@ from quiz.forms import QuestionForm
 from quiz.answer import Answer
 from quiz.game_data import *
 from quiz.quiz_in_progress import *
+from quiz.util import get_published_questions
 
 
 @never_cache
@@ -54,8 +55,7 @@ def categorize(request):
                 return HttpResponseRedirect("/quiz/categorize/?changed=%d#question_%d" % (q.pk, q.pk))
     else:
         changed = int(request.GET.get('changed', 0))
-        questions = Question.objects.filter(state='PUB').order_by('difficulty')\
-            .annotate(num_answers=Count('usersanswer'))
+        questions = get_published_questions().order_by('difficulty').annotate(num_answers=Count('usersanswer'))
         for q in questions:
             num_correct = len(UsersAnswer.objects.filter(question=q, correct=True))
             q.percentage_correct = num_correct * 100.0 / q.num_answers if q.num_answers > 0 else 0
@@ -101,7 +101,7 @@ def question(request, question_id):
         if answer.correct:
             d['correct_result'] = True
             user_data.register_correct_answer(question_id)
-    d['total_questions'] = Question.objects.filter(state='PUB').count()
+    d['total_questions'] = get_published_questions().count()
     d['user_data'] = user_data
     d['show_hint'] = request.GET.get('show_hint', False)
     d['title'] = ' - Question #%d' % q.pk
@@ -177,14 +177,14 @@ def dismiss_training_msg(request):
 
 def get_unanswered_question(user_data):
     # TODO what if there are no questions
-    available_questions = [q.id for q in Question.objects.filter(state='PUB')]
+    available_questions = [q.id for q in get_published_questions()]
     if len(available_questions) == 0:
         raise NoQuestionsExist
     for q in user_data.get_correctly_answered_questions():
         if int(q) in available_questions:
             available_questions.remove(int(q))
     if len(available_questions) == 0:
-        return Question.objects.filter(state='PUB').order_by('?')[0].id
+        return get_published_questions().order_by('?')[0].id
     else:
         return random.choice(available_questions)
 

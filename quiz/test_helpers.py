@@ -5,10 +5,22 @@ import random
 from quiz.models import Question
 
 
-def create_questions(nof_questions):
-    for i in range(0, nof_questions):
-        Question.objects.create(question=str(i), answer=str(i), result='OK', state='PUB',
-                                hint=random_hint(), difficulty=1, explanation='because ' + str(i))
+def create_questions(nof_questions, **kwargs):
+    question_kwargs = kwargs.copy()
+    question_kwargs.setdefault('state', 'PUB')
+    question_kwargs.setdefault('difficulty', 1)
+
+    questions = []
+
+    for i in range(nof_questions):
+        question_kwargs['question'] = kwargs.get('question', str(i))
+        question_kwargs['answer'] = kwargs.get('answer', str(i))
+        question_kwargs['hint'] = kwargs.get('hint', random_hint())
+        question_kwargs['explanation'] = kwargs.get('explanation', f'because {i}')
+
+        questions.append(Question.objects.create(**question_kwargs))
+
+    return questions
 
 
 def get_question_pk(html):
