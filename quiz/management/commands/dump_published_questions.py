@@ -2,6 +2,7 @@ import json
 
 from django.core.management.base import BaseCommand, CommandError
 from quiz.models import *
+from quiz.util import get_published_questions
 from cppquiz import settings
 
 
@@ -10,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         questions = []
-        for q in Question.objects.filter(state='PUB'):
+        for q in get_published_questions():
             questions.append({
                 "id": q.id,
                 "question": q.question,

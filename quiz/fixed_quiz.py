@@ -2,6 +2,7 @@ import random
 import string
 
 from quiz.models import Question, Quiz, QuestionInQuiz
+from quiz.util import get_published_questions
 
 nof_questions_in_quiz = 10
 
@@ -19,7 +20,7 @@ def make_quiz_key(length):
 
 def create_quiz(nof_questions=nof_questions_in_quiz):
     quiz = Quiz.objects.create()
-    question_ids = [q.pk for q in Question.objects.filter(state='PUB')]
+    question_ids = [q.pk for q in get_published_questions()]
     used_questions = random.sample(question_ids, nof_questions)
     for pk in used_questions:
         qinq = QuestionInQuiz(question=Question.objects.get(pk=pk), quiz=quiz)
