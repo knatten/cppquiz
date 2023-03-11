@@ -52,6 +52,7 @@ class UserDataTest(unittest.TestCase):
     def test_clear_correct_answers(self):
         q = Question.objects.create(state='PUB', difficulty=1)
         user_data = create_session_with_answers_to((q,))
+        self.assertSetEqual({q.pk}, user_data.get_correctly_answered_questions())
         user_data.clear_correct_answers()
         self.assertSetEqual(set(), user_data.get_correctly_answered_questions())
 
