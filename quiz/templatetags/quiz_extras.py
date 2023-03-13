@@ -58,6 +58,7 @@ def compiler_explorer_link(question):
         "componentName": "codeEditor",
         "componentState": {
             "id": 1,
+            "lang": "c++",
             "source": question.question,
             "options": {"compileOnChange": True, "colouriseAsm": True},
         },
