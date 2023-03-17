@@ -70,7 +70,7 @@ def compiler_explorer_link(question):
         "componentState": {
             "id": 1,
             "source": 1,
-            "compiler": "g92",
+            "compiler": "gsnapshot",
             "filters": {"b": 1, "execute": 1, "intel": 1, "commentOnly": 1, "directives": 1},
             "options": f"-std={settings.CPP_STD.lower()}",
         },
