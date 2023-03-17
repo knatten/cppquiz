@@ -64,15 +64,29 @@ def compiler_explorer_link(question):
         },
     }
 
+    compiler_details = {
+        "gcc": {
+            "compiler": "gsnapshot",
+            "options": f"-std={settings.CPP_STD.lower()}"
+        },
+        "clang": {
+            "compiler": "clang_trunk",
+            "options": f"-std={settings.CPP_STD.lower()} -stdlib=libc++"
+        },
+        "msvc": {
+            "compiler": "vcpp_v19_latest_x64",
+            "options": f"/std:{settings.CPP_STD.lower()}"
+        },
+    }
+
     compiler = {
         "type": "component",
         "componentName": "compiler",
         "componentState": {
             "id": 1,
             "source": 1,
-            "compiler": "gsnapshot",
             "filters": {"b": 1, "execute": 1, "intel": 1, "commentOnly": 1, "directives": 1},
-            "options": f"-std={settings.CPP_STD.lower()}",
+            **compiler_details["gcc"],
         },
     }
 
@@ -82,12 +96,25 @@ def compiler_explorer_link(question):
         "componentState": {"compiler": 1, "source": 1},
     }
 
+    executors = [{
+        "type": "component",
+        "componentName": "executor",
+        "componentState": {
+            "id": compiler_id,
+            "source": 1,
+            "compilationPanelShown": 1,
+            **compiler_details[compiler_name],
+        },
+    } for compiler_id, compiler_name in enumerate(("clang", "msvc"), start=1)]
+
     obj = {
         "version": 4,
         "content": [
             {
                 "type": "row",
-                "content": [editor, {"type": "column", "content": [compiler, output]}],
+                "content": [editor,
+                            {"type": "column", "content": [compiler, output]},
+                            {"type": "column", "width": 25, "content": executors}],
             }
         ],
     }
