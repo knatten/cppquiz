@@ -67,15 +67,16 @@ def compiler_explorer_link(question):
     compiler_details = {
         "gcc": {
             "compiler": "gsnapshot",
-            "options": f"-std={settings.CPP_STD.lower()}"
+            "options": f"-std={settings.CPP_STD.lower()} -Wall -Wextra -Wno-unused -Wunused-value"
         },
         "clang": {
             "compiler": "clang_trunk",
-            "options": f"-std={settings.CPP_STD.lower()} -stdlib=libc++"
+            "options": f"-std={settings.CPP_STD.lower()} -stdlib=libc++ -Wall -Wextra -Wno-unused"
+                       " -Wno-unused-parameter -Wunused-result -Wunused-value"
         },
         "msvc": {
             "compiler": "vcpp_v19_latest_x64",
-            "options": f"/std:{settings.CPP_STD.lower()}"
+            "options": f"/std:{settings.CPP_STD.lower()} /W4 /wd4100 /wd4101 /wd4189"
         },
     }
 
