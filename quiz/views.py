@@ -86,8 +86,13 @@ def preview_with_key(request, question_id):
 def question(request, question_id):
     if request.GET.get('preview_key'):
         return preview_with_key(request, question_id)
+
+    try:
+        q = Question.objects.get(Q(id=question_id), Q(state='PUB') | Q(state='RET'))
+    except Question.DoesNotExist:
+        return render(request, 'quiz/missing_question.html', {'question_id': question_id}, status=404)
+
     user_data = UserData(request.session)
-    q = get_object_or_404(Question, Q(id=question_id), Q(state='PUB') | Q(state='RET'))
     q.mark_viewed()
     d = {}
     d['answered'] = False
