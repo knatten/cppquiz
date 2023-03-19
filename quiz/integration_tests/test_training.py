@@ -13,6 +13,14 @@ class TrainingIntegrationTest(TestCase):
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
         self.assertEqual(404, response.status_code)
 
+    def test_when_asking_for_a_missing_question_id__gets_404_and_is_told_that_the_question_is_missing(self):
+        response = self.client.get(reverse('quiz:question', kwargs={'question_id': 42}))
+        self.assertContains(response, 'Question 42 is missing', status_code=404)
+
+    def test_when_asking_for_an_incorrect_question_id__gets_404_and_is_not_told_that_the_question_is_missing(self):
+        response = self.client.get('/quiz/question/incorrect')
+        self.assertNotContains(response, 'Question incorrect is missing', status_code=404)
+
     def test_when_viewing_a_published_question__gets_it(self):
         [question] = create_questions(1, state='PUB', question='fluppa')
         response = self.client.get(reverse('quiz:question', kwargs={'question_id': question.pk}))
