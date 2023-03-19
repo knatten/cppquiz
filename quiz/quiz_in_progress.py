@@ -1,8 +1,4 @@
-import logging
-
 from quiz.answer import Answer
-from quiz.models import Quiz
-from quiz import util
 
 
 class QuestionStats:
@@ -53,20 +49,12 @@ class QuizInProgress:
         return self.quiz.questions.count()
 
     def is_finished(self, request):
-        debug_string = "IP:%s, quiz:%s, is finished? (%d/%d/%d)" % \
-            (util.get_client_ip(request), self.quiz.key, self.nof_answered_questions(),
-             len(self.answers), self.quiz.questions.count())
-        logging.getLogger('quiz').debug(debug_string)
         return self.quiz.questions.count() == self.nof_answered_questions()
 
     def score(self):
         return float(sum([q.score() for q in self.answers]))
 
     def answer(self, request):
-        debug_string = "IP:%s, quiz:%s, result:%s, answer:%s, answers:%d" %\
-            (util.get_client_ip(request), self.quiz.key, request.GET.get(
-                'result', ''), request.GET.get('answer', ''), len(self.answers))
-        logging.getLogger('quiz').debug(debug_string)
         answer = Answer(self.get_current_question(), request)
         answer.register_given_answer()
         if answer.correct:
@@ -77,10 +65,6 @@ class QuizInProgress:
         else:
             self.previous_result = 'incorrect'
             self.attempts += 1
-        debug_string = "IP:%s, quiz:%s, question:#%d (%d/%d), given_result:%s, given_answer:%s, correct:%s" % \
-            (answer.ip, self.quiz.key, answer.question.pk, len(self.answers),
-             self.quiz.questions.count(), answer.given_result, answer.given_answer, answer.correct)
-        logging.getLogger('quiz').debug(debug_string)
         return
 
     def use_hint(self):
