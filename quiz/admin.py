@@ -23,7 +23,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class UsersAnswerAdmin(admin.ModelAdmin):
-    list_display = ('question', 'result', 'answer', 'correct', 'ip', 'date_time')
+    list_display = ('question', 'result', 'answer', 'correct', 'date_time')
     list_filter = ('question',)
 
 

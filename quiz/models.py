@@ -87,7 +87,6 @@ class UsersAnswer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.PROTECT)
     result = models.CharField(max_length=2, default='OK', choices=Question.RESULT_CHOICES)
     answer = models.CharField(max_length=200, default='', blank=True)
-    ip = models.CharField(max_length=45, default='', blank=True)
     date_time = models.DateTimeField(auto_now_add=True)
     correct = models.BooleanField(default=False)
 

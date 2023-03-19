@@ -1,9 +1,7 @@
 import difflib
-import logging
 import random
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.template import RequestContext
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import mail_admins
 from django.contrib.admin.views.decorators import staff_member_required
@@ -11,9 +9,7 @@ from django.db.models import Count, Q
 from django.views.decorators.cache import never_cache
 
 from quiz import fixed_quiz
-from quiz.models import *
 from quiz.forms import QuestionForm
-from quiz.answer import Answer
 from quiz.game_data import *
 from quiz.quiz_in_progress import *
 from quiz.util import get_published_questions
@@ -150,9 +146,6 @@ def quiz(request, quiz_key):
         quiz_in_progress.use_hint()
         d['hint'] = True
     if quiz_in_progress.is_finished(request):
-        debug_string = "IP:%s, quiz:%s was served the finished-screen " % (
-            util.get_client_ip(request), quiz_in_progress.quiz.key)
-        logging.getLogger('quiz').debug(debug_string)
         return render(request, 'quiz/finished.html', d)
     d['question'] = quiz_in_progress.get_current_question()
     d['question'].mark_viewed()

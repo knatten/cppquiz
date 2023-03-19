@@ -1,11 +1,10 @@
-import datetime
 import re
 
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from quiz.models import Quiz, Question, UsersAnswer
+from quiz.models import Quiz, UsersAnswer
 from quiz.test_helpers import *
 from quiz import fixed_quiz
 
