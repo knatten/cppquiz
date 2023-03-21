@@ -12,7 +12,7 @@ from quiz import fixed_quiz
 from quiz.forms import QuestionForm
 from quiz.game_data import *
 from quiz.quiz_in_progress import *
-from quiz.util import get_published_questions
+from quiz.util import get_published_questions, get_previous_published_question, get_next_published_question
 
 
 @never_cache
@@ -75,7 +75,11 @@ def create(request):
 def preview_with_key(request, question_id):
     key = request.GET.get('preview_key')
     d = {}
-    d['question'] = get_object_or_404(Question, id=question_id, preview_key=key)
+    question = get_object_or_404(Question, id=question_id, preview_key=key)
+    d['question'] = question
+    if request.user.is_superuser:
+        d['next_question'] = get_next_published_question(question)
+        d['previous_question'] = get_previous_published_question(question)
     return render(request, 'quiz/preview.html', d)
 
 

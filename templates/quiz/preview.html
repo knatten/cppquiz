@@ -4,6 +4,20 @@
 
 <div id="main_col">
 
+{% if next_question or previous_question %}
+<p style="text-align:left;">
+    {% if previous_question %}
+    <a href="/quiz/question/{{previous_question.pk}}/?preview_key={{previous_question.preview_key}}">Previous</a>
+    {% endif %}
+    &nbsp;
+    {% if next_question %}
+    <span style="float:right;">
+        <a href="/quiz/question/{{next_question.pk}}/?preview_key={{next_question.preview_key}}">Next</a>
+    </span>
+    {% endif %}
+</p>
+{% endif %}
+
 <div id="preview">
 <h2>Question Preview!</h2>
 </div>
