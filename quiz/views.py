@@ -176,7 +176,6 @@ def dismiss_training_msg(request):
 
 
 def get_unanswered_question(user_data):
-    # TODO what if there are no questions
     available_questions = [q.id for q in get_published_questions()]
     if len(available_questions) == 0:
         raise NoQuestionsExist
