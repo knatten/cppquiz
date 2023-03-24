@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import sys
 from random import randint
 from django.core.management.base import BaseCommand, CommandError
