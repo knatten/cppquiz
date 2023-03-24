@@ -26,9 +26,9 @@ class get_unique_quiz_key_Test(TestCase):
 class create_quiz_Test(TestCase):
     def test_creating_a_quiz_with_many_questions__has_correct_number_of_random_questions(self):
         create_questions(30)
-        fixed_quiz.create_quiz(20)
-        self.assertEqual(20, Quiz.objects.get(pk=1).questions.count())
-        self.assertLooksKindOfRandom([q.id for q in Quiz.objects.get(pk=1).questions.all()])
+        quiz = fixed_quiz.create_quiz(20)
+        self.assertEqual(20, quiz.questions.count())
+        self.assertLooksKindOfRandom([q.id for q in quiz.questions.all()])
 
     def test_creating_a_quiz_with_too_many_questions__throws(self):
         create_questions(1)
@@ -36,15 +36,15 @@ class create_quiz_Test(TestCase):
 
     def test_creating_a_quiz__gives_it_a_random_key(self):
         create_questions(10)
-        key1 = fixed_quiz.create_quiz(1)
-        key2 = fixed_quiz.create_quiz(2)
+        key1 = fixed_quiz.create_quiz(1).key
+        key2 = fixed_quiz.create_quiz(2).key
         self.assertNotEqual(key1, key2)
         self.assertEqual([key1, key2], [q.key for q in Quiz.objects.all()])
 
     def test_creating_a_quiz__has_questions_in_random_order(self):
         create_questions(10)
-        fixed_quiz.create_quiz(10)
-        pks = [q.pk for q in Quiz.objects.get(pk=1).get_ordered_questions()]
+        quiz = fixed_quiz.create_quiz(10)
+        pks = [q.pk for q in quiz.get_ordered_questions()]
         self.assertNotEqual(sorted(pks), pks)
 
     def test_creating_a_quiz__only_uses_published_questions(self):

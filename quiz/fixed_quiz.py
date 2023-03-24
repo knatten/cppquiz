@@ -27,4 +27,4 @@ def create_quiz(nof_questions=nof_questions_in_quiz):
         qinq.save()
     quiz.key = get_unique_quiz_key(5)
     quiz.save()
-    return quiz.key
+    return quiz

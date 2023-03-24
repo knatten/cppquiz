@@ -125,7 +125,7 @@ def giveup(request, question_id):
 @never_cache
 def start(request):
     clear_quiz_in_progress(request.session)
-    key = fixed_quiz.create_quiz()
+    key = fixed_quiz.create_quiz().key
     return HttpResponseRedirect('/q/%s' % key)
 
 
