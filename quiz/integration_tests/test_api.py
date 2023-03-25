@@ -7,7 +7,7 @@ from django.test.client import RequestFactory
 from quiz import api
 from quiz.fixed_quiz import create_quiz
 from quiz.models import Quiz
-from quiz.test_helpers import *
+from quiz.test_helpers import create_questions
 
 
 class ApiTest(TestCase):

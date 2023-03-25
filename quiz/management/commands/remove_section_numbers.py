@@ -3,7 +3,7 @@ import re
 
 from django.core.management.base import BaseCommand
 
-from quiz.models import *
+from quiz.models import Question
 
 
 def _assert_no_bare_section_numbers(text):

@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from quiz import fixed_quiz
 from quiz.models import Quiz
-from quiz.test_helpers import *
+from quiz.test_helpers import create_questions
 
 
 class get_unique_quiz_key_Test(TestCase):

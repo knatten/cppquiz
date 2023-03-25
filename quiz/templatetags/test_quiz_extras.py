@@ -1,6 +1,6 @@
 import unittest
 
-from quiz.templatetags.quiz_extras import *
+from quiz.templatetags.quiz_extras import standard_ref
 
 
 class standard_ref_Test(unittest.TestCase):

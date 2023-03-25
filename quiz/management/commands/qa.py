@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from quiz.models import *
+from quiz.models import Question
 
 
 class Command(BaseCommand):

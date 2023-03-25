@@ -9,9 +9,11 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import never_cache
 
 from quiz import fixed_quiz
+from quiz.answer import Answer
 from quiz.forms import QuestionForm
-from quiz.game_data import *
-from quiz.quiz_in_progress import *
+from quiz.game_data import UserData, save_user_data
+from quiz.models import Question, Quiz, UsersAnswer
+from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress
 from quiz.util import get_published_questions
 
 

@@ -2,7 +2,7 @@ import unittest
 
 import mock
 
-from quiz.game_data import *
+from quiz.game_data import UserData
 
 
 def fake_answer(question_id):

@@ -4,7 +4,7 @@ from django.test import TestCase
 from quiz.fixed_quiz import create_quiz
 from quiz.models import Quiz
 from quiz.quiz_in_progress import QuizInProgress
-from quiz.test_helpers import *
+from quiz.test_helpers import create_questions
 
 
 class QuizInProgressTest(TestCase):
