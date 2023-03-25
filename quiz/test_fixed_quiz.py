@@ -2,8 +2,8 @@ import string
 
 from django.test import TestCase
 
-from quiz.models import Quiz
 from quiz import fixed_quiz
+from quiz.models import Quiz
 from quiz.test_helpers import *
 
 

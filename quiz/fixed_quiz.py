@@ -1,7 +1,7 @@
 import random
 import string
 
-from quiz.models import Question, Quiz, QuestionInQuiz
+from quiz.models import Question, QuestionInQuiz, Quiz
 from quiz.util import get_published_questions
 
 nof_questions_in_quiz = 10

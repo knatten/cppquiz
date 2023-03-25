@@ -1,13 +1,13 @@
 import json
-import urllib.request
 import urllib.error
 import urllib.parse
+import urllib.request
 
 from django.core.management.base import BaseCommand
 from django.db.models import Q
 
-from quiz.models import Question
 from quiz.management.commands import text_generator
+from quiz.models import Question
 
 
 class Command(BaseCommand):

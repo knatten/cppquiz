@@ -1,8 +1,8 @@
 from django.test import RequestFactory
 from django.test import TestCase
 
-from quiz.models import Quiz
 from quiz.fixed_quiz import create_quiz
+from quiz.models import Quiz
 from quiz.quiz_in_progress import QuizInProgress
 from quiz.test_helpers import *
 

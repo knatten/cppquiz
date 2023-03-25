@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404
+from django.http import Http404, JsonResponse
 
 from quiz.models import Quiz
 

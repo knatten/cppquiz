@@ -1,8 +1,8 @@
 from django.test import TestCase
 
-from quiz.models import Quiz
 from quiz.active_quiz import *
 from quiz.fixed_quiz import *
+from quiz.models import Quiz
 from quiz.test_helpers import *
 
 

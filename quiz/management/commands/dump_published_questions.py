@@ -2,8 +2,8 @@ import json
 
 from django.core.management.base import BaseCommand
 
-from quiz.util import get_published_questions
 from cppquiz import settings
+from quiz.util import get_published_questions
 
 
 class Command(BaseCommand):
