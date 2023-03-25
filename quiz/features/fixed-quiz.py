@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from lettuce import step, world
 from lettuce.django import django_url
 

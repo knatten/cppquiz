@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import unittest
 
 from quiz.templatetags.quiz_extras import *
