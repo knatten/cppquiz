@@ -3,8 +3,9 @@ import json
 import os
 
 from django.core.management.base import BaseCommand
-from quiz.models import Question
 from django.db.models import Q
+
+from quiz.models import Question
 from quiz.management.commands import text_generator
 
 

@@ -1,4 +1,5 @@
 import json
+
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.http import Http404
@@ -6,7 +7,6 @@ from django.http import Http404
 from quiz.fixed_quiz import create_quiz
 from quiz.models import Quiz
 from quiz.test_helpers import *
-
 from quiz import api
 
 

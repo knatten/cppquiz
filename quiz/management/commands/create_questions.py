@@ -1,5 +1,7 @@
 from random import randint
+
 from django.core.management.base import BaseCommand
+
 from quiz.models import *
 
 

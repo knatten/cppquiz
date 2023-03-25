@@ -1,5 +1,6 @@
-import mock
 import unittest
+
+import mock
 
 from quiz.game_data import *
 
