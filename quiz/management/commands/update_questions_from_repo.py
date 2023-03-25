@@ -4,8 +4,6 @@ import os
 
 from django.core.management.base import BaseCommand
 from quiz.models import Question
-from cppquiz import settings
-from django.db.models import Q
 
 
 class Command(BaseCommand):

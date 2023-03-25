@@ -1,8 +1,7 @@
 import difflib
-import json
 import re
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from quiz.models import *
 
 
