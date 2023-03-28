@@ -28,7 +28,7 @@ http://creativecommons.org/licenses/by-sa/4.0/
 - `python manage.py test`
 
 ### System tests
-The system tests are currently not maintained. If you want to have a go, you need at least `pip install lettuce` and `pip install splinter`. Then try to get `./run_lettuce` to work.
+- `./run_system_tests`
 
 ## Formatting
 All code is formatted with `autopep8` and checked in CI. To format your code, run `./ci/format.sh --fix`
