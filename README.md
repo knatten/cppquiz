@@ -24,11 +24,7 @@ http://creativecommons.org/licenses/by-sa/4.0/
 
 ## Testing
 
-### Unit tests
 - `python manage.py test`
-
-### System tests
-- `./run_system_tests`
 
 ## Formatting
 All code is formatted with `autopep8` and checked in CI. To format your code, run `./ci/format.sh --fix`
