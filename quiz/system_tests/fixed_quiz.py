@@ -19,7 +19,7 @@ class FixedQuizzesTest(SystemTestCase):
 
     def should_be_offered_to_start_a_quiz(self):
         link = self.browser.links.find_by_text('Start a new quiz').first
-        assert link
+        self.assertTrue(link)
         link.click()
 
     def mistype_a_quiz(self):
@@ -27,5 +27,5 @@ class FixedQuizzesTest(SystemTestCase):
         self.visit('/q/abcdE')
 
     def should_see_suggestions_for_quizzes_with_similar_keys(self):
-        assert self.browser.is_text_present('Quiz not found')
-        assert self.browser.is_text_present('abcde')
+        self.assertTrue(self.browser.is_text_present('Quiz not found'))
+        self.assertTrue(self.browser.is_text_present('abcde'))

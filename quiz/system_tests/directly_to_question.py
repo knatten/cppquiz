@@ -12,4 +12,4 @@ class StuffTest(SystemTestCase):
         self.visit('/')
 
     def should_end_up_at_a_question(self):
-        assert 'Question #' in self.browser.html
+        self.assertIn('Question #', self.browser.html)

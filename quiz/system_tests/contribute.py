@@ -37,7 +37,7 @@ class ContributingQuestionsTest(SystemTestCase):
         self.visit('/quiz/create')
 
     def should_see_the_contribute_form(self):
-        assert self.browser.is_text_present('Create your own question', 3)
+        self.assertTrue(self.browser.is_text_present('Create your own question', 3))
 
     def fill_in_the_spam_protection_correctly(self):
         self.browser.fill('spam_protection', 'human')
@@ -53,5 +53,5 @@ class ContributingQuestionsTest(SystemTestCase):
     def the_administrators_should_get_an_email_about_a_new_question(self):
         for admin in settings.ADMINS:
             message = mail.outbox.pop()
-            assert admin[1] in message.to
-            assert 'Someone made a question' in message.subject
+            self.assertIn(admin[1], message.to)
+            self.assertIn('Someone made a question', message.subject)

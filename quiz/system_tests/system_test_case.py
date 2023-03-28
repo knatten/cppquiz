@@ -18,4 +18,4 @@ class SystemTestCase(StaticLiveServerTestCase):
 
     def there_is_an_error(self, error_msg, error_id):
         errors = self.browser.find_by_id(error_id + '_errors')[0]
-        assert error_msg in errors.text
+        self.assertIn(error_msg, errors.text)
