@@ -5,24 +5,24 @@ from quiz.test_helpers import create_questions
 
 
 class FixedQuizzesTest(SystemTestCase):
-    def test_user_is_offered_to_start(self):
+    def test_user_is_offered_to_start_a_quiz(self):
         create_questions(fixed_quiz.nof_questions_in_quiz)
-        self.answer_random_questions()
+        self.visit_a_random_question()
         self.should_be_offered_to_start_a_quiz()
 
     def test_user_who_mistypes_a_quiz_url_gets_suggestions(self):
-        self.mistype_a_quiz()
+        self.mistype_a_quiz_url()
         self.should_see_suggestions_for_quizzes_with_similar_keys()
 
-    def answer_random_questions(self):
-        self.visit('')
+    def visit_a_random_question(self):
+        self.visit('/quiz/random')
 
     def should_be_offered_to_start_a_quiz(self):
         link = self.browser.links.find_by_text('Start a new quiz').first
         self.assertTrue(link)
         link.click()
 
-    def mistype_a_quiz(self):
+    def mistype_a_quiz_url(self):
         Quiz.objects.create(key='abcde')
         self.visit('/q/abcdE')
 
