@@ -5,3 +5,4 @@ parameterized
 tweepy
 autopep8
 pip-tools
+splinter[django]
