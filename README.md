@@ -11,6 +11,10 @@ http://creativecommons.org/licenses/by-sa/4.0/
 
 # Contributing
 
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+# Running the code locally
+
 ## Setting up the environment
 - Clone this repository
 - (We recommend using Virtualenv)
