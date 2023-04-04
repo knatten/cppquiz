@@ -1,8 +1,8 @@
-import mock
 import unittest
 
-from quiz.game_data import *
-from quiz.answer import *
+import mock
+
+from quiz.game_data import UserData
 
 
 def fake_answer(question_id):

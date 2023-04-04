@@ -4,9 +4,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from quiz.models import Quiz, UsersAnswer
-from quiz.test_helpers import *
 from quiz import fixed_quiz
+from quiz.models import Quiz, UsersAnswer
+from quiz.test_helpers import Question, create_questions, get_question_pk
 
 
 class FixedQuizIntegrationTest(TestCase):

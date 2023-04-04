@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from quiz.models import *
+from quiz.models import Question
 
 
 class UserData:

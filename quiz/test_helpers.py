@@ -1,6 +1,6 @@
+import random
 import re
 import string
-import random
 
 from quiz.models import Question
 

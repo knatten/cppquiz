@@ -1,12 +1,12 @@
 import base64
 import json
-import markdown
 import re
 import urllib.parse
 
+import markdown
 from django import template
-from django.utils.safestring import mark_safe
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 

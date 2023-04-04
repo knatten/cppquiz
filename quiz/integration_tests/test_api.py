@@ -1,13 +1,13 @@
 import json
+
+from django.http import Http404
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.http import Http404
-
-from quiz.fixed_quiz import create_quiz
-from quiz.models import Quiz, Question
-from quiz.test_helpers import *
 
 from quiz import api
+from quiz.fixed_quiz import create_quiz
+from quiz.models import Quiz
+from quiz.test_helpers import create_questions
 
 
 class ApiTest(TestCase):

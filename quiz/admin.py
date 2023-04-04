@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import reverse
-from quiz.models import *
+
+from quiz.models import Question, Quiz, UsersAnswer
 
 
 def question_part(obj):
