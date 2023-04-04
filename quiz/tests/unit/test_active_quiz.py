@@ -3,7 +3,7 @@ from django.test import TestCase
 from quiz.active_quiz import ActiveQuiz
 from quiz.fixed_quiz import create_quiz
 from quiz.models import Quiz
-from quiz.test_helpers import create_questions
+from quiz.tests.test_helpers import create_questions
 
 
 class ActiveQuizTest(TestCase):

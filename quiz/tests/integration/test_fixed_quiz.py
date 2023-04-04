@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from quiz import fixed_quiz
 from quiz.models import Quiz, UsersAnswer
-from quiz.test_helpers import Question, create_questions, get_question_pk
+from quiz.tests.test_helpers import Question, create_questions, get_question_pk
 
 
 class FixedQuizIntegrationTest(TestCase):

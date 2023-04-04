@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core import mail
 
-from quiz.system_tests.system_test_case import SystemTestCase
+from quiz.tests.system.system_test_case import SystemTestCase
 
 
 class ContributingQuestionsTest(SystemTestCase):
