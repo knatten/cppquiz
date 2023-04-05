@@ -1,7 +1,7 @@
 from quiz import fixed_quiz
 from quiz.models import Quiz
-from quiz.system_tests.system_test_case import SystemTestCase
-from quiz.test_helpers import create_questions
+from quiz.tests.system.system_test_case import SystemTestCase
+from quiz.tests.test_helpers import create_questions
 
 
 class FixedQuizzesTest(SystemTestCase):

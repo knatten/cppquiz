@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from quiz.models import Question
-from quiz.test_helpers import create_questions
+from quiz.tests.test_helpers import create_questions
 
 
 class TrainingIntegrationTest(TestCase):
