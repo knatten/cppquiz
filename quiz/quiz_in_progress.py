@@ -1,4 +1,5 @@
 from quiz.answer import Answer
+from quiz.util import save_data_in_session
 
 
 class QuestionStats:
@@ -77,9 +78,7 @@ class QuizInProgress:
         self.answers.append(QuestionStats(skipped=True))
 
     def save(self):
-        self.session.modified = True
-        self.session['quiz_in_progress'] = self
-        self.session.set_expiry(60 * 60 * 24 * 365 * 10)  # TODO akn DRY
+        save_data_in_session({'quiz_in_progress': self}, self.session)
 
     def _reset_question_state(self):
         self.previous_explanation = None

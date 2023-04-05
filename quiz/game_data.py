@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 from quiz.models import Question
+from quiz.util import save_data_in_session
 
 
 class UserData:
@@ -34,6 +35,4 @@ class UserData:
 
 
 def save_user_data(user_data, session):
-    session.modified = True
-    session['user_data'] = user_data
-    session.set_expiry(60 * 60 * 24 * 365 * 10)
+    save_data_in_session({'user_data': user_data}, session)

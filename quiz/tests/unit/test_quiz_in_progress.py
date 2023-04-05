@@ -10,8 +10,7 @@ from quiz.tests.test_helpers import create_questions
 class QuizInProgressTest(TestCase):
     def set_up(self, nof_questions=10):
         create_questions(nof_questions)
-        key = create_quiz(nof_questions)
-        self.quiz = Quiz.objects.get(key=key)
+        self.quiz = create_quiz(nof_questions)
         self.in_progress = QuizInProgress({}, self.quiz)
 
     def test_always__gives_correct_total_number_of_questions(self):

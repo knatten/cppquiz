@@ -13,3 +13,12 @@ def get_client_ip(request):
 
 def get_published_questions():
     return Question.objects.filter(state='PUB')
+
+
+def save_data_in_session(data, session):
+    session.modified = True
+
+    for key, value in data.items():
+        session[key] = value
+
+    session.set_expiry(60 * 60 * 24 * 365 * 10)

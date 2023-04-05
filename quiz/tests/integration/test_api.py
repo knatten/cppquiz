@@ -13,12 +13,11 @@ from quiz.tests.test_helpers import create_questions
 class ApiTest(TestCase):
     def set_up(self, nof_questions=10):
         create_questions(nof_questions)
-        self.key = create_quiz(nof_questions)
-        self.quiz = Quiz.objects.get(key=self.key)
+        self.quiz = create_quiz(nof_questions)
 
     def test_asking_for_existing_quiz_returns_ids(self):
         self.set_up()
-        request = RequestFactory().get('_/?key=' + self.key)
+        request = RequestFactory().get('_/?key=' + self.quiz.key)
         result = api.quiz(request)
         self.assertEqual(200, result.status_code)
         content = json.loads(result.content)
