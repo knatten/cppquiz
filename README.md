@@ -1,7 +1,9 @@
 This is the source code (but not the content) for https://cppquiz.org
 
-Both this code and the contents of the site are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License:
-http://creativecommons.org/licenses/by-sa/4.0/
+This project is licensed under the GNU General Public License Version 3, see [COPYING](COPYING).
+(The content on the site is licensed under
+the [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/),
+and is not available in this repository.)
 
 ![Build Status](https://github.com/knatten/cppquiz/actions/workflows/ci.yml/badge.svg)
 
