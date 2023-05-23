@@ -10,7 +10,7 @@ autopep8==2.0.2
     # via -r requirements.in
 build==0.10.0
     # via pip-tools
-certifi==2022.12.7
+certifi==2023.5.7
     # via requests
 charset-normalizer==3.1.0
     # via requests
@@ -28,23 +28,23 @@ lxml==4.9.2
     # via splinter
 markdown==3.4.3
     # via -r requirements.in
-mock==5.0.1
+mock==5.0.2
     # via -r requirements.in
 oauthlib==3.2.2
     # via
     #   requests-oauthlib
     #   tweepy
-packaging==23.0
+packaging==23.1
     # via build
 parameterized==0.9.0
     # via -r requirements.in
-pip-tools==6.12.3
+pip-tools==6.13.0
     # via -r requirements.in
 pycodestyle==2.10.0
     # via autopep8
 pyproject-hooks==1.0.0
     # via build
-requests==2.28.2
+requests==2.31.0
     # via
     #   requests-oauthlib
     #   tweepy
@@ -54,7 +54,7 @@ splinter[django]==0.19.0
     # via -r requirements.in
 sqlparse==0.4.4
     # via django
-tweepy==4.13.0
+tweepy==4.14.0
     # via -r requirements.in
 urllib3==1.26.15
     # via
