@@ -8,11 +8,11 @@ asgiref==3.7.2
     # via django
 autopep8==2.0.4
     # via -r requirements.in
-build==1.0.0
+build==1.0.3
     # via pip-tools
 certifi==2023.7.22
     # via requests
-charset-normalizer==3.2.0
+charset-normalizer==3.3.0
     # via requests
 click==8.1.7
     # via pip-tools
@@ -34,7 +34,7 @@ oauthlib==3.2.2
     # via
     #   requests-oauthlib
     #   tweepy
-packaging==23.1
+packaging==23.2
     # via build
 parameterized==0.9.0
     # via -r requirements.in
@@ -56,7 +56,7 @@ sqlparse==0.4.4
     # via django
 tweepy==4.14.0
     # via -r requirements.in
-urllib3==1.26.16
+urllib3==1.26.17
     # via
     #   requests
     #   splinter
