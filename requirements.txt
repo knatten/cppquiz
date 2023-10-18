@@ -18,7 +18,7 @@ click==8.1.7
     # via pip-tools
 cssselect==1.2.0
     # via splinter
-django==4.2.5
+django==4.2.6
     # via
     #   -r requirements.in
     #   splinter
@@ -26,7 +26,7 @@ idna==3.4
     # via requests
 lxml==4.9.3
     # via splinter
-markdown==3.4.4
+markdown==3.5
     # via -r requirements.in
 mock==5.1.0
     # via -r requirements.in
@@ -40,7 +40,7 @@ parameterized==0.9.0
     # via -r requirements.in
 pip-tools==7.3.0
     # via -r requirements.in
-pycodestyle==2.11.0
+pycodestyle==2.11.1
     # via autopep8
 pyproject-hooks==1.0.0
     # via build
@@ -56,7 +56,7 @@ sqlparse==0.4.4
     # via django
 tweepy==4.14.0
     # via -r requirements.in
-urllib3==1.26.17
+urllib3==1.26.18
     # via
     #   requests
     #   splinter
