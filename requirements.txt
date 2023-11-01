@@ -12,13 +12,13 @@ build==1.0.3
     # via pip-tools
 certifi==2023.7.22
     # via requests
-charset-normalizer==3.3.0
+charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via pip-tools
 cssselect==1.2.0
     # via splinter
-django==4.2.6
+django==4.2.7
     # via
     #   -r requirements.in
     #   splinter
@@ -26,7 +26,7 @@ idna==3.4
     # via requests
 lxml==4.9.3
     # via splinter
-markdown==3.5
+markdown==3.5.1
     # via -r requirements.in
 mock==5.1.0
     # via -r requirements.in
@@ -60,7 +60,7 @@ urllib3==1.26.18
     # via
     #   requests
     #   splinter
-wheel==0.41.2
+wheel==0.41.3
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
