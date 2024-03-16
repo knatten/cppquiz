@@ -11,7 +11,7 @@ echo -n "python: "
 which python || exit $?
 python --version || exit $?
 echo -n "Django version: "
-python -c "import django; print(django.__version__)" || exit $?
+python -c "import django; print(django.__version__)"
 
 header "Upgrading pip packages"
 pip install -r requirements.txt || exit $?
