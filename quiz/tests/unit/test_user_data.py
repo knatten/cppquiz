@@ -1,6 +1,6 @@
 import unittest
 
-from quiz.game_data import UserData
+from quiz.user_data import UserData
 
 
 class UserDataTest(unittest.TestCase):

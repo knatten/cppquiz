@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from quiz.game_data import UserData
+from quiz.user_data import UserData
 from quiz.util import get_correctly_answered_questions
 from quiz.models import Question
 

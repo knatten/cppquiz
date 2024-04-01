@@ -11,7 +11,7 @@ from django.views.decorators.cache import never_cache
 from quiz import fixed_quiz
 from quiz.answer import Answer
 from quiz.forms import QuestionForm
-from quiz.game_data import load_user_data, save_user_data
+from quiz.user_data import load_user_data, save_user_data
 from quiz.models import Question, Quiz, UsersAnswer
 from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress
 from quiz.util import get_published_questions, get_correctly_answered_questions
