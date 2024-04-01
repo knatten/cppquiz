@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import reverse
 
-from quiz.models import Question, Quiz, UsersAnswer
+from quiz.models import Question, Quiz, UsersAnswer, QuestionInQuiz
 
 
 def question_part(obj):
@@ -33,6 +33,12 @@ class QuizAdmin(admin.ModelAdmin):
     search_fields = ('key',)
 
 
+class QuestionInQuizAdmin(admin.ModelAdmin):
+    list_display = ('question',)
+    search_fields = ('question',)
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UsersAnswer, UsersAnswerAdmin)
 admin.site.register(Quiz, QuizAdmin)
+admin.site.register(QuestionInQuiz, QuestionInQuizAdmin)
