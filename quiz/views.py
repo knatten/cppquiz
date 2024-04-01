@@ -11,10 +11,10 @@ from django.views.decorators.cache import never_cache
 from quiz import fixed_quiz
 from quiz.answer import Answer
 from quiz.forms import QuestionForm
-from quiz.game_data import UserData, save_user_data
+from quiz.game_data import load_user_data, save_user_data
 from quiz.models import Question, Quiz, UsersAnswer
 from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress
-from quiz.util import get_published_questions
+from quiz.util import get_published_questions, get_correctly_answered_questions
 
 
 @never_cache
@@ -26,14 +26,14 @@ def index(request):
 def random_question(request):
     try:
         return HttpResponseRedirect(
-            "/quiz/question/%d" % get_unanswered_question(UserData(request.session)))
+            "/quiz/question/%d" % get_unanswered_question(load_user_data(request.session)))
     except NoQuestionsExist:
         return HttpResponseRedirect("/quiz/no_questions")
 
 
 @never_cache
 def clear(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     request.session.clear()
     user_data.clear_correct_answers()
     save_user_data(user_data, request.session)
@@ -90,7 +90,7 @@ def question(request, question_id):
     except Question.DoesNotExist:
         return render(request, 'quiz/missing_question.html', {'question_id': question_id}, status=404)
 
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     q.mark_viewed()
     d = {}
     d['answered'] = False
@@ -100,10 +100,12 @@ def question(request, question_id):
         d['answered'] = True
         answer = Answer(q, request)
         answer.register_given_answer()
-        user_data.register_attempt(answer)
+
+        user_data.register_attempt(int(answer.question.pk))
+
         if answer.correct:
             d['correct_result'] = True
-            user_data.register_correct_answer(question_id)
+            user_data.register_correct_answer(int(question_id))
     d['total_questions'] = get_published_questions().count()
     d['user_data'] = user_data
     d['show_hint'] = request.GET.get('show_hint', False)
@@ -114,7 +116,7 @@ def question(request, question_id):
 
 
 def giveup(request, question_id):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     if user_data.attempts_given_for(question_id) < 3:
         raise Http404
     d = {}
@@ -169,7 +171,7 @@ def suggest_quiz_similar_to(key, request):
 
 
 def dismiss_training_msg(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     user_data.dismiss_training_msg()
     save_user_data(user_data, request.session)
     return HttpResponse('')
@@ -179,7 +181,8 @@ def get_unanswered_question(user_data):
     available_questions = [q.id for q in get_published_questions()]
     if len(available_questions) == 0:
         raise NoQuestionsExist
-    for q in user_data.get_correctly_answered_questions():
+
+    for q in get_correctly_answered_questions(user_data):
         if int(q) in available_questions:
             available_questions.remove(int(q))
     if len(available_questions) == 0:

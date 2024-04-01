@@ -15,6 +15,12 @@ def get_published_questions():
     return Question.objects.filter(state='PUB')
 
 
+def get_correctly_answered_questions(user_data):
+    return set(
+        Question.objects.filter(pk__in=user_data.get_correctly_answered_questions(), state='PUB').values_list('pk',
+                                                                                                              flat=True))
+
+
 def save_data_in_session(data, session):
     session.modified = True
 
