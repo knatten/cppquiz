@@ -1,4 +1,7 @@
 #!/bin/bash
+SCRIPT_PATH=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SERVICE_NAME=$(basename $(dirname $SCRIPT_PATH)).service
+
 function header()
 {
     echo
@@ -6,6 +9,7 @@ function header()
     echo $1
     echo ------------------------------
 }
+
 source ../venv/bin/activate || exit $?
 header "Versions"
 echo -n "python: "
@@ -25,6 +29,5 @@ python manage.py migrate || exit $?
 header "Collecting static"
 python manage.py collectstatic --noinput || exit $?
 
-header "Restarting"
-mkdir -p ../tmp || exit $?
-touch ../tmp/restart.txt || exit $?
+header "Restarting $SERVICE_NAME"
+systemctl --no-pager --user status $SERVICE_NAME || exit $?
