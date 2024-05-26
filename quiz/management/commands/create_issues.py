@@ -22,7 +22,7 @@ class Command(BaseCommand):
             print("Creating issue for " + str(q.id))
             title = 'Update question ' + str(q.id)
             body = text_generator.get_issue(q)
-            data = json.dumps({'issue': {'title': title, 'body': body}})
+            data = json.dumps({'issue': {'title': title, 'body': body}}).encode("utf-8")
             url = 'https://api.github.com/repos/' + options['user'][0] + '/' + options['repo'][0] + '/import/issues'
             headers = {
                 'Authorization': 'token ' + options['token'][0],

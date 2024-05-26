@@ -28,14 +28,14 @@ def get_result_display(question):
 template = """
 ### Thanks for helping!
 
-Thank you for helping to port this question from C++11 to C++17.
+Thank you for helping to port this question from C++17 to C++23.
 
 You'll find the source code in [question.cpp]({{QUESTION_PATH}}question.cpp), this should normally not need modification.
 
-In C++11, the correct answer is:
+In C++17, the correct answer is:
 > {{ANSWER}}
 
-Please verify that this is still correct in C++17. If it is, please do the following:
+Please verify that this is still correct in C++23. If it is, please do the following:
 {{BULLET}} Update [explanation.md]({{QUESTION_PATH}}explanation.md):
   {{BULLET}} Refer to the correct section numbers
   {{BULLET}} Use updated quotes from those sections (the wording might have changed)
@@ -46,7 +46,7 @@ Please verify that this is still correct in C++17. If it is, please do the follo
 
 If you get stuck, please describe the problem in detail in a comment to the issue, and a maintainer will add the `help wanted` tag so others can chime in.
 
-If the correct answer has changed from C++11 to C++17, you can either just leave a comment in this issue, or see the instructions for [updating meta data]({{ROOT_PATH}}METADATA_HOWTO.md).
+If the correct answer has changed from C++17 to C++23, you can either just leave a comment in this issue, or see the instructions for [updating meta data]({{ROOT_PATH}}METADATA_HOWTO.md).
 """
 
 meta_data_howto = """
@@ -75,15 +75,15 @@ The fields you need to care about are `answer` and `result`:
 """
 
 main_readme = """
-## Porting CppQuiz.org questions to C++17
+## Porting CppQuiz.org questions to C++23
 
 CppQuiz.org is an open source C++ quiz site. If you're unfamiliar with it, you can read more in [its "About" section](https://cppquiz.org/quiz/about/).
 
-All the CppQuiz questions are currently targetting C++11. We need to update them for C++17. Most questions will still have the same answers, we just need to update the explanations and references to the standard. A few questions will also have different answers.
+All the CppQuiz questions are currently targetting C++17. We need to update them for C++23. Most questions will still have the same answers, we just need to update the explanations and references to the standard. A few questions will also have different answers.
 
 Doing this all by myself is going to take months, so I would very much appreciate some help from the community. To make that as simple as possible, I've created this repository containing all the questions. There is a [directory for each question](/questions), named after the question number. That directory contains the source code of the question in a `.cpp` file, the hint and explanation in `.md` files, as well as a `README.md` explaining everything you need to do to port the question. There's also an issue for each question, making it easier to track progress. The issue has the same information as the `README.md` file.
 
-As soon as we've updated all the questions in this repository, I'll import them back into CppQuiz, and from then on CppQuiz will always ask about C++17.
+As soon as we've updated all the questions in this repository, I'll import them back into CppQuiz, and from then on CppQuiz will always ask about C++23.
 
 ### How to help porting questions
 There are two ways to contribute, listed below. I prefer the first alternative, but if that prevents you from contributing, the second is also ok.
