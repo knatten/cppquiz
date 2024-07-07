@@ -10,11 +10,11 @@ C++ Quiz is written by <a href="http://knatten.org">Anders Schau Knatten</a> wit
 <h3>What is this?</h3>
 <p>This is a simple online quiz that you can use to test your knowledge of the C++ programming language.</p>
 <h3>How do I use it?</h3>
-<p>Most of the questions will compile and have deterministic output, for these you just need to enter the output of the program in the text box. Some programs do however have a compilation error, unspecified behaviour, or undefined behaviour. In that case, select the correct alternative from the dropdown, and leave the output empty.</p>
+<p>Most of the questions will compile and have deterministic output, for these you just need to enter the output of the program in the text box. Some programs do however have a compilation error, unspecified / implementation defined behaviour, or the potential for undefined behaviour. In that case, select the correct alternative from the dropdown, and leave the output empty.</p>
 <h3>Which version of the standard is used?</h3>
 <p>{{CPP_STD}}</p>
 <h3>I don't agree with an answer!</h3>
-<p>First of all, note that your compiler might not always show the same result as this site. This is in particular true for questions that have undefined behaviour, where the correct answer is "The program is undefined", but your compiler might show a plausible result. If you still think the answer is wrong, please <a href="https://github.com/knatten/cppquiz/issues/new">file an issue</a> explaining what you think is wrong, including a link to the question.</p>
+<p>First of all, note that your compiler might not always show the same result as this site. This is in particular true for questions that could encounter undefined behaviour, where the correct answer is "The program is (or may be) undefined", but your compiler might show a plausible result. If you still think the answer is wrong, please <a href="https://github.com/knatten/cppquiz/issues/new">file an issue</a> explaining what you think is wrong, including a link to the question.</p>
 <h3>How does scoring work?</h3>
 <p>If you are taking a fixed quiz (not just answering random questions in training mode), you get one point per correct answer. If you used a hint for that question, 0.5 is subtracted from your point. For each incorrect attempt you made at that question, the point is further divided by two. For instance, if you used one hint and three incorrect attempts, you get (1 - <abbr title="You used a hint and loose 0.5 points">0.5</abbr>) / (<abbr title="You used three incorrect attempts, so divide by two thrice">2 * 2 * 2</abbr>) = 0.0625 points. As you can see, it pays to think things through rather than guessing, and using a hint is often also better than guessing.</p>
 <h3>What features are planned?</h3>

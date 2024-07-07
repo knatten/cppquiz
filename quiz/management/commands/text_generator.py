@@ -70,8 +70,8 @@ The fields you need to care about are `answer` and `result`:
 - `result`: Here you need to set the correct shorthand for an enum. The possible values are:
     - `OK`: The program is guaranteed a certain output
     - `CE`: The program has a compilation error
+    - `UD`: The program is (or may be) undefined
     - `US`: The program is unspecified / implementation defined
-    - `UD`: The program has undefined behavior
 """
 
 main_readme = """
