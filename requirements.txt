@@ -6,11 +6,11 @@
 #
 asgiref==3.8.1
     # via django
-autopep8==2.2.0
+autopep8==2.3.1
     # via -r requirements.in
 build==1.2.1
     # via pip-tools
-certifi==2024.6.2
+certifi==2024.7.4
     # via requests
 charset-normalizer==3.3.2
     # via requests
@@ -18,7 +18,7 @@ click==8.1.7
     # via pip-tools
 cssselect==1.2.0
     # via splinter
-django==4.2.13
+django==4.2.14
     # via
     #   -r requirements.in
     #   splinter
@@ -40,7 +40,7 @@ parameterized==0.9.0
     # via -r requirements.in
 pip-tools==7.4.1
     # via -r requirements.in
-pycodestyle==2.11.1
+pycodestyle==2.12.0
     # via autopep8
 pyproject-hooks==1.1.0
     # via
@@ -58,7 +58,7 @@ sqlparse==0.5.0
     # via django
 tweepy==4.14.0
     # via -r requirements.in
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   requests
     #   splinter
