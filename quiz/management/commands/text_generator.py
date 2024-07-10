@@ -19,7 +19,7 @@ def get_template_with_answer(question):
 
 
 def get_result_display(question):
-    result_display = question.get_result_display().replace('is undefined', 'has undefined behavior')
+    result_display = question.get_result_display()
     if question.result == 'OK':
         return result_display + ' `' + question.answer + '`'
     return result_display
