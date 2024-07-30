@@ -32,7 +32,7 @@ def standard_ref(text):
 def to_html(text, autoescape=None):
     return mark_safe(
         standard_ref(
-            markdown.markdown(text, extensions=['nl2br'])))
+            markdown.markdown(text, extensions=['nl2br', 'pymdownx.superfences'])))
 
 
 @register.filter()
