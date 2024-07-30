@@ -28,20 +28,11 @@ def standard_ref(text):
     return re.sub(regex, format_reference, text)
 
 
-def custom_linebreaks(text):
-    return (text
-            .replace("\n", "<br />")
-            .replace("</p><br />", "</p>")
-            .replace("<br /><p>", "<p>")
-            .replace("</pre><br />", "</pre>"))
-
-
 @register.filter(needs_autoescape=True)
 def to_html(text, autoescape=None):
     return mark_safe(
         standard_ref(
-            custom_linebreaks(
-                markdown.markdown(text))))
+            markdown.markdown(text, extensions=['nl2br'])))
 
 
 @register.filter()
