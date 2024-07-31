@@ -27,7 +27,9 @@ idna==3.7
 lxml==5.2.2
     # via splinter
 markdown==3.6
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   pymdown-extensions
 mock==5.1.0
     # via -r requirements.in
 oauthlib==3.2.2
@@ -42,10 +44,14 @@ pip-tools==7.4.1
     # via -r requirements.in
 pycodestyle==2.12.0
     # via autopep8
+pymdown-extensions==10.9
+    # via -r requirements.in
 pyproject-hooks==1.1.0
     # via
     #   build
     #   pip-tools
+pyyaml==6.0.1
+    # via pymdown-extensions
 requests==2.32.3
     # via
     #   requests-oauthlib
@@ -54,7 +60,7 @@ requests-oauthlib==1.3.1
     # via tweepy
 splinter[django]==0.21.0
     # via -r requirements.in
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via django
 tweepy==4.14.0
     # via -r requirements.in
