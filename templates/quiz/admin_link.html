@@ -1,5 +1,5 @@
 {%if user.is_staff%}
 <p>
-Admins, <a href="/admin/quiz/question/{{question.id}}/">edit this question</a>
+Admins, <a href="/admin/quiz/question/{{question.id}}/">edit</a> or <a href="/quiz/question/{{question.id}}?preview_key={{question.preview_key}}">preview</a> this question
 </p>
 {%endif%}
