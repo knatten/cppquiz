@@ -18,7 +18,7 @@ click==8.1.7
     # via pip-tools
 cssselect==1.2.0
     # via splinter
-django==4.2.14
+django==4.2.15
     # via
     #   -r requirements.in
     #   splinter
@@ -42,7 +42,7 @@ parameterized==0.9.0
     # via -r requirements.in
 pip-tools==7.4.1
     # via -r requirements.in
-pycodestyle==2.12.0
+pycodestyle==2.12.1
     # via autopep8
 pymdown-extensions==10.9
     # via -r requirements.in
@@ -50,7 +50,7 @@ pyproject-hooks==1.1.0
     # via
     #   build
     #   pip-tools
-pyyaml==6.0.1
+pyyaml==6.0.2
     # via pymdown-extensions
 requests==2.32.3
     # via
@@ -68,7 +68,7 @@ urllib3==2.2.2
     # via
     #   requests
     #   splinter
-wheel==0.43.0
+wheel==0.44.0
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
