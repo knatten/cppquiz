@@ -18,21 +18,39 @@ def format_reference(match):
     full_link = "https://timsong-cpp.github.io/cppwp/n4659/" + section_name
     if paragraph_number:
         full_link = full_link + "#" + paragraph_number
-    return "<em><a href=\"" + full_link + "\">" + full_reference + "</a></em>"
+    return f"*[{full_reference}]({full_link})*"
 
 
 def standard_ref(text):
-    section_name = u'(\[(?P<section_name>[\w:]+(\.[\w:]+)*)\])'
-    possible_paragraph = u'(¶(?P<paragraph>\d+(\.\d+)*))*'
-    regex = re.compile('§(' + section_name + possible_paragraph + ')')
-    return re.sub(regex, format_reference, text)
+    # https://regex101.com/r/hf2P3X/4
+    regex = re.compile(
+        r'''
+        §\[                       # mandatory section part starts with §[
+            (?P<section_name>     #
+                [^]]+             # at least one character other than ]
+            )                     #
+        \]                        # section part must end with ]
+        (?:¶                      # optional paragraph part starts with ¶
+            (?P<paragraph>        #
+                [^\s*]*           # any number of non-whitespace characters except * (to support italicized links)
+                [\w&\]<>/^|+%=~-] # we support only those paragraphs that end with the following characters:
+                                  # any Unicode letter/digit plus _ (use * instead of _ in Markdown) plus
+                                  # characters that shouldn't clash with surrounding punctuation/Markdown
+            )                     #
+        )?                        #
+        ''',
+        re.VERBOSE,
+    )
+    return regex.sub(format_reference, text)
 
 
 @register.filter(needs_autoescape=True)
 def to_html(text, autoescape=None):
     return mark_safe(
-        standard_ref(
-            markdown.markdown(text, extensions=['nl2br', 'pymdownx.superfences'])))
+        markdown.markdown(
+            standard_ref(text), extensions=['nl2br', 'pymdownx.superfences']
+        )
+    )
 
 
 @register.filter()
