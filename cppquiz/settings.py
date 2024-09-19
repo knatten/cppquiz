@@ -183,6 +183,6 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 TOP_WARNING = ''
 
-CPP_STD = 'C++17'
+CPP_STD = 'C++23'
 
 from . import local_settings
