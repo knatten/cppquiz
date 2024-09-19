@@ -84,7 +84,7 @@ def compiler_explorer_link(question):
         },
         "msvc": {
             "compiler": "vcpp_v19_latest_x64",
-            "options": f"/std:{settings.CPP_STD.lower()} /W4 /wd4100 /wd4101 /wd4189"
+            "options": f"/std:c++latest /W4 /wd4100 /wd4101 /wd4189"
         },
     }
 
