@@ -15,7 +15,7 @@ def format_reference(match):
     full_reference = match.group(0)
     section_name = match.group('section_name')
     paragraph_number = match.group('paragraph')
-    full_link = "https://timsong-cpp.github.io/cppwp/n4659/" + section_name
+    full_link = "https://timsong-cpp.github.io/cppwp/std23/" + section_name
     if paragraph_number:
         full_link = full_link + "#" + paragraph_number
     return f"*[{full_reference}]({full_link})*"
