@@ -12,23 +12,23 @@ from quiz.models import Question
 class Command(BaseCommand):
 
     def add_arguments(self, parser):
-        parser.add_argument('--skip-tweet', action='store_true')
+        parser.add_argument('--skip-socials', action='store_true')
 
     def handle(self, *args, **options):
-        skip_tweet = options["skip_tweet"]
+        skip_socials = options["skip_socials"]
 
         for q in Question.objects.filter(state='SCH', publish_time__lte=timezone.now()):
             print(f"Publishing question {q}")
             q.state = 'PUB'
             q.save()
             if (q.tweet_text):
-                print(f"Posting to X: '{q.tweet_text}'")
-                if skip_tweet:
-                    print("Skipping!")
+                if skip_socials:
+                    print("Skipping posting to social media!")
                 else:
-                    self.tweet(q.tweet_text)
+                    self.post_to_x(q.tweet_text)
 
-    def tweet(self, content):
+    def post_to_x(self, content):
+        print(f"Posting to X: '{content}'")
         try:
             secrets_file = Path.home() / ".cppquiz-secrets.json"
             with secrets_file.open() as f:
@@ -43,5 +43,5 @@ class Command(BaseCommand):
             )
             print(f"Posted https://x.com/user/status/{response.data['id']}")
         except Exception as e:
-            print(f"Failed to tweet '{content}' due to exception '{e}'")
+            print(f"Failed to post '{content}' to X due to exception '{e}'")
             sys.exit(1)
