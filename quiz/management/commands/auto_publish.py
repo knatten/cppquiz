@@ -22,7 +22,7 @@ class Command(BaseCommand):
             q.state = 'PUB'
             q.save()
             if (q.tweet_text):
-                print(f"Posting to Twitter: '{q.tweet_text}'")
+                print(f"Posting to X: '{q.tweet_text}'")
                 if skip_tweet:
                     print("Skipping!")
                 else:
@@ -41,7 +41,7 @@ class Command(BaseCommand):
             response = client.create_tweet(
                 text=content
             )
-            print(f"Posted https://twitter.com/user/status/{response.data['id']}")
+            print(f"Posted https://x.com/user/status/{response.data['id']}")
         except Exception as e:
             print(f"Failed to tweet '{content}' due to exception '{e}'")
             sys.exit(1)

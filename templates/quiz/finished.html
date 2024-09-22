@@ -20,9 +20,9 @@ You are taking quiz <a href="https://{{request.get_host}}{{request.path}}">{{req
 <p>You finished with {{quiz_in_progress.score|floatformat:2}} out of {{quiz_in_progress.get_total_nof_questions|floatformat:1}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>possible</abbr> points.</p>
 
 <p>
-Now <a href="https://twitter.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz https://{{request.get_host}}{{request.get_full_path}} ! Can you match that?">boast about it on Twitter</a>!
+Now <a href="https://x.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz https://{{request.get_host}}{{request.get_full_path}} ! Can you match that?">boast about it on X</a>!
 <br>
-(This link takes you to Twitter.com, we would never post on your behalf).
+(This link takes you to x.com, we would never post on your behalf).
 </p>
 
 <p>
