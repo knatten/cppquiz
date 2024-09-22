@@ -56,7 +56,7 @@ class Question(models.Model):
     reservation_message = models.CharField(blank=True, max_length=100,
                                            help_text='Which event the question is reserved for')
     socials_text = models.CharField(blank=True, max_length=280,
-                                    help_text='What to tweet when question gets posted on Twitter')
+                                    help_text='What to post when question gets posted on social media')
 
     def __str__(self):
         return str(self.pk)
