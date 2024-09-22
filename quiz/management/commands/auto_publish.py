@@ -33,10 +33,15 @@ class Command(BaseCommand):
             secrets_file = Path.home() / ".cppquiz-secrets.json"
             with secrets_file.open() as f:
                 secrets = json.load(f)
-            auth = tweepy.OAuthHandler(secrets["consumer_key"], secrets["consumer_secret"])
-            auth.set_access_token(secrets["key"], secrets["secret"])
-            api = tweepy.API(auth)
-            api.update_status(content)
+
+            client = tweepy.Client(
+                consumer_key=secrets["consumer_key"], consumer_secret=secrets["consumer_secret"],
+                access_token=secrets["access_token"], access_token_secret=secrets["access_token_secret"],
+            )
+            response = client.create_tweet(
+                text=content
+            )
+            print(f"Posted https://twitter.com/user/status/{response.data['id']}")
         except Exception as e:
             print(f"Failed to tweet '{content}' due to exception '{e}'")
             sys.exit(1)
