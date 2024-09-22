@@ -55,8 +55,8 @@ class Question(models.Model):
                                    help_text='This question is reserved for an event, do not publish yet')
     reservation_message = models.CharField(blank=True, max_length=100,
                                            help_text='Which event the question is reserved for')
-    tweet_text = models.CharField(blank=True, max_length=280,
-                                  help_text='What to tweet when question gets posted on Twitter')
+    socials_text = models.CharField(blank=True, max_length=280,
+                                    help_text='What to tweet when question gets posted on Twitter')
 
     def __str__(self):
         return str(self.pk)
@@ -69,7 +69,7 @@ class Question(models.Model):
             raise ValidationError(f'Cannot {verbs[self.state]} a question without a difficulty setting')
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
-        if self.tweet_text and not re.search("https?://", self.tweet_text):
+        if self.socials_text and not re.search("https?://", self.socials_text):
             raise ValidationError('Tweets must contain a url!')
 
     def save(self, *args, **kwargs):

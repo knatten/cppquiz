@@ -21,11 +21,11 @@ class Command(BaseCommand):
             print(f"Publishing question {q}")
             q.state = 'PUB'
             q.save()
-            if (q.tweet_text):
+            if (q.socials_text):
                 if skip_socials:
                     print("Skipping posting to social media!")
                 else:
-                    self.post_to_x(q.tweet_text)
+                    self.post_to_x(q.socials_text)
 
     def post_to_x(self, content):
         print(f"Posting to X: '{content}'")
