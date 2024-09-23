@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 import tweepy
+from django.core.mail import mail_admins
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -21,11 +22,13 @@ class Command(BaseCommand):
             print(f"Publishing question {q}")
             q.state = 'PUB'
             q.save()
+            socials_message = "No posts to social media"
             if (q.socials_text):
                 if skip_socials:
                     print("Skipping posting to social media!")
                 else:
-                    self.post_to_x(q.socials_text)
+                    socials_message = self.post_to_x(q.socials_text)
+            mail_admins(f"Published question {q}", socials_message)
 
     def post_to_x(self, content):
         print(f"Posting to X: '{content}'")
@@ -41,7 +44,9 @@ class Command(BaseCommand):
             response = client.create_tweet(
                 text=content
             )
-            print(f"Posted https://x.com/user/status/{response.data['id']}")
+            post_url = f"https://x.com/user/status/{response.data['id']}"
+            print(f"Posted {post_url}")
+            return post_url
         except Exception as e:
             print(f"Failed to post '{content}' to X due to exception '{e}'")
             sys.exit(1)
