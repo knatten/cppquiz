@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from parameterized import parameterized
 
+from quiz.management.commands.create_questions import question
 from quiz.models import Question
 
 
@@ -56,3 +57,22 @@ class QuestionTest(TestCase):
         self.assertIn('Tweets must contain a url!', str(cm.exception))
         Question(state="SCH", hint='hint', socials_text="See http://example.com", difficulty=1).save()
         Question(state="SCH", hint='hint', socials_text="See https://example.com", difficulty=1).save()
+
+    def test_formats_question_on_save_when_it_should(self):
+        unformatted = """
+        int main() { return 0;
+        }
+        """
+        formatted = "\nint main() { return 0; }\n"
+        q = Question.objects.create(question=unformatted, auto_format=True)
+        saved = Question.objects.get(id=q.id)
+        self.assertEqual(formatted, saved.question)
+
+    def test_doesnt_format_question_on_save_when_it_shouldnt(self):
+        unformatted = """
+        int main() { return 0;
+        }
+        """
+        q = Question.objects.create(question=unformatted)
+        saved = Question.objects.get(id=q.id)
+        self.assertEqual(unformatted, saved.question)
