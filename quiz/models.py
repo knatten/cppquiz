@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
+from quiz import formatting
+
 
 def generate_preview_key():
     return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
@@ -57,6 +59,7 @@ class Question(models.Model):
                                            help_text='Which event the question is reserved for')
     socials_text = models.CharField(blank=True, max_length=280,
                                     help_text='What to post when question gets posted on social media')
+    auto_format = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.pk)
@@ -74,6 +77,8 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         self.full_clean()
+        if (self.auto_format):
+            self.question = formatting.format(self.question)
         super(Question, self).save(*args, **kwargs)
 
     def mark_viewed(self):

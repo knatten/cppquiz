@@ -7,3 +7,4 @@ tweepy
 autopep8
 pip-tools
 splinter[django]
+clang-format
