@@ -7,3 +7,4 @@ Session.vim
 quiz.log
 db_backup*gz
 .idea
+.DS_Store
