@@ -7,9 +7,9 @@ from quiz.util import save_data_in_session
 class UserData:
     def __init__(self, session):
         if 'user_data' in session:
-            self.correctly_answered = getattr(session['user_data'], 'correctly_answered', set())
-            self.dismissed_training_msg = getattr(session['user_data'], 'dismissed_training_msg', False)
-            self.attempts = getattr(session['user_data'], 'attempts', defaultdict(int))
+            self.correctly_answered = set(session['user_data'].get('correctly_answered', []))
+            self.dismissed_training_msg = session['user_data'].get('dismissed_training_msg', False)
+            self.attempts = defaultdict(int, session['user_data'].get('attempts', {}))
         else:
             self.correctly_answered = set()
             self.dismissed_training_msg = False
@@ -33,6 +33,9 @@ class UserData:
     def attempts_given_for(self, question_id):
         return self.attempts[int(question_id)]
 
+    def to_dict(self):
+        return {"correctly_answered": list(self.correctly_answered), "dismissed_training_msg": self.dismissed_training_msg, "attempts": self.attempts}
+
 
 def save_user_data(user_data, session):
-    save_data_in_session({'user_data': user_data}, session)
+    save_data_in_session({'user_data': user_data.to_dict()}, session)
