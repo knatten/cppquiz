@@ -11,7 +11,7 @@ from django.views.decorators.cache import never_cache
 from quiz import fixed_quiz
 from quiz.answer import Answer
 from quiz.forms import QuestionForm
-from quiz.game_data import UserData, save_user_data
+from quiz.game_data import save_user_data, load_user_data
 from quiz.models import Question, Quiz, UsersAnswer
 from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress
 from quiz.util import get_published_questions
@@ -26,14 +26,14 @@ def index(request):
 def random_question(request):
     try:
         return HttpResponseRedirect(
-            "/quiz/question/%d" % get_unanswered_question(UserData(request.session)))
+            "/quiz/question/%d" % get_unanswered_question(load_user_data(request.session)))
     except NoQuestionsExist:
         return HttpResponseRedirect("/quiz/no_questions")
 
 
 @never_cache
 def clear(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     request.session.clear()
     user_data.clear_correct_answers()
     save_user_data(user_data, request.session)
@@ -90,7 +90,7 @@ def question(request, question_id):
     except Question.DoesNotExist:
         return render(request, 'quiz/missing_question.html', {'question_id': question_id}, status=404)
 
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     q.mark_viewed()
     d = {}
     d['answered'] = False
@@ -114,7 +114,7 @@ def question(request, question_id):
 
 
 def giveup(request, question_id):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     if user_data.attempts_given_for(question_id) < 3:
         raise Http404
     d = {}
@@ -169,7 +169,7 @@ def suggest_quiz_similar_to(key, request):
 
 
 def dismiss_training_msg(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     user_data.dismiss_training_msg()
     save_user_data(user_data, request.session)
     return HttpResponse('')
