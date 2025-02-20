@@ -1,8 +1,7 @@
-from django.test import RequestFactory
 from django.test import TestCase
 
+from quiz.answer import Answer
 from quiz.fixed_quiz import create_quiz
-from quiz.models import Quiz
 from quiz.quiz_in_progress import QuizInProgress
 from quiz.tests.test_helpers import create_questions
 
@@ -11,7 +10,7 @@ class QuizInProgressTest(TestCase):
     def set_up(self, nof_questions=10):
         create_questions(nof_questions)
         self.quiz = create_quiz(nof_questions)
-        self.in_progress = QuizInProgress({}, self.quiz)
+        self.in_progress = QuizInProgress(self.quiz.key)
 
     def test_always__gives_correct_total_number_of_questions(self):
         self.set_up(10)
@@ -38,24 +37,21 @@ class QuizInProgressTest(TestCase):
 
     def test_when_skipped__returns_next_question_and_no_result_from_previous_question(self):
         self.set_up()
-        request = RequestFactory().get('')
-        self.in_progress.skip(request)
+        self.in_progress.skip()
         self.assertEqual(self.quiz.get_ordered_questions()[1], self.in_progress.get_current_question())
         self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_skipped__clears_previous_result(self):
         self.set_up()
         for function in [self.answer_current_question_correctly, self.answer_current_question_incorrectly]:
-            request = RequestFactory().get('')
-            self.in_progress.skip(request)
+            self.in_progress.skip()
             self.assertEqual(None, self.in_progress.get_previous_result())
 
     def test_when_all_questions_are_answered__is_finished(self):
         self.set_up(1)
-        request = RequestFactory().get('')
-        self.assertFalse(self.in_progress.is_finished(request))
+        self.assertFalse(self.in_progress.is_finished())
         self.answer_current_question_correctly()
-        self.assertTrue(self.in_progress.is_finished(request))
+        self.assertTrue(self.in_progress.is_finished())
 
     def test_when_starting__count_and_score_are_zero(self):
         self.set_up()
@@ -76,8 +72,7 @@ class QuizInProgressTest(TestCase):
 
     def test_when_skippting_a_question__count_is_one_but_score_is_zero(self):
         self.set_up()
-        request = RequestFactory().get('')
-        self.in_progress.skip(request)
+        self.in_progress.skip()
         self.assertEqual(1, self.in_progress.nof_answered_questions())
         self.assertEqual(0, self.in_progress.score())
 
@@ -110,8 +105,7 @@ class QuizInProgressTest(TestCase):
     def test_when_hint_is_used_and_question_is_skipped__doesnt_affect_next_question(self):
         self.set_up()
         self.in_progress.use_hint()
-        request = RequestFactory().get('')
-        self.in_progress.skip(request)
+        self.in_progress.skip()
         self.answer_current_question_correctly()
         self.assertEqual(1, self.in_progress.score())
 
@@ -127,10 +121,22 @@ class QuizInProgressTest(TestCase):
 
     def answer_current_question_correctly(self):
         question = self.in_progress.get_current_question()
-        request = RequestFactory().get('', data={'result': question.result, 'answer': question.answer})
-        self.in_progress.answer(request)
+        self.in_progress.answer(Answer(question, question.answer, question.result))
 
     def answer_current_question_incorrectly(self):
         question = self.in_progress.get_current_question()
-        request = RequestFactory().post('', data={'result': question.result, 'answer': 'WRONG ANSWER'})
-        self.in_progress.answer(request)
+        self.in_progress.answer(Answer(question, "WRONG ANSWER", question.result))
+
+    def test_to_from_dict(self):
+        self.set_up(2)
+        self.answer_current_question_correctly()
+        self.answer_current_question_incorrectly()
+        serialized = self.in_progress.to_dict()
+        in_progress2 = QuizInProgress.from_dict(serialized)
+        self.assertEqual(in_progress2.get_current_question(), self.in_progress.get_current_question())
+        self.assertEqual(in_progress2.get_previous_result(), self.in_progress.get_previous_result())
+        self.assertEqual(in_progress2.get_previous_explanation(), self.in_progress.get_previous_explanation())
+        self.assertEqual(in_progress2.nof_answered_questions(), self.in_progress.nof_answered_questions())
+        self.assertEqual(in_progress2.get_total_nof_questions(), self.in_progress.get_total_nof_questions())
+        self.assertEqual(in_progress2.is_finished(), self.in_progress.is_finished())
+        self.assertEqual(in_progress2.score(), self.in_progress.score())
