@@ -1,12 +1,14 @@
+from dataclasses import dataclass
+
 from quiz.answer import Answer
 from quiz.util import save_data_in_session
 
 
+@dataclass
 class QuestionStats:
-    def __init__(self, skipped=False, attempts=0, used_hint=False):
-        self.skipped = skipped
-        self.attempts = attempts
-        self.used_hint = used_hint
+    skipped: bool = False
+    attempts: int = 0
+    used_hint: bool = False
 
     def score(self):
         score = self.skipped == False
