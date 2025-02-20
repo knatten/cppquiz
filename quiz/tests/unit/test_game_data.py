@@ -12,7 +12,7 @@ def fake_answer(question_id):
     return answer
 
 
-class GameDataTest(unittest.TestCase):
+class UserDataTest(unittest.TestCase):
     def test_when_no_attempts_given__says_no_attempts_given(self):
         u = UserData({})
         self.assertEqual(0, u.attempts_given_for(13))
