@@ -6,5 +6,7 @@ parameterized
 tweepy
 autopep8
 pip-tools
+pytest
+pytest-django
 splinter[django]
 clang-format
