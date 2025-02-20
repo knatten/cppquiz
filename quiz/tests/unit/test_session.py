@@ -1,9 +1,13 @@
+import pytest
 import unittest
 
 import mock
 
 from quiz.game_data import UserData, save_user_data
 from quiz.tests.test_helpers import create_questions
+
+
+pytestmark = pytest.mark.django_db
 
 
 def create_session_with_answers_to(questions):

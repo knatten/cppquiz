@@ -30,7 +30,7 @@ Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE
 
 ## Testing
 
-- `python manage.py test`
+- Run `pytest`, or if you prefer, `python manage.py test`
 
 ## Formatting
 All code is formatted with `autopep8` and checked in CI. To format your code, run `./ci/format.sh --fix`
