@@ -80,7 +80,7 @@ def compiler_explorer_link(question):
         "clang": {
             "compiler": "clang_trunk",
             "options": f"-std={settings.CPP_STD.lower()} -stdlib=libc++ -Wall -Wextra -Wno-unused"
-                       " -Wno-unused-parameter -Wunused-result -Wunused-value"
+            " -Wno-unused-parameter -Wunused-result -Wunused-value"
         },
         "msvc": {
             "compiler": "vcpp_v19_latest_x64",
