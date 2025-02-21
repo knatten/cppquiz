@@ -202,3 +202,31 @@ h4.quiz_mode
 #cppinsights-ce {
     font-style:italic;
 }
+.copy-box {
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.copy-text {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.copy-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #ccf;
+}
+
+.copy-button:hover {
+    background-color: #aaf;
+}
+
+.copy-button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
