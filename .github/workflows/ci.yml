@@ -37,7 +37,7 @@ jobs:
       - name: Create local settings
         run: cat cppquiz/local_settings_example.py | sed 's_/path/to/your/code/cppquiz_'"$PWD"'_'> cppquiz/local_settings.py
       - name: Test
-        run: python manage.py test --no-input --verbosity 2
+        run: pytest --verbose
   required-checks:
     name: Required checks
     if: ${{ always() }}
