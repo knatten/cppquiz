@@ -3,7 +3,7 @@ import unittest
 
 import mock
 
-from quiz.game_data import UserData, save_user_data
+from quiz.game_data import UserData, save_user_data, load_user_data
 from quiz.tests.test_helpers import create_questions
 
 
@@ -11,8 +11,7 @@ pytestmark = pytest.mark.django_db
 
 
 def create_session_with_answers_to(questions):
-    session = {}
-    user_data = UserData(session)
+    user_data = UserData()
 
     for question in questions:
         user_data.register_correct_answer(question.pk)
@@ -49,8 +48,8 @@ class UserDataTest(unittest.TestCase):
     def test_given_existing_session__correct_answers_are_still_there(self):
         [q] = create_questions(1)
         old_data = create_session_with_answers_to((q,))
-        session = {'user_data': old_data}
-        new_data = UserData(session)
+        session = {'user_data': old_data.to_dict()}
+        new_data = load_user_data(session)
         self.assertSetEqual({q.pk}, new_data.get_correctly_answered_questions())
 
     def test_clear_correct_answers(self):
@@ -65,7 +64,7 @@ class save_user_dataTest(unittest.TestCase):
 
     def test_sets_modified(self):
         session = mock.MagicMock()
-        save_user_data(None, session)
+        save_user_data(UserData(), session)
         self.assertTrue(session.modified)
 
     def test_sets_user_data(self):
@@ -73,9 +72,9 @@ class save_user_dataTest(unittest.TestCase):
         session = mock.MagicMock()
         user_data = create_session_with_answers_to((q,))
         save_user_data(user_data, session)
-        session.__setitem__.assert_called_once_with('user_data', user_data)
+        session.__setitem__.assert_called_once_with('user_data', user_data.to_dict())
 
     def test_sets_expiry(self):
         session = mock.MagicMock()
-        save_user_data(None, session)
+        save_user_data(UserData(), session)
         session.set_expiry.assert_called_once_with(315360000)

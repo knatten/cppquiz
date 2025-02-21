@@ -179,7 +179,7 @@ LOGGING = {
     },
 }
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 TOP_WARNING = ''
 

@@ -1,12 +1,14 @@
-from quiz.answer import Answer
+from dataclasses import dataclass, asdict
+
 from quiz.util import save_data_in_session
+from quiz.models import Quiz
 
 
+@dataclass
 class QuestionStats:
-    def __init__(self, skipped=False, attempts=0, used_hint=False):
-        self.skipped = skipped
-        self.attempts = attempts
-        self.used_hint = used_hint
+    skipped: bool = False
+    attempts: int = 0
+    used_hint: bool = False
 
     def score(self):
         score = self.skipped == False
@@ -17,25 +19,20 @@ class QuestionStats:
 
 
 class QuizInProgress:
-    def __init__(self, session, quiz):
-        self.session = session
-        self.quiz = quiz
-        if 'quiz_in_progress' in session and session['quiz_in_progress'].quiz.key == quiz.key:
-            other = session['quiz_in_progress']
-            self.answers = other.answers
-            self.previous_result = other.previous_result
-            self.previous_explanation = getattr(other, 'previous_explanation', '')
-            self.attempts = other.attempts
-            self.used_hint = other.used_hint
-        else:
-            self.answers = []
-            self._reset_question_state()
+    def __init__(self, quiz_key: str, question_stats: list = None, previous_result: str = None, previous_explanation: str = None, attempts: int = 0, used_hint: int = 0):
+        self.quiz = Quiz.objects.get(key=quiz_key)
+        self.key = self.quiz.key
+        self.question_stats = question_stats if question_stats is not None else []
+        self.previous_result = previous_result
+        self.previous_explanation = previous_explanation
+        self.attempts = attempts
+        self.used_hint = used_hint
 
     def get_current_question(self):
         try:
-            return self.quiz.get_ordered_questions()[len(self.answers)]
+            return self.quiz.get_ordered_questions()[len(self.question_stats)]
         except IndexError:
-            raise Exception("%d questions, %d answers" % (self.quiz.questions.count(), len(self.answers)))
+            raise Exception("%d questions, %d answers" % (self.quiz.questions.count(), len(self.question_stats)))
 
     def get_previous_result(self):
         return self.previous_result
@@ -44,22 +41,21 @@ class QuizInProgress:
         return self.previous_explanation
 
     def nof_answered_questions(self):
-        return len(self.answers)
+        return len(self.question_stats)
 
     def get_total_nof_questions(self):
         return self.quiz.questions.count()
 
-    def is_finished(self, request):
+    def is_finished(self):
         return self.quiz.questions.count() == self.nof_answered_questions()
 
     def score(self):
-        return float(sum([q.score() for q in self.answers]))
+        return float(sum([q.score() for q in self.question_stats]))
 
-    def answer(self, request):
-        answer = Answer(self.get_current_question(), request)
+    def answer(self, answer):
         answer.register_given_answer()
         if answer.correct:
-            self.answers.append(QuestionStats(attempts=self.attempts, used_hint=self.used_hint))
+            self.question_stats.append(QuestionStats(attempts=self.attempts, used_hint=self.used_hint))
             self._reset_question_state()
             self.previous_result = 'correct'
             self.previous_explanation = answer.question.explanation
@@ -71,20 +67,49 @@ class QuizInProgress:
     def use_hint(self):
         self.used_hint = 1
 
-    def skip(self, request):
-        if self.is_finished(request):
+    def skip(self):
+        if self.is_finished():
             return
         self._reset_question_state()
-        self.answers.append(QuestionStats(skipped=True))
+        self.question_stats.append(QuestionStats(skipped=True))
 
-    def save(self):
-        save_data_in_session({'quiz_in_progress': self}, self.session)
+    def to_dict(self):
+        return {
+            'quiz_key': self.quiz.key,
+            'question_stats': [asdict(qs) for qs in self.question_stats],
+            'previous_result': self.previous_result,
+            'previous_explanation': self.previous_explanation,
+            'attempts': self.attempts,
+            'used_hint': self.used_hint,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        question_stats = [QuestionStats(**qs) for qs in data['question_stats']]
+        return QuizInProgress(
+            quiz_key=data['quiz_key'],
+            question_stats=question_stats,
+            previous_result=data['previous_result'],
+            previous_explanation=data['previous_explanation'],
+            attempts=data['attempts'],
+            used_hint=data['used_hint'],
+        )
 
     def _reset_question_state(self):
         self.previous_explanation = None
         self.previous_result = None
         self.attempts = 0
         self.used_hint = 0
+
+
+def save_quiz_in_progress(quiz_in_progress, session):
+    save_data_in_session({'quiz_in_progress': quiz_in_progress.to_dict()}, session)
+
+
+def load_quiz_in_progress(session):
+    if 'quiz_in_progress' in session:
+        return QuizInProgress.from_dict(session['quiz_in_progress'])
+    return None
 
 
 def clear_quiz_in_progress(session):

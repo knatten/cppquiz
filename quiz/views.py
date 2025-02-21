@@ -11,9 +11,9 @@ from django.views.decorators.cache import never_cache
 from quiz import fixed_quiz
 from quiz.answer import Answer
 from quiz.forms import QuestionForm
-from quiz.game_data import UserData, save_user_data
+from quiz.game_data import save_user_data, load_user_data
 from quiz.models import Question, Quiz, UsersAnswer
-from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress
+from quiz.quiz_in_progress import QuizInProgress, clear_quiz_in_progress, load_quiz_in_progress, save_quiz_in_progress
 from quiz.util import get_published_questions
 
 
@@ -26,14 +26,14 @@ def index(request):
 def random_question(request):
     try:
         return HttpResponseRedirect(
-            "/quiz/question/%d" % get_unanswered_question(UserData(request.session)))
+            "/quiz/question/%d" % get_unanswered_question(load_user_data(request.session)))
     except NoQuestionsExist:
         return HttpResponseRedirect("/quiz/no_questions")
 
 
 @never_cache
 def clear(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     request.session.clear()
     user_data.clear_correct_answers()
     save_user_data(user_data, request.session)
@@ -90,7 +90,7 @@ def question(request, question_id):
     except Question.DoesNotExist:
         return render(request, 'quiz/missing_question.html', {'question_id': question_id}, status=404)
 
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     q.mark_viewed()
     d = {}
     d['answered'] = False
@@ -98,7 +98,7 @@ def question(request, question_id):
     d['dismissed_training_msg'] = user_data.dismissed_training_msg
     if request.GET.get('did_answer'):
         d['answered'] = True
-        answer = Answer(q, request)
+        answer = Answer(q, request.GET.get('answer', '').strip(), request.GET.get('result', '').strip())
         answer.register_given_answer()
         user_data.register_attempt(answer)
         if answer.correct:
@@ -114,7 +114,7 @@ def question(request, question_id):
 
 
 def giveup(request, question_id):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     if user_data.attempts_given_for(question_id) < 3:
         raise Http404
     d = {}
@@ -132,27 +132,29 @@ def start(request):
 @never_cache
 def quiz(request, quiz_key):
     d = {}
-    try:
-        quiz = Quiz.objects.get(key=quiz_key)
-    except Quiz.DoesNotExist:
+    if not Quiz.objects.filter(key=quiz_key).exists():
         return suggest_quiz_similar_to(quiz_key, request)
-    quiz_in_progress = QuizInProgress(request.session, quiz)
+    quiz_in_progress = load_quiz_in_progress(request.session)
+    if quiz_in_progress is None or quiz_in_progress.key != quiz_key:
+        quiz_in_progress = QuizInProgress(quiz_key)
     if request.GET.get('did_answer'):
-        quiz_in_progress.answer(request)
-        quiz_in_progress.save()
+        answer = Answer(quiz_in_progress.get_current_question(), request.GET.get(
+            'answer', '').strip(), request.GET.get('result', '').strip())
+        quiz_in_progress.answer(answer)
+        save_quiz_in_progress(quiz_in_progress, request.session)
         return HttpResponseRedirect('/q/%s' % quiz_key)
     d['quiz_in_progress'] = quiz_in_progress
     if 'skip' in request.GET:
-        quiz_in_progress.skip(request)
+        quiz_in_progress.skip()
     if 'hint' in request.GET:
         quiz_in_progress.use_hint()
         d['hint'] = True
-    if quiz_in_progress.is_finished(request):
+    if quiz_in_progress.is_finished():
         return render(request, 'quiz/finished.html', d)
     d['question'] = quiz_in_progress.get_current_question()
     d['question'].mark_viewed()
     d['title'] = ' - Quiz "' + quiz_key + '"'
-    quiz_in_progress.save()
+    save_quiz_in_progress(quiz_in_progress, request.session)
     return render(request, 'quiz/quiz.html', d)
 
 
@@ -169,7 +171,7 @@ def suggest_quiz_similar_to(key, request):
 
 
 def dismiss_training_msg(request):
-    user_data = UserData(request.session)
+    user_data = load_user_data(request.session)
     user_data.dismiss_training_msg()
     save_user_data(user_data, request.session)
     return HttpResponse('')
