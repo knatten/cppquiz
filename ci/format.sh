@@ -12,4 +12,4 @@ if [ "$1" == "--fix" ]; then
     autopep8 --in-place --recursive --exclude $EXCLUDES . || exit $?
 fi
 
-autopep8 --diff --recursive --exit-code --exclude $EXCLUDES . || exit $?
+autopep8 --verbose --diff --recursive --exit-code --exclude $EXCLUDES . || exit $?
