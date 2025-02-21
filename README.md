@@ -8,7 +8,7 @@ and is not available in this repository.)
 ![Build Status](https://github.com/knatten/cppquiz/actions/workflows/ci.yml/badge.svg)
 
 # Requirements
-- Python 3.9 or higher
+- Python 3.10 or higher
 - CppQuiz is only tested on Ubuntu and MacOS, but will probably work on many other OSes as well
 
 # Contributing
