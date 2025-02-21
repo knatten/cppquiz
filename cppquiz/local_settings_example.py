@@ -1,5 +1,6 @@
 from . import settings
 
+settings.SITE_URL = "https://cppquiz.org"
 settings.DEBUG = True
 settings.ALLOWED_HOSTS += ['127.0.0.1']
 settings.ADMINS = (
