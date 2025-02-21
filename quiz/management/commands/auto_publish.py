@@ -28,27 +28,23 @@ class Command(BaseCommand):
                 if skip_socials:
                     print("Skipping posting to social media!")
                 else:
-                    self.post_to_x(q.socials_text)
+                    self.post_to_x()
                     self.post_to_bluesky(q.socials_text)
                     self.post_to_mastodon(q.socials_text)
 
-    def post_to_x(self, content):
+    def post_to_x(self):
+        content = "We just published a new question! Follow us on Bluesky @cppquiz.bsky.social or Mastodon @cppquiz@mastodon.online for updates. For obvious reasons, no longer post to Elon Musk's X."
         print(f"Posting to X: '{content}'")
-        try:
-            secrets = self.read_secrets()
+        secrets = self.read_secrets()
 
-            client = tweepy.Client(
-                consumer_key=secrets["consumer_key"], consumer_secret=secrets["consumer_secret"],
-                access_token=secrets["access_token"], access_token_secret=secrets["access_token_secret"],
-            )
-            response = client.create_tweet(
-                text=content
-            )
-            post_url = f"https://x.com/user/status/{response.data['id']}"
-            print(f"Posted {post_url}")
-        except Exception as e:
-            print(f"Failed to post '{content}' to X due to exception '{e}'")
-            sys.exit(1)
+        client = tweepy.Client(
+            consumer_key=secrets["consumer_key"], consumer_secret=secrets["consumer_secret"],
+            access_token=secrets["access_token"], access_token_secret=secrets["access_token_secret"],
+        )
+        response = client.create_tweet(
+            text=content
+        )
+        post_url = f"https://x.com/user/status/{response.data['id']}"
 
     def post_to_bluesky(self, content):
         print(f"Posting to Bluesky: '{content}'")
@@ -89,7 +85,6 @@ class Command(BaseCommand):
 
         r = requests.post(url, data=params, headers=auth)
         r.raise_for_status()
-
 
     def read_secrets(self):
         secrets_file = Path.home() / ".cppquiz-secrets.json"
