@@ -20,10 +20,36 @@ You are taking quiz <a href="https://{{request.get_host}}{{request.path}}">{{req
 <p>You finished with {{quiz_in_progress.score|floatformat:2}} out of {{quiz_in_progress.get_total_nof_questions|floatformat:1}} <abbr title="1 point per correct question, but -0.5 points if you used a hint, and /2 for each wrong attempt.".>possible</abbr> points.</p>
 
 <p>
-Now <a href="https://x.com/intent/tweet?hashtags=cpp,cplusplus&text=I got {{quiz_in_progress.score|floatformat:2}}  of {{quiz_in_progress.get_total_nof_questions}} points on this @CppQuiz https://{{request.get_host}}{{request.get_full_path}} ! Can you match that?">boast about it on X</a>!
-<br>
-(This link takes you to x.com, we would never post on your behalf).
+Now boast about it on social media! Here's a suggestion, and feel free to tag us as
+    <a href="https://bsky.app/profile/cppquiz.bsky.social">@cppquiz.bsky.social</a> or
+    <a href="https://mastodon.online/@cppquiz">@cppquiz@mastodon.online</a>:
 </p>
+
+<div class="copy-box">
+  <span class="copy-text" id="quizMessage">
+    I got {{quiz_in_progress.score|floatformat:2}} of {{quiz_in_progress.get_total_nof_questions}} points on this C++ Quiz https://{{request.get_host}}{{request.get_full_path}}! Can you match that?
+  </span>
+    <button class="copy-button" id="copyButton" onclick="copyToClipboard()">Copy</button>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const text = document.getElementById("quizMessage").innerText;
+        const button = document.getElementById("copyButton");
+
+        navigator.clipboard.writeText(text).then(() => {
+            button.innerText = "Copied!";
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.innerText = "Copy";
+                button.disabled = false;
+            }, 1000);
+        }).catch(err => {
+            console.error("Could not copy text: ", err);
+        });
+    }
+</script>
 
 <p>
 Why not <a href="/quiz/start">Start a new quiz</a>, <a href="/">go back to training mode</a>, or <a href="https://pragprog.com/titles/akbrain/c-brain-teasers/">get the official book</a>?
