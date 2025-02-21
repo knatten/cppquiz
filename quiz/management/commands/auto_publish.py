@@ -30,13 +30,12 @@ class Command(BaseCommand):
                 else:
                     self.post_to_x(q.socials_text)
                     self.post_to_bluesky(q.socials_text)
+                    self.post_to_mastodon(q.socials_text)
 
     def post_to_x(self, content):
         print(f"Posting to X: '{content}'")
         try:
-            secrets_file = Path.home() / ".cppquiz-secrets.json"
-            with secrets_file.open() as f:
-                secrets = json.load(f)
+            secrets = self.read_secrets()
 
             client = tweepy.Client(
                 consumer_key=secrets["consumer_key"], consumer_secret=secrets["consumer_secret"],
@@ -53,9 +52,7 @@ class Command(BaseCommand):
 
     def post_to_bluesky(self, content):
         print(f"Posting to Bluesky: '{content}'")
-        secrets_file = Path.home() / ".cppquiz-secrets.json"
-        with secrets_file.open() as f:
-            secrets = json.load(f)
+        secrets = self.read_secrets()
 
         resp = requests.post(
             "https://bsky.social/xrpc/com.atproto.server.createSession",
@@ -81,3 +78,20 @@ class Command(BaseCommand):
             },
         )
         resp.raise_for_status()
+
+    def post_to_mastodon(self, content):
+        print(f"Posting to Mastodon: '{content}'")
+        secrets = self.read_secrets()
+
+        url = "https://mastodon.online/api/v1/statuses"
+        auth = {"Authorization": f"Bearer {secrets['mastodon_token']}"}
+        params = {"status": content}
+
+        r = requests.post(url, data=params, headers=auth)
+        r.raise_for_status()
+
+
+    def read_secrets(self):
+        secrets_file = Path.home() / ".cppquiz-secrets.json"
+        with secrets_file.open() as f:
+            return json.load(f)
