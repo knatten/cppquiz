@@ -1,5 +1,7 @@
 import json
 import sys
+import requests
+from datetime import datetime, timezone
 from pathlib import Path
 
 import tweepy
@@ -22,13 +24,12 @@ class Command(BaseCommand):
             print(f"Publishing question {q}")
             q.state = 'PUB'
             q.save()
-            socials_message = "No posts to social media"
             if (q.socials_text):
                 if skip_socials:
                     print("Skipping posting to social media!")
                 else:
-                    socials_message = self.post_to_x(q.socials_text)
-            mail_admins(f"Published question {q}", socials_message)
+                    self.post_to_x(q.socials_text)
+                    self.post_to_bluesky(q.socials_text)
 
     def post_to_x(self, content):
         print(f"Posting to X: '{content}'")
@@ -46,7 +47,37 @@ class Command(BaseCommand):
             )
             post_url = f"https://x.com/user/status/{response.data['id']}"
             print(f"Posted {post_url}")
-            return post_url
         except Exception as e:
             print(f"Failed to post '{content}' to X due to exception '{e}'")
             sys.exit(1)
+
+    def post_to_bluesky(self, content):
+        print(f"Posting to Bluesky: '{content}'")
+        secrets_file = Path.home() / ".cppquiz-secrets.json"
+        with secrets_file.open() as f:
+            secrets = json.load(f)
+
+        resp = requests.post(
+            "https://bsky.social/xrpc/com.atproto.server.createSession",
+            json={"identifier": "cppquiz.bsky.social", "password": secrets["bsky_password"]},
+        )
+        resp.raise_for_status()
+        session = resp.json()
+
+        now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        post = {
+            "$type": "app.bsky.feed.post",
+            "text": content,
+            "createdAt": now,
+        }
+
+        resp = requests.post(
+            "https://bsky.social/xrpc/com.atproto.repo.createRecord",
+            headers={"Authorization": "Bearer " + session["accessJwt"]},
+            json={
+                "repo": session["did"],
+                "collection": "app.bsky.feed.post",
+                "record": post,
+            },
+        )
+        resp.raise_for_status()
