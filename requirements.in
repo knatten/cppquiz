@@ -10,3 +10,4 @@ pytest
 pytest-django
 splinter[django]
 clang-format
+django-reversion

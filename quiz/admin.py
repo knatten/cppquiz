@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import reverse
+from reversion.admin import VersionAdmin
+
 
 from quiz.models import Question, Quiz, UsersAnswer, QuestionInQuiz
 
@@ -12,7 +14,7 @@ def result_short(obj):
     return obj.result
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class QuestionAdmin(VersionAdmin):
     list_display = ('pk', 'state', 'author_email', 'reserved', 'reservation_message', question_part,
                     result_short, 'answer', 'difficulty', 'date_time', 'publish_time')
     list_filter = ('state', 'difficulty', 'result')
