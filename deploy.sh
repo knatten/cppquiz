@@ -29,6 +29,9 @@ python manage.py migrate || exit $?
 header "Collecting static"
 python manage.py collectstatic --noinput || exit $?
 
+header "Creating initial revisions (if any)"
+python manage.py createinitialrevisions || exit $?
+
 header "Restarting $SERVICE_NAME"
 systemctl --no-pager --user restart $SERVICE_NAME || exit $?
 systemctl --no-pager --user status $SERVICE_NAME || exit $?
