@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.urls import reverse
 from reversion.admin import VersionAdmin
 
@@ -50,7 +51,21 @@ class QuestionInQuizAdmin(admin.ModelAdmin):
     search_fields = ('question',)
 
 
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = (
+        'action_time',
+        'user',
+        'content_type',
+        'change_message',
+    )
+    list_filter = (
+        'user',
+    )
+    date_hierarchy = 'action_time'
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UsersAnswer, UsersAnswerAdmin)
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(QuestionInQuiz, QuestionInQuizAdmin)
+admin.site.register(LogEntry, LogEntryAdmin)
