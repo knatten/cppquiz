@@ -21,6 +21,16 @@ class QuestionAdmin(VersionAdmin):
     search_fields = ('question', 'explanation')
     readonly_fields = ('date_time', 'last_viewed')
 
+    def get_fields(self, request, obj=None):
+        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+            return ['question', 'result', 'answer', 'hint', 'explanation', 'author_email',]
+        return super().get_fields(request, obj)
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+            return ['author_email',]
+        return super().get_readonly_fields(request, obj)
+
     def view_on_site(self, obj):
         return reverse('quiz:question', args=[obj.pk]) + "?preview_key=" + obj.preview_key
 
