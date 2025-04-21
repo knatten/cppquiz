@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.urls import reverse
 from reversion.admin import VersionAdmin
 
@@ -21,6 +22,16 @@ class QuestionAdmin(VersionAdmin):
     search_fields = ('question', 'explanation')
     readonly_fields = ('date_time', 'last_viewed')
 
+    def get_fields(self, request, obj=None):
+        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+            return ['question', 'result', 'answer', 'hint', 'explanation', 'author_email',]
+        return super().get_fields(request, obj)
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+            return ['author_email',]
+        return super().get_readonly_fields(request, obj)
+
     def view_on_site(self, obj):
         return reverse('quiz:question', args=[obj.pk]) + "?preview_key=" + obj.preview_key
 
@@ -40,7 +51,21 @@ class QuestionInQuizAdmin(admin.ModelAdmin):
     search_fields = ('question',)
 
 
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = (
+        'action_time',
+        'user',
+        'content_type',
+        'change_message',
+    )
+    list_filter = (
+        'user',
+    )
+    date_hierarchy = 'action_time'
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UsersAnswer, UsersAnswerAdmin)
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(QuestionInQuiz, QuestionInQuizAdmin)
+admin.site.register(LogEntry, LogEntryAdmin)
