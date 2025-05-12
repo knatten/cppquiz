@@ -28,6 +28,7 @@ class Question(models.Model):
     )
     STATE_CHOICES = (
         ('NEW', 'New'),
+        ('DRA', 'Draft'),
         ('WAI', 'Waiting'),
         ('ACC', 'Accepted'),
         ('SCH', 'Scheduled'),
