@@ -1,6 +1,10 @@
+import secrets
+import string
+
 from django.conf import settings
 from django.core import mail
 
+from quiz import models
 from quiz.tests.system.system_test_case import SystemTestCase
 
 
@@ -9,7 +13,9 @@ class ContributingQuestionsTest(SystemTestCase):
         self.visit_the_contribution_page()
         self.should_see_the_contribution_form()
         self.fill_in_the_spam_protection_correctly()
-        self.fill_in_the_question_and_explanation('foo', 'bar')
+        explanation = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(32))
+        self.fill_in_the_question_and_explanation('foo', explanation)
+        self.a_new_question_exists_with_the_explanation(explanation)
         self.the_administrators_should_get_an_email_about_a_new_question()
 
     def test_user_forgets_to_enter_the_question_itself(self):
@@ -49,6 +55,9 @@ class ContributingQuestionsTest(SystemTestCase):
         self.browser.fill('question', question)
         self.browser.fill('explanation', explanation)
         self.browser.find_by_name('to_moderation').click()
+
+    def a_new_question_exists_with_the_explanation(self, explanation):
+        self.assertTrue(models.Question.objects.filter(explanation=explanation, state='NEW').exists())
 
     def the_administrators_should_get_an_email_about_a_new_question(self):
         for admin in settings.ADMINS:
