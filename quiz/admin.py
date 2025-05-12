@@ -22,6 +22,12 @@ class QuestionAdmin(VersionAdmin):
     search_fields = ('question', 'explanation')
     readonly_fields = ('date_time', 'last_viewed')
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+            return qs.exclude(state='DRA')
+        return qs
+
     def get_fields(self, request, obj=None):
         if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
             return ['question', 'result', 'answer', 'hint', 'explanation', 'author_email',]
