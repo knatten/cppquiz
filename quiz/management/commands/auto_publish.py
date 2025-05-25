@@ -1,7 +1,7 @@
 import json
 import sys
 import requests
-from datetime import datetime, timezone
+import datetime
 from pathlib import Path
 
 import tweepy
@@ -57,7 +57,8 @@ class Command(BaseCommand):
         resp.raise_for_status()
         session = resp.json()
 
-        now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+
         post = {
             "$type": "app.bsky.feed.post",
             "text": content,
