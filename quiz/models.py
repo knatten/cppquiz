@@ -5,6 +5,7 @@ import string
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+import reversion
 
 from quiz import formatting
 
@@ -13,6 +14,7 @@ def generate_preview_key():
     return ''.join(random.sample(string.ascii_lowercase + string.digits, 10))
 
 
+@reversion.register()
 class Question(models.Model):
     RESULT_CHOICES = (
         ('OK', 'The program is guaranteed to output:'),
