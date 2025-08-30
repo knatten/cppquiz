@@ -8,6 +8,8 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import never_cache
 
+import reversion
+
 from quiz import fixed_quiz
 from quiz.answer import Answer
 from quiz.forms import QuestionForm
@@ -65,9 +67,12 @@ def create(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
-            form.save()
-            mail_admins('Someone made a question!', 'https://' + request.get_host() + '/admin/quiz/question/?state=NEW')
-            return HttpResponseRedirect('/quiz/created')
+            with reversion.create_revision():
+                form.save()
+                reversion.set_comment("User contribution")
+                mail_admins('Someone made a question!', 'https://' +
+                            request.get_host() + '/admin/quiz/question/?state=NEW')
+                return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()
     return render(request, 'quiz/create.html',
