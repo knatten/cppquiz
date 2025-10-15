@@ -30,7 +30,7 @@ class QuestionAdmin(VersionAdmin):
 
     def get_fields(self, request, obj=None):
         if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
-            return ['question', 'result', 'answer', 'hint', 'explanation', 'state', 'difficulty', 'publish_time', 'socials_text', 'author_email', 'retraction_message']
+            return ['question', 'result', 'answer', 'hint', 'explanation', 'difficulty', 'state', 'publish_time', 'socials_text', 'author_email', 'retraction_message']
         return super().get_fields(request, obj)
 
     def get_readonly_fields(self, request, obj=None):
