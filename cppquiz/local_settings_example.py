@@ -29,3 +29,6 @@ settings.STATIC_ROOT = ''
 settings.STATIC_URL = '/static/'
 
 settings.EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+settings.DEFAULT_FROM_EMAIL = ''
+settings.SERVER_EMAIL = ''
