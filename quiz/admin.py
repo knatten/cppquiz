@@ -15,6 +15,18 @@ def result_short(obj):
     return obj.result
 
 
+def _is_editor(request):
+    return not request.user.is_superuser and request.user.groups.filter(name='Editors').exists()
+
+
+def _is_published(obj):
+    return obj is not None and getattr(obj, "state", None) == "PUB"
+
+
+editor_fields = ['question', 'result', 'answer', 'hint', 'explanation', 'difficulty',
+                 'state', 'publish_time', 'socials_text', 'author_email', 'retraction_message']
+
+
 class QuestionAdmin(VersionAdmin):
     list_display = ('pk', 'state', 'author_email', 'reserved', 'reservation_message', question_part,
                     result_short, 'answer', 'difficulty', 'date_time', 'publish_time')
@@ -24,17 +36,19 @@ class QuestionAdmin(VersionAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+        if _is_editor(request):
             return qs.exclude(state='DRA')
         return qs
 
     def get_fields(self, request, obj=None):
-        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
-            return ['question', 'result', 'answer', 'hint', 'explanation', 'difficulty', 'state', 'publish_time', 'socials_text', 'author_email', 'retraction_message']
+        if _is_editor(request):
+            return editor_fields
         return super().get_fields(request, obj)
 
     def get_readonly_fields(self, request, obj=None):
-        if not request.user.is_superuser and request.user.groups.filter(name='Editors').exists():
+        if _is_editor(request):
+            if _is_published(obj):
+                return editor_fields
             return ['state', 'publish_time', 'socials_text', 'author_email', 'retraction_message']
         return super().get_readonly_fields(request, obj)
 

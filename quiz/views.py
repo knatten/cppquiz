@@ -2,7 +2,8 @@ import difflib
 import random
 
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.mail import mail_admins
+from django.contrib.auth.models import Group
+from django.core.mail import mail_admins, send_mail
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -70,13 +71,32 @@ def create(request):
             with reversion.create_revision():
                 form.save()
                 reversion.set_comment("User contribution")
-                mail_admins('Someone made a question!', 'https://' +
-                            request.get_host() + '/admin/quiz/question/?state=NEW')
+                mail_about_new_question(request)
                 return HttpResponseRedirect('/quiz/created')
     else:
         form = QuestionForm()
     return render(request, 'quiz/create.html',
                   {'form': form, 'title': 'Create question'})
+
+
+def mail_about_new_question(request):
+    subject = 'Someone made a question!'
+    body = 'https://' + request.get_host() + '/admin/quiz/question/?state=NEW'
+    mail_admins(subject, body)
+
+    try:
+        editors = Group.objects.get(name='Editors').user_set.all()
+    except Group.DoesNotExist:
+        editors = []
+
+    editor_emails = [u.email for u in editors if u.email]
+    if editor_emails:
+        send_mail(
+            subject,
+            body,
+            None,
+            editor_emails,
+        )
 
 
 def preview_with_key(request, question_id):
