@@ -14,7 +14,7 @@ certifi==2025.11.12
     # via requests
 charset-normalizer==3.4.4
     # via requests
-clang-format==21.1.6
+clang-format==21.1.8
     # via -r requirements.in
 click==8.3.1
     # via pip-tools
@@ -25,7 +25,7 @@ django==5.2.9
     #   -r requirements.in
     #   django-reversion
     #   splinter
-django-reversion==6.0.0
+django-reversion==6.1.0
     # via -r requirements.in
 idna==3.11
     # via requests
@@ -57,13 +57,13 @@ pycodestyle==2.14.0
     # via autopep8
 pygments==2.19.2
     # via pytest
-pymdown-extensions==10.17.2
+pymdown-extensions==10.19.1
     # via -r requirements.in
 pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pytest==9.0.1
+pytest==9.0.2
     # via
     #   -r requirements.in
     #   pytest-django
@@ -79,11 +79,11 @@ requests-oauthlib==2.0.0
     # via tweepy
 splinter[django]==0.21.0
     # via -r requirements.in
-sqlparse==0.5.4
+sqlparse==0.5.5
     # via django
 tweepy==4.16.0
     # via -r requirements.in
-urllib3==2.5.0
+urllib3==2.6.2
     # via
     #   requests
     #   splinter
