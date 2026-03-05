@@ -10,17 +10,17 @@ autopep8==2.3.2
     # via -r requirements.in
 build==1.4.0
     # via pip-tools
-certifi==2026.1.4
+certifi==2026.2.25
     # via requests
 charset-normalizer==3.4.4
     # via requests
-clang-format==21.1.8
+clang-format==22.1.0
     # via -r requirements.in
 click==8.3.1
     # via pip-tools
 cssselect==1.4.0
     # via splinter
-django==5.2.11
+django==5.2.12
     # via
     #   -r requirements.in
     #   django-reversion
@@ -33,7 +33,7 @@ iniconfig==2.3.0
     # via pytest
 lxml==6.0.2
     # via splinter
-markdown==3.10.1
+markdown==3.10.2
     # via
     #   -r requirements.in
     #   pymdown-extensions
@@ -50,7 +50,7 @@ packaging==26.0
     #   wheel
 parameterized==0.9.0
     # via -r requirements.in
-pip-tools==7.5.2
+pip-tools==7.5.3
     # via -r requirements.in
 pluggy==1.6.0
     # via pytest
@@ -58,7 +58,7 @@ pycodestyle==2.14.0
     # via autopep8
 pygments==2.19.2
     # via pytest
-pymdown-extensions==10.20.1
+pymdown-extensions==10.21
     # via -r requirements.in
 pyproject-hooks==1.2.0
     # via
@@ -68,7 +68,7 @@ pytest==9.0.2
     # via
     #   -r requirements.in
     #   pytest-django
-pytest-django==4.11.1
+pytest-django==4.12.0
     # via -r requirements.in
 pyyaml==6.0.3
     # via pymdown-extensions
