@@ -8,15 +8,15 @@ asgiref==3.11.1
     # via django
 autopep8==2.3.2
     # via -r requirements.in
-build==1.4.2
+build==1.4.4
     # via pip-tools
-certifi==2026.2.25
+certifi==2026.4.22
     # via requests
 charset-normalizer==3.4.7
     # via requests
-clang-format==22.1.3
+clang-format==22.1.4
     # via -r requirements.in
-click==8.3.2
+click==8.3.3
     # via pip-tools
 cssselect==1.4.0
     # via splinter
@@ -27,11 +27,11 @@ django==5.2.13
     #   splinter
 django-reversion==6.1.0
     # via -r requirements.in
-idna==3.11
+idna==3.13
     # via requests
 iniconfig==2.3.0
     # via pytest
-lxml==6.0.2
+lxml==6.1.0
     # via splinter
 markdown==3.10.2
     # via
@@ -43,7 +43,7 @@ oauthlib==3.3.1
     # via
     #   requests-oauthlib
     #   tweepy
-packaging==26.0
+packaging==26.2
     # via
     #   build
     #   pytest
@@ -88,7 +88,7 @@ urllib3==2.6.3
     # via
     #   requests
     #   splinter
-wheel==0.46.3
+wheel==0.47.0
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
