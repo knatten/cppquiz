@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via django
 autopep8==2.3.2
     # via -r requirements.in
-build==1.4.4
+build==1.5.0
     # via pip-tools
 certifi==2026.4.22
     # via requests
@@ -20,7 +20,7 @@ click==8.3.3
     # via pip-tools
 cssselect==1.4.0
     # via splinter
-django==5.2.13
+django==5.2.14
     # via
     #   -r requirements.in
     #   django-reversion
