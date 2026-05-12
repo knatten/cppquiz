@@ -14,7 +14,7 @@ certifi==2026.4.22
     # via requests
 charset-normalizer==3.4.7
     # via requests
-clang-format==22.1.4
+clang-format==22.1.5
     # via -r requirements.in
 click==8.3.3
     # via pip-tools
@@ -27,7 +27,7 @@ django==5.2.14
     #   splinter
 django-reversion==6.1.0
     # via -r requirements.in
-idna==3.13
+idna==3.14
     # via requests
 iniconfig==2.3.0
     # via pytest
@@ -72,7 +72,7 @@ pytest-django==4.12.0
     # via -r requirements.in
 pyyaml==6.0.3
     # via pymdown-extensions
-requests==2.33.1
+requests==2.34.0
     # via
     #   requests-oauthlib
     #   tweepy
@@ -84,7 +84,7 @@ sqlparse==0.5.5
     # via django
 tweepy==4.16.0
     # via -r requirements.in
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   requests
     #   splinter
