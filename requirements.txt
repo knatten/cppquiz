@@ -20,14 +20,14 @@ click==8.4.1
     # via pip-tools
 cssselect==1.4.0
     # via splinter
-django==5.2.14
+django==5.2.15
     # via
     #   -r requirements.in
     #   django-reversion
     #   splinter
 django-reversion==6.2.0
     # via -r requirements.in
-idna==3.17
+idna==3.18
     # via requests
 iniconfig==2.3.0
     # via pytest
