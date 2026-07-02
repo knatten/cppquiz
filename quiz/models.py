@@ -76,7 +76,7 @@ class Question(models.Model):
         if self.state in ('PUB', 'SCH') and self.reserved:
             raise ValidationError(f'Cannot {verbs[self.state]} a reserved question')
         if self.socials_text and not re.search("https?://", self.socials_text):
-            raise ValidationError('Tweets must contain a url!')
+            raise ValidationError('Social media messages must contain a url!')
 
     def save(self, *args, **kwargs):
         self.full_clean()
