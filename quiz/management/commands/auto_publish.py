@@ -5,8 +5,6 @@ import requests
 import datetime
 from pathlib import Path
 
-import tweepy
-from django.core.mail import mail_admins
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -37,7 +35,6 @@ class Command(BaseCommand):
 
     def post_to_socials(self, content):
         platforms = [
-            ("X", self.post_to_x),
             ("Bluesky", lambda: self.post_to_bluesky(content)),
             ("Mastodon", lambda: self.post_to_mastodon(content)),
         ]
@@ -50,20 +47,6 @@ class Command(BaseCommand):
                 print(f"Failed to post question to {name}:", file=sys.stderr)
                 traceback.print_exc()
         return had_failure
-
-    def post_to_x(self):
-        content = "We just published a new question! Follow us on Bluesky @cppquiz.bsky.social or Mastodon @cppquiz@mastodon.online for updates. For obvious reasons, no longer post to Elon Musk's X."
-        print(f"Posting to X: '{content}'")
-        secrets = self.read_secrets()
-
-        client = tweepy.Client(
-            consumer_key=secrets["consumer_key"], consumer_secret=secrets["consumer_secret"],
-            access_token=secrets["access_token"], access_token_secret=secrets["access_token_secret"],
-        )
-        response = client.create_tweet(
-            text=content
-        )
-        post_url = f"https://x.com/user/status/{response.data['id']}"
 
     def post_to_bluesky(self, content):
         print(f"Posting to Bluesky: '{content}'")

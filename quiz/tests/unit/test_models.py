@@ -54,7 +54,7 @@ class QuestionTest(TestCase):
         q = Question(state="SCH", hint='hint', socials_text="hi", difficulty=1)
         with self.assertRaises(ValidationError) as cm:
             q.save()
-        self.assertIn('Tweets must contain a url!', str(cm.exception))
+        self.assertIn('Social media messages must contain a url!', str(cm.exception))
         Question(state="SCH", hint='hint', socials_text="See http://example.com", difficulty=1).save()
         Question(state="SCH", hint='hint', socials_text="See https://example.com", difficulty=1).save()
 

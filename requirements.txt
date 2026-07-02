@@ -39,10 +39,6 @@ markdown==3.10.2
     #   pymdown-extensions
 mock==5.2.0
     # via -r requirements.in
-oauthlib==3.3.1
-    # via
-    #   requests-oauthlib
-    #   tweepy
 packaging==26.2
     # via
     #   build
@@ -73,17 +69,11 @@ pytest-django==4.12.0
 pyyaml==6.0.3
     # via pymdown-extensions
 requests==2.34.2
-    # via
-    #   requests-oauthlib
-    #   tweepy
-requests-oauthlib==2.0.0
-    # via tweepy
+    # via -r requirements.in
 splinter[django]==0.21.0
     # via -r requirements.in
 sqlparse==0.5.5
     # via django
-tweepy==4.16.0
-    # via -r requirements.in
 urllib3==2.7.0
     # via
     #   requests
