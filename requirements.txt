@@ -20,12 +20,12 @@ click==8.5.0
     # via pip-tools
 cssselect==1.6.0
     # via splinter
-django==5.2.18
+django==5.2.19
     # via
     #   -r requirements.in
     #   django-reversion
     #   splinter
-django-reversion==6.4.0
+django-reversion==6.5.1
     # via -r requirements.in
 idna==3.20
     # via requests
@@ -72,7 +72,7 @@ requests==2.34.2
     # via -r requirements.in
 splinter[django]==0.21.0
     # via -r requirements.in
-sqlparse==0.6.0
+sqlparse==0.6.1
     # via django
 urllib3==2.8.0
     # via
